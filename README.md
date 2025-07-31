@@ -1,137 +1,72 @@
-# 🍽️ MastroHub - Restaurant Management Blog
+# MastroHub Blog - Restaurant Management Software
 
-A modern, full-featured blog platform built with Next.js 15, Supabase, and Tailwind CSS. Designed specifically for restaurant owners and managers to share insights, strategies, and industry knowledge.
+## 🍽️ About
 
-## ✨ Features
+MastroHub is a comprehensive restaurant management platform that combines blog content with powerful restaurant management tools. Built with Next.js 15, Supabase, and modern web technologies.
 
-- **📝 Blog System** - MDX-powered content with rich formatting
-- **🔐 Authentication** - Supabase Auth with user profiles
-- **🎨 Theme System** - Light, dark, and system themes
-- **🏆 Badge Engine** - Gamification system for user engagement
-- **💬 Community Features** - Comments, reactions, and bookmarks
-- **📊 Dashboard** - User management and analytics
-- **📱 Responsive Design** - Mobile-first approach
-- **⚡ Performance** - Optimized for speed and SEO
+## 🚀 Features
 
-## 🚀 Tech Stack
+### Blog System
+- **Modern Blog Interface** - Clean, responsive design
+- **Admin Panel** - Easy content management
+- **MDX Editor** - Rich text editing with markdown support
+- **Categories & Tags** - Organized content structure
+- **Search & Filter** - Advanced content discovery
+- **Comments & Reactions** - Community engagement
+- **Bookmarks** - Save favorite articles
 
-- **Framework**: Next.js 15.4.4 (App Router)
-- **Database**: Supabase (PostgreSQL)
-- **Authentication**: Supabase Auth
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **State Management**: Zustand
-- **Deployment**: Vercel
+### Restaurant Management Tools
+- **Menu Engineering** - Data-driven menu optimization
+- **Analytics Dashboard** - Performance insights
+- **Forecast Planner** - Predictive analytics
+- **Marketing Assistant** - Automated marketing tools
+- **Restaurant Curator** - Content curation platform
+
+### User System
+- **Authentication** - Supabase Auth integration
+- **User Profiles** - Customizable user profiles
+- **Badge System** - Gamification and engagement
+- **Progress Tracking** - User activity monitoring
+- **Notifications** - Real-time updates
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js 15, React 18, TypeScript
+- **Styling:** Tailwind CSS 4.0, Framer Motion
+- **Database:** Supabase (PostgreSQL)
+- **Authentication:** Supabase Auth
+- **Deployment:** Vercel
+- **State Management:** Zustand
+- **Content:** MDX, Markdown
 
 ## 📦 Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/mastrohub-nextjs.git
-   cd mastrohub-nextjs
-   ```
+```bash
+# Clone repository
+git clone https://github.com/oliebodnar/mastrohub-nextjs.git
+cd mastrohub-nextjs
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+# Install dependencies
+npm install
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   Then edit `.env.local` with your Supabase credentials.
+# Set up environment variables
+cp .env.example .env.local
+# Add your Supabase credentials
 
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open [http://localhost:3000](http://localhost:3000)** in your browser.
+# Run development server
+npm run dev
+```
 
 ## 🔧 Environment Variables
-
-Create a `.env.local` file with the following variables:
 
 ```env
 # Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-
-# Google Analytics
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
-
-# App Configuration
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_APP_NAME=MastroHub Blog
-
-# Supabase Service Role Key (for admin operations)
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-```
 
-## 🗄️ Database Setup
-
-1. **Create Supabase project** at [supabase.com](https://supabase.com)
-2. **Run SQL migrations** in Supabase SQL Editor:
-
-```sql
--- Create profiles table
-CREATE TABLE profiles (
-  id UUID REFERENCES auth.users ON DELETE CASCADE,
-  email TEXT,
-  full_name TEXT,
-  avatar_url TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  PRIMARY KEY (id)
-);
-
--- Create articles table
-CREATE TABLE articles (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  title TEXT NOT NULL,
-  slug TEXT UNIQUE NOT NULL,
-  excerpt TEXT,
-  content TEXT,
-  image TEXT,
-  category TEXT,
-  read_time INTEGER,
-  author TEXT,
-  author_title TEXT,
-  author_avatar TEXT,
-  published_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  featured BOOLEAN DEFAULT FALSE,
-  tags TEXT[],
-  view_count INTEGER DEFAULT 0,
-  like_count INTEGER DEFAULT 0,
-  fact_checked BOOLEAN DEFAULT FALSE,
-  last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  status TEXT DEFAULT 'draft'
-);
-
--- Enable Row Level Security
-ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
-ALTER TABLE articles ENABLE ROW LEVEL SECURITY;
-
--- Create policies
-CREATE POLICY "Public profiles are viewable by everyone" ON profiles
-  FOR SELECT USING (true);
-
-CREATE POLICY "Users can insert their own profile" ON profiles
-  FOR INSERT WITH CHECK (auth.uid() = id);
-
-CREATE POLICY "Users can update own profile" ON profiles
-  FOR UPDATE USING (auth.uid() = id);
-
-CREATE POLICY "Articles are viewable by everyone" ON articles
-  FOR SELECT USING (true);
-
-CREATE POLICY "Authenticated users can insert articles" ON articles
-  FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-
-CREATE POLICY "Users can update own articles" ON articles
-  FOR UPDATE USING (auth.uid()::text = author);
+# Google Analytics (optional)
+NEXT_PUBLIC_GA_ID=your_ga_id
 ```
 
 ## 📁 Project Structure
@@ -141,84 +76,77 @@ src/
 ├── app/                    # Next.js App Router
 │   ├── api/               # API routes
 │   ├── blog/              # Blog pages
-│   ├── dashboard/         # Admin dashboard
-│   ├── login/             # Authentication pages
-│   └── register/
-├── components/            # Reusable components
-│   ├── blog/             # Blog-specific components
-│   ├── calculators/      # Calculator components
-│   └── ui/               # UI components
+│   ├── admin/             # Admin panel
+│   └── dashboard/         # User dashboard
+├── components/            # React components
+│   ├── blog/             # Blog components
+│   ├── auth/             # Authentication
+│   ├── ui/               # UI components
+│   └── features/         # Feature components
+├── lib/                  # Utilities and configurations
 ├── contexts/             # React contexts
 ├── hooks/                # Custom hooks
-├── lib/                  # Utility functions
-└── types/                # TypeScript types
+└── data/                 # Static data and mock content
 ```
 
 ## 🚀 Deployment
 
-### Vercel (Recommended)
+### Vercel Deployment
+1. Connect your GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
 
-1. **Push to GitHub**
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push origin main
-   ```
+### Custom Domain
+- Configure DNS records for your domain
+- Add custom domain in Vercel dashboard
+- SSL certificates are automatically provisioned
 
-2. **Connect to Vercel**
-   - Go to [vercel.com](https://vercel.com)
-   - Import your GitHub repository
-   - Add environment variables
-   - Deploy!
+## 📊 Database Schema
 
-### Manual Deployment
+### Core Tables
+- `articles` - Blog posts and content
+- `profiles` - User profiles and metadata
+- `comments` - Article comments
+- `reactions` - User reactions to content
+- `bookmarks` - User bookmarks
+- `user_badges` - Achievement system
+- `user_progress` - User activity tracking
+- `notifications` - User notifications
 
-1. **Build the project**
-   ```bash
-   npm run build
-   ```
+## 🎯 Key Features
 
-2. **Start production server**
-   ```bash
-   npm start
-   ```
+### Zero-Cost Model
+- Local storage fallback for content
+- Hybrid data approach (Supabase + Local)
+- No expensive dependencies
 
-## 🧪 Testing
+### Performance Optimized
+- Static generation where possible
+- Image optimization
+- Code splitting
+- Lazy loading
 
-```bash
-# Run tests
-npm test
-
-# Run linting
-npm run lint
-
-# Type checking
-npm run type-check
-```
+### SEO Ready
+- Meta tags optimization
+- Sitemap generation
+- Robots.txt
+- Structured data
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
-## 🙏 Acknowledgments
+## 🆘 Support
 
-- [Next.js](https://nextjs.org/) - React framework
-- [Supabase](https://supabase.com/) - Backend as a service
-- [Tailwind CSS](https://tailwindcss.com/) - CSS framework
-- [Framer Motion](https://framer.com/motion/) - Animation library
-
-## 📞 Support
-
-If you have any questions or need help, please open an issue on GitHub or contact us at support@mastrohub.com.
+For support, email support@mastrohub.com or create an issue in this repository.
 
 ---
 
-**Built with ❤️ for the restaurant community**
+**Built with ❤️ by the MastroHub Team**
