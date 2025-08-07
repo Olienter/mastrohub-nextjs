@@ -84,39 +84,39 @@ export default function UserMenu() {
 
               <div className="py-1">
                 <Link
-                  href="/dashboard"
+                  href="/restaurant-curator"
                   className="flex items-center px-4 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   <User className="w-4 h-4 mr-3" />
-                  Dashboard
+                  Restaurant Curator
                 </Link>
                 
                 <Link
-                  href="/dashboard/analytics"
+                  href="/menu-maker"
                   className="flex items-center px-4 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   <BookOpen className="w-4 h-4 mr-3" />
-                  Analytics
+                  Menu Maker
                 </Link>
                 
                 <Link
-                  href="/dashboard/moderate"
+                  href="/forecast-planner"
                   className="flex items-center px-4 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   <Bell className="w-4 h-4 mr-3" />
-                  Moderate Content
+                  Forecast Planner
                 </Link>
                 
                 <Link
-                  href="/dashboard/users"
+                  href="/marketing-assistant"
                   className="flex items-center px-4 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   <UserIcon className="w-4 h-4 mr-3" />
-                  User Management
+                  Marketing Assistant
                 </Link>
                 
                 <Link

@@ -46,7 +46,7 @@ const HorizontalTools = () => {
       title: 'Guest Manager',
       description: 'Manage guest experience & reservations.',
       icon: <Users size={32} strokeWidth={2} />,
-      path: '/dashboard',
+              path: '/restaurant-curator',
       color: 'from-indigo-400 to-purple-400'
     }
   ];

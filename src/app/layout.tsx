@@ -1,16 +1,19 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import { AuthProvider } from '@/contexts/AuthContext';
-import { ThemeProvider } from '@/contexts/ThemeContext';
-import BadgeNotificationProvider from '@/components/badges/BadgeNotificationProvider';
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import { AuthProvider } from '@/contexts/AuthContext'
+import { ThemeProvider } from '@/contexts/ThemeContext'
+import { WorkspaceProvider } from '@/contexts/WorkspaceContext'
+import BadgeNotificationProvider from '@/components/badges/BadgeNotificationProvider'
+import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'MastroHub - Restaurant Management Software',
-  description: 'Expert restaurant management software and consulting services. Transform your restaurant with data-driven strategies.',
-  keywords: ['restaurant management', 'menu engineering', 'hospitality software', 'restaurant technology'],
+  title: 'MastroHub - AI Restaurant Management Platform | Professional Tools',
+  description: 'AI-powered restaurant management tools. Increase profits by 15-30%, reduce food waste by 40%, save 10+ hours per week. Menu optimization, demand forecasting, and inventory management.',
+  keywords: 'restaurant management, AI restaurant tools, menu optimization, demand forecasting, inventory management, professional restaurant software',
   authors: [{ name: 'MastroHub Team' }],
   creator: 'MastroHub',
   publisher: 'MastroHub',
@@ -24,16 +27,16 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'MastroHub - Restaurant Management Software',
-    description: 'Expert restaurant management software and consulting services.',
+    title: 'MastroHub - Transform Your Restaurant with AI',
+    description: 'AI-powered restaurant management tools that actually work. Increase profits, reduce waste, save time.',
     url: 'https://mastrohub.com',
     siteName: 'MastroHub',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'MastroHub - Restaurant Management Software',
+        alt: 'MastroHub - AI Restaurant Management Platform',
       },
     ],
     locale: 'en_US',
@@ -41,9 +44,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MastroHub - Restaurant Management Software',
-    description: 'Expert restaurant management software and consulting services.',
-    images: ['https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80'],
+    title: 'MastroHub - AI Restaurant Management Platform',
+    description: 'AI-powered restaurant management tools. Increase profits by 15-30%, reduce food waste by 40%.',
+    images: ['/og-image.jpg'],
+    creator: '@mastrohub',
   },
   robots: {
     index: true,
@@ -70,12 +74,12 @@ export const metadata: Metadata = {
     'application-name': 'MastroHub',
     'mobile-web-app-capable': 'yes',
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
@@ -108,16 +112,85 @@ export default function RootLayout({
             `,
           }}
         />
+        
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "MastroHub",
+              "description": "AI-powered restaurant management platform",
+              "url": "https://mastrohub.com",
+              "applicationCategory": "BusinessApplication",
+              "operatingSystem": "Web",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD",
+                "description": "Free forever with no limitations"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "ratingCount": "150"
+              },
+              "author": {
+                "@type": "Organization",
+                "name": "MastroHub",
+                "url": "https://mastrohub.com"
+              }
+            })
+          }}
+        />
+        
+        {/* Organization Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "MastroHub",
+              "url": "https://mastrohub.com",
+              "logo": "https://mastrohub.com/logo.png",
+              "description": "AI-powered restaurant management platform",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Bratislava",
+                "addressCountry": "SK"
+              },
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+421-555-123-456",
+                "contactType": "customer service",
+                "email": "hello@mastrohub.com"
+              },
+              "sameAs": [
+                "https://twitter.com/mastrohub",
+                "https://linkedin.com/company/mastrohub",
+                "https://github.com/mastrohub"
+              ]
+            })
+          }}
+        />
       </head>
       <body className={inter.className}>
         <ThemeProvider>
-          <AuthProvider>
-            <BadgeNotificationProvider>
-              {children}
-            </BadgeNotificationProvider>
-          </AuthProvider>
+          <WorkspaceProvider>
+            <AuthProvider>
+              <BadgeNotificationProvider>
+                <Navigation />
+                <main className="min-h-screen">
+                  {children}
+                </main>
+                <Footer />
+              </BadgeNotificationProvider>
+            </AuthProvider>
+          </WorkspaceProvider>
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

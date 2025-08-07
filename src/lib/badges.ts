@@ -260,6 +260,13 @@ export class BadgeEngine {
 
           if (insertError) {
             console.error('Error creating user progress:', insertError);
+            // Log additional details for debugging
+            console.error('Insert error details:', {
+              message: insertError.message,
+              details: insertError.details,
+              hint: insertError.hint,
+              code: insertError.code
+            });
             return null;
           }
 

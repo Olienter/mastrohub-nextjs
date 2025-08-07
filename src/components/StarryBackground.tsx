@@ -20,8 +20,8 @@ const StarryBackground: React.FC = () => {
   useEffect(() => {
     setIsClient(true);
     
-    // Generate stars only on client side to avoid hydration mismatch
-    const generatedStars = Array.from({ length: 200 }, (_, i) => ({
+    // Generate stars only on client side to avoid hydration mismatch - REDUCED for better performance
+    const generatedStars = Array.from({ length: 50 }, (_, i) => ({ // Reduced from 200 to 50
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,

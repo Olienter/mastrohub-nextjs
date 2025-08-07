@@ -38,10 +38,12 @@ export default function BadgeNotificationProvider({ children }: BadgeNotificatio
 
     const checkForNewBadges = async () => {
       try {
-        const newBadges = await BadgeEngine.checkBadges(user.id);
-        newBadges.forEach(badge => {
-          addNotification(badge);
-        });
+        // Temporarily disable badge checking until database issues are resolved
+        // const newBadges = await BadgeEngine.checkBadges(user.id);
+        // newBadges.forEach(badge => {
+        //   addNotification(badge);
+        // });
+        console.log('Badge checking temporarily disabled - database setup required');
       } catch (error) {
         console.error('Error checking for new badges:', error);
       }
@@ -50,10 +52,9 @@ export default function BadgeNotificationProvider({ children }: BadgeNotificatio
     // Check immediately on mount
     checkForNewBadges();
 
-    // Set up periodic checking (every 30 seconds)
-    const interval = setInterval(checkForNewBadges, 30000);
-
-    return () => clearInterval(interval);
+    // Set up periodic checking (every 30 seconds) - TEMPORARILY DISABLED
+    // const interval = setInterval(checkForNewBadges, 30000);
+    // return () => clearInterval(interval);
   }, [user?.id, addNotification]);
 
   const contextValue: BadgeNotificationContextType = {

@@ -66,8 +66,8 @@ export default function BlogContent() {
                       <Settings className="w-4 h-4" />
                       Admin
                     </Link>
-                    <Link href="/dashboard" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                      Dashboard
+                                    <Link href="/restaurant-curator" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                  Restaurant Curator
                     </Link>
                   </>
                 ) : (

@@ -55,7 +55,7 @@ export default function NotificationCenter() {
         read: false,
         action: {
           label: 'Review User',
-          url: '/dashboard/users'
+          url: '/restaurant-curator'
         }
       },
       {
@@ -75,7 +75,7 @@ export default function NotificationCenter() {
         read: false,
         action: {
           label: 'View Report',
-          url: '/dashboard/analytics'
+          url: '/menu-maker'
         }
       },
       {

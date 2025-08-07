@@ -55,8 +55,8 @@ const AdvancedBackground: React.FC<AdvancedBackgroundProps> = ({ isVisible, hasS
 
   useEffect(() => {
     if (isClient) {
-      // Generate particles client-side only
-      const generatedParticles = Array.from({ length: 200 }, (_, i) => ({
+      // Generate particles client-side only - REDUCED for better performance
+      const generatedParticles = Array.from({ length: 50 }, (_, i) => ({ // Reduced from 200 to 50
         id: i,
         size: i % 4 === 0 ? 'w-2 h-2' : i % 4 === 1 ? 'w-1 h-1' : i % 4 === 2 ? 'w-0.5 h-0.5' : 'w-1.5 h-1.5',
         color: i % 4 === 0 ? 'bg-cyan-400' : i % 4 === 1 ? 'bg-teal-400' : i % 4 === 2 ? 'bg-white' : 'bg-blue-400',
@@ -69,8 +69,8 @@ const AdvancedBackground: React.FC<AdvancedBackgroundProps> = ({ isVisible, hasS
         rotate: [0, 360, 720]
       }));
 
-      // Generate stars client-side only
-      const generatedStars = Array.from({ length: 500 }, (_, i) => ({
+      // Generate stars client-side only - REDUCED for better performance
+      const generatedStars = Array.from({ length: 100 }, (_, i) => ({ // Reduced from 500 to 100
         id: i,
         left: `${Math.random() * 100}%`,
         top: `${Math.random() * 100}%`,

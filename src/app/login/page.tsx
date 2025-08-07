@@ -25,7 +25,8 @@ export default function LoginPage() {
     try {
       const result = await signIn(email, password);
       if (result.success) {
-        router.push('/dashboard');
+        // Redirect to Restaurant Curator (main dashboard)
+        router.push('/restaurant-curator');
       } else {
         setError(result.error || 'Login failed');
       }

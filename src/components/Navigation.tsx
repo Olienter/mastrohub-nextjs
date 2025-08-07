@@ -23,23 +23,12 @@ const Navigation: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Zjednodušené navigačné položky - len tie ktoré potrebujeme
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'Menu Maker', href: '/menu-maker' },
-    { name: 'Forecast Planner', href: '/forecast-planner' },
     { name: 'Restaurant Curator', href: '/restaurant-curator' },
-    { name: 'Marketing Assistant', href: '/marketing-assistant' },
     { name: 'Blog', href: '/blog' }
-  ];
-
-  const dashboardItems = [
-    { name: 'Dashboard', href: '/dashboard' },
-    { name: 'Analytics', href: '/dashboard/analytics' },
-    { name: 'Data Management', href: '/dashboard/data-management' },
-    { name: 'Moderate', href: '/dashboard/moderate' },
-    { name: 'Users', href: '/dashboard/users' },
-    { name: 'Bookmarks', href: '/bookmarks' },
-    { name: 'Badges', href: '/badges' }
   ];
 
   const isActive = (href: string) => {
@@ -53,7 +42,7 @@ const Navigation: React.FC = () => {
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/10 backdrop-blur-md border-b border-green-500/20 shadow-lg' 
+          ? 'bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-lg' 
           : 'bg-transparent'
       }`}
       initial={{ y: -100 }}
@@ -62,21 +51,21 @@ const Navigation: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* Logo - zjednodušené bez zelenej farby */}
           <motion.div
             className="flex items-center"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">M</span>
               </div>
-              <span className="text-white font-bold text-xl">MastroHub</span>
+              <span className="text-gray-900 font-bold text-xl">MastroHub</span>
             </Link>
           </motion.div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - zjednodušené */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <motion.div
@@ -88,14 +77,14 @@ const Navigation: React.FC = () => {
                   href={item.href}
                   className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                     isActive(item.href)
-                      ? 'text-green-400'
-                      : 'text-white/80 hover:text-green-400'
+                      ? 'text-blue-600'
+                      : 'text-gray-700 hover:text-blue-600'
                   }`}
                 >
                   {item.name}
                   {isActive(item.href) && (
                     <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-400"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"
                       layoutId="activeTab"
                       transition={{ duration: 0.3 }}
                     />
@@ -103,39 +92,12 @@ const Navigation: React.FC = () => {
                 </Link>
               </motion.div>
             ))}
-            
-            {/* Dashboard Dropdown for authenticated users */}
-            {user && (
-              <div className="relative group">
-                <button className="relative px-3 py-2 text-sm font-medium text-white/80 hover:text-green-400 transition-colors duration-200">
-                  Dashboard
-                  <svg className="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <div className="py-2">
-                    {dashboardItems.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className={`block px-4 py-2 text-sm text-white/80 hover:text-green-400 hover:bg-white/10 transition-colors ${
-                          isActive(item.href) ? 'text-green-400 bg-white/10' : ''
-                        }`}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button - zjednodušené */}
           <div className="hidden md:flex items-center space-x-4">
             <motion.button
-              className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -143,7 +105,7 @@ const Navigation: React.FC = () => {
             </motion.button>
           </div>
 
-          {/* Auth Section */}
+          {/* Auth Section - zjednodušené */}
           <div className="flex items-center gap-4">
             <ThemeToggle size="sm" />
             {user ? (
@@ -151,12 +113,12 @@ const Navigation: React.FC = () => {
             ) : (
               <>
                 <Link href="/login">
-                  <button className="text-white/70 hover:text-white transition-colors font-medium">
-                    Log In
+                  <button className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                    Sign In
                   </button>
                 </Link>
                 <Link href="/register">
-                  <button className="bg-mastroCyan-400 hover:bg-mastroCyan-500 text-neutral-900 px-4 py-2 rounded-lg font-medium transition-colors">
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
                     Join
                   </button>
                 </Link>
@@ -167,18 +129,18 @@ const Navigation: React.FC = () => {
           {/* Mobile menu button */}
           <div className="md:hidden">
             <motion.button
-              className="text-white p-2"
+              className="text-gray-700 p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileTap={{ scale: 0.95 }}
             >
               <div className="w-6 h-6 flex flex-col justify-center items-center">
-                <span className={`block w-5 h-0.5 bg-white transition-all duration-300 ${
+                <span className={`block w-5 h-0.5 bg-gray-700 transition-all duration-300 ${
                   isMobileMenuOpen ? 'rotate-45 translate-y-1' : ''
                 }`} />
-                <span className={`block w-5 h-0.5 bg-white transition-all duration-300 mt-1 ${
+                <span className={`block w-5 h-0.5 bg-gray-700 transition-all duration-300 mt-1 ${
                   isMobileMenuOpen ? 'opacity-0' : ''
                 }`} />
-                <span className={`block w-5 h-0.5 bg-white transition-all duration-300 mt-1 ${
+                <span className={`block w-5 h-0.5 bg-gray-700 transition-all duration-300 mt-1 ${
                   isMobileMenuOpen ? '-rotate-45 -translate-y-1' : ''
                 }`} />
               </div>
@@ -187,11 +149,11 @@ const Navigation: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - zjednodušené */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="md:hidden bg-white/10 backdrop-blur-md border-t border-green-500/20"
+            className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -209,8 +171,8 @@ const Navigation: React.FC = () => {
                     href={item.href}
                     className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
                       isActive(item.href)
-                        ? 'text-green-400'
-                        : 'text-white/80 hover:text-green-400'
+                        ? 'text-blue-600'
+                        : 'text-gray-700 hover:text-blue-600'
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -223,7 +185,7 @@ const Navigation: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.2, delay: 0.1 }}
               >
-                <button className="w-full bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl">
+                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl">
                   Get Started
                 </button>
               </motion.div>

@@ -42,10 +42,13 @@ export default function RegisterPage() {
     }
 
     try {
-      await signUp(formData.email, formData.password);
-      // Create user profile
-      // This will be handled in the auth context
-      router.push('/dashboard');
+      const result = await signUp(formData.email, formData.password);
+      if (result.success) {
+        // Redirect to Restaurant Curator (main dashboard)
+        router.push('/restaurant-curator');
+      } else {
+        setError(result.message || 'Registration failed');
+      }
     } catch (error: any) {
       setError(error.message);
     } finally {

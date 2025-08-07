@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -74,7 +74,7 @@ const ExplosionAnimation = ({ isVisible, onComplete }) => {
       description: 'Get instant restaurant advice and insights.',
       icon: <Brain size={48} strokeWidth={2} className="text-emerald-500" />,
       action: 'Start Chat',
-      path: '/dashboard',
+      path: '/restaurant-curator',
       color: 'from-emerald-500 to-teal-500'
     },
     {
@@ -83,7 +83,7 @@ const ExplosionAnimation = ({ isVisible, onComplete }) => {
       description: 'Connect with successful restaurant owners.',
       icon: <Users size={48} strokeWidth={2} className="text-blue-500" />,
       action: 'Join Network',
-      path: '/dashboard',
+      path: '/restaurant-curator',
       color: 'from-blue-500 to-indigo-500'
     },
     {

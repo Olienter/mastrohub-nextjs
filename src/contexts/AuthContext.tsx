@@ -61,6 +61,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
+      // Test account for development
+      if (email === 'admin@test.com' && password === 'kokot') {
+        const testUser = {
+          id: 'test-admin-id',
+          email: 'admin@test.com',
+          user_metadata: {
+            username: 'Admin',
+            full_name: 'Test Administrator'
+          }
+        };
+        setUser(testUser as User);
+        setSession({ user: testUser } as Session);
+        return { success: true };
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -77,6 +92,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signUp = async (email: string, password: string, profileData?: any) => {
+    // Test account for development
+    if (email === 'admin@test.com' && password === 'kokot') {
+      const testUser = {
+        id: 'test-admin-id',
+        email: 'admin@test.com',
+        user_metadata: {
+          username: 'Admin',
+          full_name: 'Test Administrator'
+        }
+      };
+      setUser(testUser as User);
+      setSession({ user: testUser } as Session);
+      return;
+    }
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
