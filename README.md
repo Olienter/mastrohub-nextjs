@@ -1,152 +1,192 @@
-# MastroHub Blog - Restaurant Management Software
+# 🍽️ MastroHub - AI-Powered Restaurant Management Platform
 
-## 🍽️ About
+A comprehensive restaurant management platform with AI-powered features for menu creation, business insights, and operational optimization.
 
-MastroHub is a comprehensive restaurant management platform that combines blog content with powerful restaurant management tools. Built with Next.js 15, Supabase, and modern web technologies.
+## ✨ Features
 
-## 🚀 Features
+### 🤖 AI Restaurant Assistant
+- **LinkedIn-style chat widget** - Floating AI assistant in the bottom right corner
+- **Natural conversation** - Friendly, human-like responses
+- **Business insights** - Menu analysis, profitability tracking, customer behavior
+- **Multi-provider AI support** - OpenAI GPT-4o, Anthropic Claude, Ollama (local)
 
-### Blog System
-- **Modern Blog Interface** - Clean, responsive design
-- **Admin Panel** - Easy content management
-- **MDX Editor** - Rich text editing with markdown support
-- **Categories & Tags** - Organized content structure
-- **Search & Filter** - Advanced content discovery
-- **Comments & Reactions** - Community engagement
-- **Bookmarks** - Save favorite articles
+### 📋 Menu Maker
+- **Social network interface** - Each menu item has its own profile
+- **Comprehensive manuals** - Chef, Waiter, Marketing, Analytics, Supply Chain, Financial, Sustainability
+- **AI Interview system** - 15-minute smart interview to generate all manuals
+- **Drag & drop interface** - Easy menu organization
 
-### Restaurant Management Tools
-- **Menu Engineering** - Data-driven menu optimization
-- **Analytics Dashboard** - Performance insights
-- **Forecast Planner** - Predictive analytics
-- **Marketing Assistant** - Automated marketing tools
-- **Restaurant Curator** - Content curation platform
+### 📱 QR Menu System
+- **Dynamic QR generation** - Real-time menu QR codes
+- **Download & share** - Multiple format support
+- **Edit & customize** - Full menu management
 
-### User System
-- **Authentication** - Supabase Auth integration
-- **User Profiles** - Customizable user profiles
-- **Badge System** - Gamification and engagement
-- **Progress Tracking** - User activity monitoring
-- **Notifications** - Real-time updates
+### 🔧 Restaurant Curator
+- **Central dashboard** - All tools in one place
+- **Private database** - Secure data management
+- **User authentication** - Protected access
 
-## 🛠️ Tech Stack
+## 🚀 Quick Start
 
-- **Frontend:** Next.js 15, React 18, TypeScript
-- **Styling:** Tailwind CSS 4.0, Framer Motion
-- **Database:** Supabase (PostgreSQL)
-- **Authentication:** Supabase Auth
-- **Deployment:** Vercel
-- **State Management:** Zustand
-- **Content:** MDX, Markdown
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- Git
 
-## 📦 Installation
+### Installation
 
+1. **Clone the repository**
 ```bash
-# Clone repository
-git clone https://github.com/oliebodnar/mastrohub-nextjs.git
+git clone https://github.com/Olienter/mastrohub-nextjs.git
 cd mastrohub-nextjs
+```
 
-# Install dependencies
+2. **Install dependencies**
+```bash
 npm install
+```
 
-# Set up environment variables
+3. **Set up environment variables**
+```bash
 cp .env.example .env.local
-# Add your Supabase credentials
+```
 
-# Run development server
+4. **Configure AI providers** (optional)
+```bash
+# Add to .env.local
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+AI_PROVIDER=openai
+```
+
+5. **Run the development server**
+```bash
 npm run dev
 ```
 
-## 🔧 Environment Variables
+6. **Open your browser**
+```
+http://localhost:3000
+```
 
-```env
-# Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+## 🤖 AI Setup
 
-# Google Analytics (optional)
-NEXT_PUBLIC_GA_ID=your_ga_id
+### Option 1: OpenAI GPT-4o (Recommended)
+```bash
+# Add to .env.local
+AI_PROVIDER=openai
+OPENAI_API_KEY=sk-your-key-here
+```
+
+### Option 2: Anthropic Claude 3.5
+```bash
+# Add to .env.local
+AI_PROVIDER=anthropic
+ANTHROPIC_API_KEY=sk-ant-your-key-here
+```
+
+### Option 3: Ollama (Local - FREE)
+```bash
+# Install Ollama
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Pull model
+ollama pull llama3.2:3b
+
+# Add to .env.local
+AI_PROVIDER=ollama
+OLLAMA_BASE_URL=http://localhost:11434
 ```
 
 ## 📁 Project Structure
 
 ```
 src/
-├── app/                    # Next.js App Router
-│   ├── api/               # API routes
-│   ├── blog/              # Blog pages
-│   ├── admin/             # Admin panel
-│   └── dashboard/         # User dashboard
-├── components/            # React components
-│   ├── blog/             # Blog components
-│   ├── auth/             # Authentication
-│   ├── ui/               # UI components
-│   └── features/         # Feature components
-├── lib/                  # Utilities and configurations
-├── contexts/             # React contexts
-├── hooks/                # Custom hooks
-└── data/                 # Static data and mock content
+├── app/                    # Next.js 15 App Router
+│   ├── menu-maker/        # Menu creation interface
+│   ├── qrmenu/           # QR menu system
+│   └── restaurant-curator/ # Main dashboard
+├── components/
+│   ├── menu-maker/       # Menu-related components
+│   ├── layout/           # Layout components
+│   └── ui/              # Reusable UI components
+├── lib/
+│   ├── ai-agent.ts      # AI assistant logic
+│   ├── ai-provider.ts   # Multi-provider AI system
+│   └── utils.ts         # Utility functions
 ```
 
-## 🚀 Deployment
+## 🛠️ Technologies
 
-### Vercel Deployment
-1. Connect your GitHub repository to Vercel
-2. Set environment variables in Vercel dashboard
-3. Deploy automatically on push to main branch
-
-### Custom Domain
-- Configure DNS records for your domain
-- Add custom domain in Vercel dashboard
-- SSL certificates are automatically provisioned
-
-## 📊 Database Schema
-
-### Core Tables
-- `articles` - Blog posts and content
-- `profiles` - User profiles and metadata
-- `comments` - Article comments
-- `reactions` - User reactions to content
-- `bookmarks` - User bookmarks
-- `user_badges` - Achievement system
-- `user_progress` - User activity tracking
-- `notifications` - User notifications
+- **Framework**: Next.js 15 (App Router)
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Database**: Supabase
+- **Authentication**: Supabase Auth
+- **AI**: OpenAI GPT-4o, Anthropic Claude, Ollama
+- **Language**: TypeScript
 
 ## 🎯 Key Features
 
-### Zero-Cost Model
-- Local storage fallback for content
-- Hybrid data approach (Supabase + Local)
-- No expensive dependencies
+### AI Restaurant Assistant
+- **Natural conversation** with restaurant context
+- **Business insights** and recommendations
+- **Menu analysis** and optimization
+- **Financial tracking** and profitability analysis
+- **Marketing strategies** and customer insights
 
-### Performance Optimized
-- Static generation where possible
-- Image optimization
-- Code splitting
-- Lazy loading
+### Menu Maker
+- **Profile-based menu items** - Each item has comprehensive data
+- **AI-generated manuals** - 7 different manual types per item
+- **Smart interview system** - 15-minute AI interview
+- **Social network interface** - Menu items as profiles
 
-### SEO Ready
-- Meta tags optimization
-- Sitemap generation
-- Robots.txt
-- Structured data
+### QR Menu System
+- **Dynamic QR generation** from menu data
+- **Download and sharing** capabilities
+- **Real-time updates** and customization
+- **Mobile-friendly** design
+
+## 🔒 Security
+
+- **Environment variables** for sensitive data
+- **GitHub push protection** against secrets
+- **Comprehensive .gitignore** for sensitive files
+- **User authentication** and protected routes
+
+## 📈 Performance
+
+- **Optimized imports** and lazy loading
+- **Webpack optimization** for faster builds
+- **Image optimization** with Next.js
+- **Code splitting** and dynamic imports
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🆘 Support
 
-For support, email support@mastrohub.com or create an issue in this repository.
+For support and questions:
+- Create an issue on GitHub
+- Check the [AI Setup Guide](README-AI-SETUP.md)
+- Review the documentation
+
+## 🎉 Acknowledgments
+
+- Next.js team for the amazing framework
+- OpenAI, Anthropic, and Ollama for AI capabilities
+- Tailwind CSS for the beautiful styling
+- Framer Motion for smooth animations
 
 ---
 
-**Built with ❤️ by the MastroHub Team**
+**Made with ❤️ for the restaurant industry**
