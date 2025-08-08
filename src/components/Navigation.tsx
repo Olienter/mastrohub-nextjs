@@ -3,7 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+// Dynamically import heavy animations
+import { MotionDiv, MotionNav, MotionUl, MotionLi, MotionButton, MotionAnimatePresence, fadeIn, slideIn } from '@/lib/optimizedImports';
 import { useAuth } from '@/contexts/AuthContext';
 import UserMenu from '@/components/profile/UserMenu';
 import ThemeToggle from '@/components/ui/ThemeToggle';
@@ -27,6 +30,7 @@ const Navigation: React.FC = () => {
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'Menu Maker', href: '/menu-maker' },
+    { name: 'QR Menu', href: '/qrmenu' },
     { name: 'Restaurant Curator', href: '/restaurant-curator' },
     { name: 'Blog', href: '/blog' }
   ];
@@ -39,20 +43,21 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <motion.nav
+    <MotionNav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
           ? 'bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-lg' 
           : 'bg-transparent'
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
+      variants={slideIn}
+      initial="initial"
+      animate="animate"
       transition={{ duration: 0.5 }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo - zjednodušené bez zelenej farby */}
-          <motion.div
+          <MotionDiv
             className="flex items-center"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
@@ -63,12 +68,12 @@ const Navigation: React.FC = () => {
               </div>
               <span className="text-gray-900 font-bold text-xl">MastroHub</span>
             </Link>
-          </motion.div>
+          </MotionDiv>
 
           {/* Desktop Navigation - zjednodušené */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <motion.div
+              <MotionDiv
                 key={item.name}
                 whileHover={{ y: -2 }}
                 transition={{ duration: 0.2 }}
@@ -83,26 +88,26 @@ const Navigation: React.FC = () => {
                 >
                   {item.name}
                   {isActive(item.href) && (
-                    <motion.div
+                    <MotionDiv
                       className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"
                       layoutId="activeTab"
                       transition={{ duration: 0.3 }}
                     />
                   )}
                 </Link>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
 
           {/* CTA Button - zjednodušené */}
           <div className="hidden md:flex items-center space-x-4">
-            <motion.button
+            <MotionButton
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               Get Started
-            </motion.button>
+            </MotionButton>
           </div>
 
           {/* Auth Section - zjednodušené */}
@@ -128,7 +133,7 @@ const Navigation: React.FC = () => {
 
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <motion.button
+            <MotionButton
               className="text-gray-700 p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileTap={{ scale: 0.95 }}
@@ -144,27 +149,29 @@ const Navigation: React.FC = () => {
                   isMobileMenuOpen ? '-rotate-45 -translate-y-1' : ''
                 }`} />
               </div>
-            </motion.button>
+            </MotionButton>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu - zjednodušené */}
-      <AnimatePresence>
+      <MotionAnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
+          <MotionDiv
             className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            variants={fadeIn}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             transition={{ duration: 0.3 }}
           >
             <div className="px-4 py-6 space-y-4">
               {navItems.map((item) => (
-                <motion.div
+                <MotionDiv
                   key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  variants={slideIn}
+                  initial="initial"
+                  animate="animate"
                   transition={{ duration: 0.2 }}
                 >
                   <Link
@@ -178,22 +185,23 @@ const Navigation: React.FC = () => {
                   >
                     {item.name}
                   </Link>
-                </motion.div>
+                </MotionDiv>
               ))}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+              <MotionDiv
+                variants={slideIn}
+                initial="initial"
+                animate="animate"
                 transition={{ duration: 0.2, delay: 0.1 }}
               >
                 <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 shadow-lg hover:shadow-xl">
                   Get Started
                 </button>
-              </motion.div>
+              </MotionDiv>
             </div>
-          </motion.div>
+          </MotionDiv>
         )}
-      </AnimatePresence>
-    </motion.nav>
+      </MotionAnimatePresence>
+    </MotionNav>
   );
 };
 

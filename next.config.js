@@ -3,7 +3,7 @@ const nextConfig = {
   // Remove experimental features that slow down compilation
   experimental: {
     // mdxRs: true, // Commented out for faster compilation
-    optimizePackageImports: ['framer-motion', 'lucide-react'], // Optimize heavy packages
+    optimizePackageImports: ['lucide-react'], // Remove framer-motion from optimization
   },
   
   // Optimize images for faster loading
@@ -46,24 +46,19 @@ const nextConfig = {
     if (dev) {
       // Faster development builds
       config.watchOptions = {
-        poll: 1000,
-        aggregateTimeout: 300,
+        poll: 2000,
+        aggregateTimeout: 500,
       }
       
-      // Optimize bundle size
+      // Disable optimization in development for faster builds
       config.optimization = {
         ...config.optimization,
-        splitChunks: {
-          chunks: 'all',
-          cacheGroups: {
-            vendor: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'vendors',
-              chunks: 'all',
-            },
-          },
-        },
+        minimize: false,
+        splitChunks: false,
       }
+      
+      // Faster source maps
+      config.devtool = 'eval-cheap-module-source-map'
     }
     return config
   },

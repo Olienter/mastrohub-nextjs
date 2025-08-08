@@ -1,35 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+// Dynamic imports for heavy components
+const MotionDiv = dynamic(() => import('framer-motion').then(mod => ({ default: mod.motion.div })), { ssr: false });
+const MotionButton = dynamic(() => import('framer-motion').then(mod => ({ default: mod.motion.button })), { ssr: false });
+const MotionAnimatePresence = dynamic(() => import('framer-motion').then(mod => ({ default: mod.AnimatePresence })), { ssr: false });
+
+// Optimized icon imports - only essential ones
 import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  DragEndEvent,
-  DragStartEvent,
-  DragOverlay,
-  useDroppable,
-} from '@dnd-kit/core';
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-  useSortable,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { useWorkspaceContext } from '@/contexts/WorkspaceContext';
-import { useAuth } from '@/contexts/AuthContext';
-import { MenuMakerService } from '@/lib/menuMaker';
-import { AuthGuard } from '@/components/auth/AuthGuard';
-import { UserProfile } from '@/components/menu-maker/UserProfile';
-import ImageUpload from '@/components/menu-maker/ImageUpload';
-import { 
   Plus, 
   Edit, 
   Trash2, 
@@ -89,8 +70,50 @@ import {
   Hash,
   Hash as HashIcon,
   PenTool,
-  Folder as FolderIcon
+  Folder as FolderIcon,
+  Menu,
+  Leaf
 } from 'lucide-react';
+
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+  DragStartEvent,
+  DragOverlay,
+  useDroppable,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+import { useWorkspaceContext } from '@/contexts/WorkspaceContext';
+import { useAuth } from '@/contexts/AuthContext';
+import AIInterview from '@/components/menu-maker/AIInterview';
+import { MenuData } from '@/lib/ai-agent';
+import { MenuMakerService } from '@/lib/menuMaker';
+import ChefTool from '@/components/menu-maker/ChefTool';
+import WaiterTool from '@/components/menu-maker/WaiterTool';
+import MarketingTool from '@/components/menu-maker/MarketingTool';
+import AnalyticsTool from '@/components/menu-maker/AnalyticsTool';
+import SupplyChainTool from '@/components/menu-maker/SupplyChainTool';
+import FinancialTool from '@/components/menu-maker/FinancialTool';
+import SustainabilityTool from '@/components/menu-maker/SustainabilityTool';
+import { AuthGuard } from '@/components/auth/AuthGuard';
+import { UserProfile } from '@/components/menu-maker/UserProfile';
+import ImageUpload from '@/components/menu-maker/ImageUpload';
+import AIAssistantChat from '@/components/menu-maker/AIAssistantChat';
+import { RestaurantContext } from '@/lib/ai-agent';
+import AIAssistantWidget from '@/components/menu-maker/AIAssistantWidget';
 
 interface MenuItem {
   id: string;
@@ -122,11 +145,89 @@ interface MenuItem {
   instructions: string[];
   cost: number;
   profitMargin: number;
+  
   // Social features
   comments: Comment[];
   ratings: Rating[];
   photos: string[];
   videoUrl?: string;
+  
+  // Chef Manual
+  chefManual?: {
+    equipment: string[]; // Kuchynské vybavenie
+    substitutions: string[]; // Substitúcie ingrediencií
+    garnishing: string; // Garnírovanie
+    servingTemperature: 'hot' | 'warm' | 'cold'; // Teplota podávania
+    portionSizes: {
+      small: number;
+      medium: number;
+      large: number;
+    };
+    qualityNotes: string; // Poznámky o kvalite ingrediencií
+    timingNotes: string; // Časové poznámky
+  };
+  
+  // Waiter Manual
+  waiterManual?: {
+    customerDescription: string; // Popis pre zákazníka
+    recommendations: string[]; // Odporúčania
+    pairing: string[]; // Čo k tomu podávať
+    specialRequests: string[]; // Špeciálne požiadavky
+    portionInfo: string; // Informácie o porciách
+    alternatives: string[]; // Alternatívy
+    servingTime: number; // Čas podávania v minútach
+  };
+  
+  // Marketing Manual
+  marketingManual?: {
+    story: string; // Príbeh jedla
+    hashtags: string[]; // Hashtagy pre social media
+    seasonality: string[]; // Sezónnosť
+    targetAudience: string[]; // Cielová skupina
+    trends: string[]; // Trendy
+    background: string; // Pozadie a história
+    chefStory: string; // Šéfkuchár story
+    localIngredients: string[]; // Lokálne ingrediencie
+  };
+  
+  // Analytics
+  analytics?: {
+    popularity: number; // Popularita (1-100)
+    profitability: number; // Ziskovosť v %
+    seasonalTrends: string[]; // Sezónne trendy
+    customerRatings: number; // Priemerné hodnotenie
+    returnRate: number; // Návratnosť zákazníkov
+    preparationEfficiency: number; // Efektivita prípravy
+  };
+  
+  // Supply Chain
+  supplyChain?: {
+    suppliers: string[]; // Dodávatelia
+    minimumOrder: number; // Minimálne množstvo
+    deliveryTime: number; // Čas dodania v dňoch
+    storageInstructions: string; // Inštrukcie skladovania
+    shelfLife: number; // Trvanlivosť v dňoch
+    backupSuppliers: string[]; // Náhradní dodávatelia
+  };
+  
+  // Financial
+  financial?: {
+    ingredientCosts: number; // Náklady na ingrediencie
+    laborCosts: number; // Pracovné náklady
+    margin: number; // Marža v %
+    pricingStrategy: string; // Cenová stratégia
+    competitorPrices: number[]; // Konkurenčné ceny
+    seasonalPriceChanges: string[]; // Sezónne zmeny cien
+  };
+  
+  // Sustainability
+  sustainability?: {
+    localIngredients: string[]; // Lokálne ingrediencie
+    organicIngredients: string[]; // Bio ingrediencie
+    wasteReduction: string; // Minimalizácia odpadu
+    carbonFootprint: number; // Ekologická stopa
+    seasonalAvailability: string[]; // Sezónna dostupnosť
+  };
 }
 
 interface Comment {
@@ -183,8 +284,6 @@ export default function MenuMaker() {
   const [processingProgress, setProcessingProgress] = useState(0);
   
   // Social states
-  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem | null>(null);
-  const [showMenuItemDetail, setShowMenuItemDetail] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'popular' | 'recent' | 'price' | 'name'>('popular');
@@ -192,6 +291,18 @@ export default function MenuMaker() {
   // Category management states
   const [selectedCategoryForEdit, setSelectedCategoryForEdit] = useState<Category | null>(null);
   const [showCategoryItems, setShowCategoryItems] = useState(false);
+  
+  // Sidebar states
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [activeCategoryFilter, setActiveCategoryFilter] = useState<string>('all');
+  
+  // Jedlo Profile states
+  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem | null>(null);
+  const [showMenuItemDetail, setShowMenuItemDetail] = useState(false);
+  const [activeTab, setActiveTab] = useState<'chef' | 'waiter' | 'marketing' | 'analytics' | 'supply' | 'financial' | 'sustainability'>('chef');
+  const [editingTab, setEditingTab] = useState<string | null>(null);
+  const [showAIInterview, setShowAIInterview] = useState(false);
+  const [showAIAssistant, setShowAIAssistant] = useState(false);
   
   // Manual Entry states
   const [showManualEntryModal, setShowManualEntryModal] = useState(false);
@@ -245,6 +356,80 @@ export default function MenuMaker() {
       ],
       cost: 8.50,
       profitMargin: 65.3,
+      
+      // Chef Manual
+      chefManual: {
+        equipment: ['large pot', 'frying pan', 'grater', 'whisk'],
+        substitutions: ['bacon for pancetta', 'pecorino for parmesan'],
+        garnishing: 'Fresh parsley and black pepper',
+        servingTemperature: 'hot',
+        portionSizes: { small: 200, medium: 300, large: 400 },
+        qualityNotes: 'Use fresh eggs and high-quality truffle',
+        timingNotes: 'Start pasta 10 minutes before serving'
+      },
+      
+      // Waiter Manual
+      waiterManual: {
+        customerDescription: 'Our signature pasta dish with black truffle and crispy pancetta',
+        recommendations: ['Pair with Chianti wine', 'Add extra parmesan'],
+        pairing: ['Chianti wine', 'Italian bread', 'Side salad'],
+        specialRequests: ['No dairy', 'Extra truffle', 'Gluten-free pasta'],
+        portionInfo: 'Generous portion, suitable for main course',
+        alternatives: ['Vegetarian version', 'Spicy version'],
+        servingTime: 5
+      },
+      
+      // Marketing Manual
+      marketingManual: {
+        story: 'Inspired by traditional Roman cuisine, elevated with premium black truffle',
+        hashtags: ['#trufflepasta', '#carbonara', '#italianfood', '#premium'],
+        seasonality: ['autumn', 'winter'],
+        targetAudience: ['food lovers', 'premium diners', 'italian cuisine fans'],
+        trends: ['truffle trend', 'authentic italian'],
+        background: 'Chef Marco learned this recipe in Rome',
+        chefStory: 'Created during our first winter season',
+        localIngredients: ['local eggs', 'italian parmesan']
+      },
+      
+      // Analytics
+      analytics: {
+        popularity: 85,
+        profitability: 65.3,
+        seasonalTrends: ['winter favorite', 'holiday special'],
+        customerRatings: 4.8,
+        returnRate: 78,
+        preparationEfficiency: 92
+      },
+      
+      // Supply Chain
+      supplyChain: {
+        suppliers: ['Local Market', 'Italian Import Co'],
+        minimumOrder: 10,
+        deliveryTime: 2,
+        storageInstructions: 'Keep truffle refrigerated, pasta in dry storage',
+        shelfLife: 7,
+        backupSuppliers: ['Premium Foods', 'Gourmet Market']
+      },
+      
+      // Financial
+      financial: {
+        ingredientCosts: 8.50,
+        laborCosts: 3.20,
+        margin: 65.3,
+        pricingStrategy: 'Premium pricing for luxury ingredients',
+        competitorPrices: [22.00, 26.00, 28.00],
+        seasonalPriceChanges: ['+15% in winter', '+10% during holidays']
+      },
+      
+      // Sustainability
+      sustainability: {
+        localIngredients: ['eggs', 'parsley'],
+        organicIngredients: ['organic eggs', 'organic parsley'],
+        wasteReduction: 'Use leftover pasta water for sauce',
+        carbonFootprint: 2.3,
+        seasonalAvailability: ['truffle: autumn-winter', 'parsley: year-round']
+      },
+      
       comments: [
         {
           id: '1',
@@ -299,6 +484,80 @@ export default function MenuMaker() {
       ],
       cost: 12.00,
       profitMargin: 57.1,
+      
+      // Chef Manual
+      chefManual: {
+        equipment: ['grill', 'fish spatula', 'brush', 'thermometer'],
+        substitutions: ['trout for salmon', 'dill for herbs'],
+        garnishing: 'Fresh herbs and lemon wedges',
+        servingTemperature: 'hot',
+        portionSizes: { small: 150, medium: 200, large: 250 },
+        qualityNotes: 'Use fresh salmon, check for doneness with thermometer',
+        timingNotes: 'Grill 4-5 minutes per side for medium'
+      },
+      
+      // Waiter Manual
+      waiterManual: {
+        customerDescription: 'Fresh Atlantic salmon grilled to perfection with seasonal herbs',
+        recommendations: ['Pair with white wine', 'Add extra lemon'],
+        pairing: ['Sauvignon Blanc', 'Grilled vegetables', 'Rice pilaf'],
+        specialRequests: ['Well done', 'Extra herbs', 'No lemon'],
+        portionInfo: 'Standard portion, healthy option',
+        alternatives: ['Baked version', 'Different fish'],
+        servingTime: 3
+      },
+      
+      // Marketing Manual
+      marketingManual: {
+        story: 'Fresh Atlantic salmon sourced from sustainable fisheries',
+        hashtags: ['#grilledsalmon', '#healthyfood', '#seafood', '#sustainable'],
+        seasonality: ['spring', 'summer'],
+        targetAudience: ['health conscious', 'seafood lovers', 'dieters'],
+        trends: ['healthy eating', 'sustainable seafood'],
+        background: 'Sourced from certified sustainable fisheries',
+        chefStory: 'Chef Sarah\'s signature healthy dish',
+        localIngredients: ['local herbs', 'fresh lemon']
+      },
+      
+      // Analytics
+      analytics: {
+        popularity: 72,
+        profitability: 57.1,
+        seasonalTrends: ['summer favorite', 'healthy choice'],
+        customerRatings: 4.6,
+        returnRate: 65,
+        preparationEfficiency: 88
+      },
+      
+      // Supply Chain
+      supplyChain: {
+        suppliers: ['Fresh Fish Co', 'Local Market'],
+        minimumOrder: 5,
+        deliveryTime: 1,
+        storageInstructions: 'Keep refrigerated, use within 2 days',
+        shelfLife: 2,
+        backupSuppliers: ['Premium Seafood', 'Ocean Fresh']
+      },
+      
+      // Financial
+      financial: {
+        ingredientCosts: 12.00,
+        laborCosts: 4.50,
+        margin: 57.1,
+        pricingStrategy: 'Competitive pricing for premium seafood',
+        competitorPrices: [26.00, 30.00, 32.00],
+        seasonalPriceChanges: ['+10% in summer', '+5% during holidays']
+      },
+      
+      // Sustainability
+      sustainability: {
+        localIngredients: ['herbs', 'lemon'],
+        organicIngredients: ['organic herbs', 'organic lemon'],
+        wasteReduction: 'Use fish trimmings for stock',
+        carbonFootprint: 1.8,
+        seasonalAvailability: ['salmon: year-round', 'herbs: spring-summer']
+      },
+      
       comments: [],
       ratings: [],
       photos: []
@@ -808,8 +1067,9 @@ export default function MenuMaker() {
   // Filter and sort
   const filteredItems = menuItems.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         item.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+                         item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         item.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    const matchesCategory = activeCategoryFilter === 'all' || item.category === activeCategoryFilter;
     return matchesSearch && matchesCategory;
   });
 
@@ -1256,72 +1516,244 @@ export default function MenuMaker() {
     );
   };
 
+  // Tool management functions
+  const handleSaveChefManual = (chefManual: any) => {
+    if (selectedMenuItem) {
+      setMenuItems(prev => prev.map(item => 
+        item.id === selectedMenuItem.id 
+          ? { ...item, chefManual }
+          : item
+      ));
+      setEditingTab(null);
+    }
+  };
+
+  const handleSaveWaiterManual = (waiterManual: any) => {
+    if (selectedMenuItem) {
+      setMenuItems(prev => prev.map(item => 
+        item.id === selectedMenuItem.id 
+          ? { ...item, waiterManual }
+          : item
+      ));
+      setEditingTab(null);
+    }
+  };
+
+  const handleSaveMarketingManual = (marketingManual: any) => {
+    if (selectedMenuItem) {
+      setMenuItems(prev => prev.map(item => 
+        item.id === selectedMenuItem.id 
+          ? { ...item, marketingManual }
+          : item
+      ));
+      setEditingTab(null);
+    }
+  };
+
+  const handleSaveAnalytics = (analytics: any) => {
+    if (selectedMenuItem) {
+      setMenuItems(prev => prev.map(item => 
+        item.id === selectedMenuItem.id 
+          ? { ...item, analytics }
+          : item
+      ));
+      setEditingTab(null);
+    }
+  };
+
+  const handleSaveSupplyChain = (supplyChain: any) => {
+    if (selectedMenuItem) {
+      setMenuItems(prev => prev.map(item => 
+        item.id === selectedMenuItem.id 
+          ? { ...item, supplyChain }
+          : item
+      ));
+      setEditingTab(null);
+    }
+  };
+
+  const handleSaveFinancial = (financial: any) => {
+    if (selectedMenuItem) {
+      setMenuItems(prev => prev.map(item => 
+        item.id === selectedMenuItem.id 
+          ? { ...item, financial }
+          : item
+      ));
+      setEditingTab(null);
+    }
+  };
+
+  const handleSaveSustainability = (sustainability: any) => {
+    if (selectedMenuItem) {
+      setMenuItems(prev => prev.map(item => 
+        item.id === selectedMenuItem.id 
+          ? { ...item, sustainability }
+          : item
+      ));
+      setEditingTab(null);
+    }
+  };
+
+  const openMenuItemDetail = (item: MenuItem) => {
+    setSelectedMenuItem(item);
+    setShowMenuItemDetail(true);
+    setActiveTab('chef');
+    setEditingTab(null);
+  };
+
+  const closeMenuItemDetail = () => {
+    setShowMenuItemDetail(false);
+    setSelectedMenuItem(null);
+    setEditingTab(null);
+  };
+
+  const handleAIInterviewComplete = (manuals: MenuData) => {
+    // Create new menu item with AI-generated manuals
+    const newMenuItem: MenuItem = {
+      id: `ai-generated-${Date.now()}`,
+      name: 'AI Generated Dish',
+      description: 'Dish created through AI interview',
+      price: 0,
+      category: 'main-courses',
+      image: '',
+      isPopular: false,
+      isFeatured: false,
+      likes: 0,
+      views: 0,
+      shares: 0,
+      createdBy: 'AI Assistant',
+      createdAt: new Date(),
+      lastModified: new Date(),
+      status: 'draft',
+      tags: [],
+      allergens: [],
+      preparationTime: 0,
+      difficulty: 'medium',
+      ingredients: [],
+      instructions: [],
+      cost: 0,
+      profitMargin: 0,
+      comments: [],
+      ratings: [],
+      photos: [],
+      
+      // Apply AI-generated manuals
+      chefManual: manuals.chefManual,
+      waiterManual: manuals.waiterManual,
+      marketingManual: manuals.marketingManual,
+      analytics: manuals.analytics,
+      supplyChain: manuals.supplyChain,
+      financial: manuals.financial,
+      sustainability: manuals.sustainability
+    };
+
+    setMenuItems(prev => [newMenuItem, ...prev]);
+    setShowAIInterview(false);
+    
+    // Open the new item for editing
+    setSelectedMenuItem(newMenuItem);
+    setShowMenuItemDetail(true);
+  };
+
+  const handleAIInterviewCancel = () => {
+    setShowAIInterview(false);
+  };
+
+  const createRestaurantContext = (): RestaurantContext => {
+    return {
+      menuItems: menuItems,
+      restaurantName: 'MastroHub Restaurant',
+      cuisine: 'International',
+      location: 'City Center',
+      targetAudience: ['Business professionals', 'Food enthusiasts'],
+      priceRange: 'premium',
+      totalRevenue: menuItems.reduce((sum, item) => sum + (item.price * 10), 0), // Mock calculation
+      averageOrderValue: menuItems.length > 0 ? menuItems.reduce((sum, item) => sum + item.price, 0) / menuItems.length : 0,
+      customerCount: menuItems.length * 50, // Mock calculation
+      popularItems: menuItems.filter(item => item.isPopular).map(item => item.name),
+      seasonalTrends: ['Summer salads', 'Winter comfort food'],
+      availableTools: ['Menu Maker', 'QR Menu', 'Analytics', 'Marketing'],
+      qrMenuEnabled: true,
+      analyticsEnabled: true,
+      marketingEnabled: true
+    };
+  };
+
   return (
     <AuthGuard>
       <div className="min-h-screen bg-white">
-        <UserProfile />
         {/* Header */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => window.history.back()}
-                className="flex items-center space-x-2 px-4 py-2 text-slate-600 hover:text-slate-900 transition-colors"
-              >
-                <ArrowLeft size={20} />
-                <span>Back to Restaurant Curator</span>
-              </button>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-slate-900">Menu Social Network</h1>
-              {menuItems.length > 0 && (
-                <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                  {menuItems.length} items saved
-                </span>
-              )}
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              {/* Navigation Tabs */}
-              <div className="flex items-center space-x-1 bg-slate-100 rounded-lg p-1">
-                {['feed', 'import', 'organize', 'analytics'].map((view) => (
-                  <button
-                    key={view}
-                    onClick={() => setActiveView(view as "onboarding" | "feed" | "import" | "organize" | "analytics")}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                      activeView === view
-                        ? 'bg-white text-slate-900 shadow-sm'
-                        : 'text-slate-600 hover:text-slate-900'
-                    }`}
-                  >
-                    {view.charAt(0).toUpperCase() + view.slice(1)}
-                  </button>
-                ))}
+        <div className="bg-white border-b border-slate-200 sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <button
+                  onClick={() => window.history.back()}
+                  className="flex items-center space-x-2 px-4 py-2 text-slate-600 hover:text-slate-900 transition-colors"
+                >
+                  <ArrowLeft size={20} />
+                  <span>Back to Restaurant Curator</span>
+                </button>
               </div>
               
-              <div className="flex items-center space-x-2">
-                <button className="p-2 text-slate-400 hover:text-slate-600">
-                  <Bell size={20} />
-                </button>
-                <button className="p-2 text-slate-400 hover:text-slate-600">
-                  <Settings size={20} />
-                </button>
+              <div className="flex items-center space-x-4">
+                <h1 className="text-2xl font-bold text-slate-900">Menu Social Network</h1>
+                {menuItems.length > 0 && (
+                  <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                    {menuItems.length} items saved
+                  </span>
+                )}
+              </div>
+              
+              <div className="flex items-center space-x-4">
+                {/* Navigation Tabs */}
+                <div className="flex items-center space-x-1 bg-slate-100 rounded-lg p-1">
+                  {['feed', 'import', 'organize', 'analytics'].map((view) => (
+                    <button
+                      key={view}
+                      onClick={() => setActiveView(view as "onboarding" | "feed" | "import" | "organize" | "analytics")}
+                      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                        activeView === view
+                          ? 'bg-white text-slate-900 shadow-sm'
+                          : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                    >
+                      {view.charAt(0).toUpperCase() + view.slice(1)}
+                    </button>
+                  ))}
+                </div>
                 
-                {/* Removed Export/Import buttons as requested */}
-                
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
-                  M
+                <div className="flex items-center space-x-2">
+                  <button className="p-2 text-slate-400 hover:text-slate-600">
+                    <Bell size={20} />
+                  </button>
+                  <button className="p-2 text-slate-400 hover:text-slate-600">
+                    <Settings size={20} />
+                  </button>
+                  
+                  {/* AI Interview Button */}
+                  <button
+                    onClick={() => setShowAIInterview(true)}
+                    className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+                  >
+                    <Brain size={16} />
+                    <span className="text-sm font-medium">AI Interview</span>
+                  </button>
+                  
+                  {/* Removed Export/Import buttons as requested */}
+                  
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    M
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Main Content */}
+        <div className="pt-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* ONBOARDING VIEW - First time user */}
         {activeView === 'onboarding' && (
           <div className="max-w-4xl mx-auto">
@@ -1342,7 +1774,7 @@ export default function MenuMaker() {
               {/* Import Options */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
                 {/* Google Vision Import - Primary Option */}
-                <motion.div
+                <MotionDiv
                   whileHover={{ scale: 1.02 }}
                   className="p-8 bg-white rounded-2xl shadow-xl border-2 border-blue-200 cursor-pointer relative overflow-hidden"
                   onClick={() => {
@@ -1381,10 +1813,10 @@ export default function MenuMaker() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </MotionDiv>
 
                 {/* Manual Import - Secondary Option */}
-                <motion.div
+                <MotionDiv
                   whileHover={{ scale: 1.02 }}
                   className="p-8 bg-white rounded-2xl shadow-xl border-2 border-slate-200 cursor-pointer"
                   onClick={() => {
@@ -1418,12 +1850,12 @@ export default function MenuMaker() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </MotionDiv>
               </div>
 
               {/* Session Recovery */}
               {importedProducts.length > 0 && (
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
                   className="p-6 bg-blue-50 border border-blue-200 rounded-xl"
@@ -1447,7 +1879,7 @@ export default function MenuMaker() {
                       Continue Organizing
                     </button>
                   </div>
-                </motion.div>
+                </MotionDiv>
               )}
             </div>
           </div>
@@ -1455,69 +1887,168 @@ export default function MenuMaker() {
 
         {/* FEED VIEW - After import */}
         {activeView === 'feed' && hasMenuItems && (
-          <div className="space-y-8">
-            {/* Enhanced Header */}
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h1 className="text-3xl font-bold text-slate-900">Menu Feed</h1>
-                  <p className="text-slate-600 mt-1">Discover and manage your menu items</p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
-                    {menuItems.length} items
-                  </span>
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setShowImportModal(true)}
-                    className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg"
+          <div className="flex h-screen">
+            {/* Sidebar */}
+            <div className={`w-80 bg-white border-r border-slate-200 flex-shrink-0 ${sidebarOpen ? 'block' : 'hidden'}`}>
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-bold text-slate-900">Categories</h2>
+                  <button
+                    onClick={() => setSidebarOpen(false)}
+                    className="lg:hidden p-2 text-slate-400 hover:text-slate-600"
                   >
+                    <X size={20} />
+                  </button>
+                </div>
+                
+                {/* Category List */}
+                <div className="space-y-2">
+                  {/* All Items */}
+                  <button
+                    onClick={() => setActiveCategoryFilter('all')}
+                    className={`w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
+                      activeCategoryFilter === 'all'
+                        ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                        : 'text-slate-600 hover:bg-slate-50'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                        <UtensilsCrossed size={16} className="text-white" />
+                      </div>
+                      <span className="font-medium">All Items</span>
+                    </div>
+                    <span className="text-sm bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
+                      {menuItems.length}
+                    </span>
+                  </button>
+                  
+                  {/* Category Items */}
+                  {categories.map(category => {
+                    const itemCount = menuItems.filter(item => item.category === category.id).length;
+                    return (
+                      <button
+                        key={category.id}
+                        onClick={() => setActiveCategoryFilter(category.id)}
+                        className={`w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
+                          activeCategoryFilter === category.id
+                            ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                            : 'text-slate-600 hover:bg-slate-50'
+                        }`}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${category.color}`}>
+                            <span className="text-white font-bold text-sm">
+                              {category.name.charAt(0)}
+                            </span>
+                          </div>
+                          <span className="font-medium">{category.name}</span>
+                        </div>
+                        <span className="text-sm bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
+                          {itemCount}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+                
+                {/* Add Category Button */}
+                <button
+                  onClick={() => {
+                    const newCategory = prompt('Category name:');
+                    if (newCategory && newCategory.trim()) {
+                      setCategories(prev => [...prev, {
+                        id: `cat-${Date.now()}`,
+                        name: newCategory.trim(),
+                        description: '',
+                        icon: '',
+                        color: 'bg-slate-500',
+                        items: [],
+                        isActive: true,
+                        sortOrder: prev.length
+                      }]);
+                    }
+                  }}
+                  className="w-full mt-4 p-3 border-2 border-dashed border-slate-300 rounded-lg text-slate-500 hover:text-slate-700 hover:border-slate-400 transition-all duration-200"
+                >
+                  <div className="flex items-center justify-center space-x-2">
                     <Plus size={16} />
-                    <span>Add Item</span>
-                  </motion.button>
-                </div>
-              </div>
-
-              {/* Enhanced Search and Filters */}
-              <div className="flex items-center space-x-4">
-                <div className="relative flex-1 max-w-md">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={20} />
-                  <input
-                    type="text"
-                    placeholder="Search menu items..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg bg-white text-slate-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="px-4 py-3 border border-slate-300 rounded-lg bg-white text-slate-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="all">All Categories</option>
-                  {categories.map(category => (
-                    <option key={category.id} value={category.id}>{category.name}</option>
-                  ))}
-                </select>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
-                  className="px-4 py-3 border border-slate-300 rounded-lg bg-white text-slate-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="popular">Most Popular</option>
-                  <option value="recent">Recently Added</option>
-                  <option value="price">Price</option>
-                  <option value="name">Name</option>
-                </select>
+                    <span className="font-medium">Add Category</span>
+                  </div>
+                </button>
               </div>
             </div>
-
-            {/* Enhanced Menu Items Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            
+            {/* Main Content */}
+            <div className="flex-1 flex flex-col">
+              {/* Header */}
+              <div className="bg-white border-b border-slate-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <button
+                      onClick={() => setSidebarOpen(!sidebarOpen)}
+                      className="lg:hidden p-2 text-slate-400 hover:text-slate-600"
+                    >
+                      <Menu size={20} />
+                    </button>
+                    <div>
+                      <h1 className="text-2xl font-bold text-slate-900">
+                        {activeCategoryFilter === 'all' 
+                          ? 'All Menu Items' 
+                          : categories.find(c => c.id === activeCategoryFilter)?.name || 'Menu Items'
+                        }
+                      </h1>
+                      <p className="text-slate-600 mt-1">
+                        {sortedItems.length} items • {activeCategoryFilter === 'all' ? 'All categories' : 'Filtered'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                      {sortedItems.length} items
+                    </span>
+                    <MotionButton 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setShowImportModal(true)}
+                      className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg"
+                    >
+                      <Plus size={16} />
+                      <span>Add Item</span>
+                    </MotionButton>
+                  </div>
+                </div>
+                
+                {/* Search and Filters */}
+                <div className="flex items-center space-x-4 mt-4">
+                  <div className="relative flex-1 max-w-md">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={20} />
+                    <input
+                      type="text"
+                      placeholder="Search menu items..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg bg-white text-slate-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value as any)}
+                    className="px-4 py-3 border border-slate-300 rounded-lg bg-white text-slate-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="popular">Most Popular</option>
+                    <option value="recent">Recently Added</option>
+                    <option value="price">Price</option>
+                    <option value="name">Name</option>
+                  </select>
+                </div>
+              </div>
+              
+              {/* Menu Items Grid */}
+              <div className="flex-1 overflow-y-auto p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {sortedItems.map(item => (
-                <motion.div
+                <MotionDiv
                   key={item.id}
                   whileHover={{ y: -8, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -1568,6 +2099,15 @@ export default function MenuMaker() {
                     {/* Quick Actions Overlay */}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                       <div className="flex items-center space-x-2">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openMenuItemDetail(item);
+                          }}
+                          className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-blue-50 transition-colors"
+                        >
+                          <Edit size={20} className="text-blue-500" />
+                        </button>
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -1650,26 +2190,28 @@ export default function MenuMaker() {
                       </span>
                     </div>
                   </div>
-                </motion.div>
+                </MotionDiv>
               ))}
-            </div>
-
-            {/* Empty State */}
-            {sortedItems.length === 0 && (
-              <div className="text-center py-12">
-                <div className="w-24 h-24 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Search size={48} className="text-slate-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">No items found</h3>
-                <p className="text-slate-600 mb-6">Try adjusting your search or filters</p>
-                <button
-                  onClick={() => setShowImportModal(true)}
-                  className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                >
-                  Add Your First Item
-                </button>
+
+                {/* Empty State */}
+                {sortedItems.length === 0 && (
+                  <div className="text-center py-12">
+                    <div className="w-24 h-24 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Search size={48} className="text-slate-400" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-slate-900 mb-2">No items found</h3>
+                    <p className="text-slate-600 mb-6">Try adjusting your search or filters</p>
+                    <button
+                      onClick={() => setShowImportModal(true)}
+                      className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                    >
+                      Add Your First Item
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         )}
 
@@ -1693,7 +2235,7 @@ export default function MenuMaker() {
               {/* Import Options */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
                 {/* Google Vision Import - Primary Option */}
-                <motion.div
+                <MotionDiv
                   whileHover={{ scale: 1.02 }}
                   className="p-8 bg-white rounded-2xl shadow-xl border-2 border-blue-200 cursor-pointer relative overflow-hidden"
                   onClick={() => {
@@ -1732,10 +2274,10 @@ export default function MenuMaker() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </MotionDiv>
 
                 {/* Manual Import - Secondary Option */}
-                <motion.div
+                <MotionDiv
                   whileHover={{ scale: 1.02 }}
                   className="p-8 bg-white rounded-2xl shadow-xl border-2 border-slate-200 cursor-pointer"
                   onClick={() => {
@@ -1769,12 +2311,12 @@ export default function MenuMaker() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </MotionDiv>
               </div>
 
               {/* Session Recovery */}
               {importedProducts.length > 0 && (
-                <motion.div
+                <MotionDiv
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="p-6 bg-blue-50 border border-blue-200 rounded-xl"
@@ -1798,7 +2340,7 @@ export default function MenuMaker() {
                       Continue Organizing
                     </button>
                   </div>
-                </motion.div>
+                </MotionDiv>
               )}
             </div>
           </div>
@@ -1983,16 +2525,16 @@ export default function MenuMaker() {
       </div>
 
       {/* Import Modal */}
-      <AnimatePresence>
+      <MotionAnimatePresence>
         {showImportModal && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
             onClick={() => setShowImportModal(false)}
           >
-            <motion.div
+            <MotionDiv
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -2062,21 +2604,21 @@ export default function MenuMaker() {
                   </button>
                 </div>
               )}
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
         )}
-      </AnimatePresence>
+      </MotionAnimatePresence>
 
       {/* Processing Modal */}
-      <AnimatePresence>
+      <MotionAnimatePresence>
         {isProcessing && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
           >
-            <motion.div
+            <MotionDiv
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -2085,12 +2627,12 @@ export default function MenuMaker() {
               <div className="space-y-6">
                 {/* Processing Icon */}
                 <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto">
-                  <motion.div
+                  <MotionDiv
                     animate={{ rotate: 360 }}
                     transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   >
                     <Camera size={32} className="text-white" />
-                  </motion.div>
+                  </MotionDiv>
                 </div>
                 
                 {/* Title */}
@@ -2106,7 +2648,7 @@ export default function MenuMaker() {
                 {/* Progress Bar */}
                 <div className="space-y-2">
                   <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3">
-                    <motion.div
+                    <MotionDiv
                       className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full"
                       initial={{ width: 0 }}
                       animate={{ width: `${processingProgress}%` }}
@@ -2146,22 +2688,22 @@ export default function MenuMaker() {
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
         )}
-      </AnimatePresence>
+      </MotionAnimatePresence>
 
       {/* Menu Item Detail Modal */}
-      <AnimatePresence>
+      <MotionAnimatePresence>
         {showMenuItemDetail && selectedMenuItem && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
             onClick={() => setShowMenuItemDetail(false)}
           >
-            <motion.div
+            <MotionDiv
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -2232,24 +2774,24 @@ export default function MenuMaker() {
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
         )}
-      </AnimatePresence>
+      </MotionAnimatePresence>
 
 
 
       {/* Edit Modal */}
-      <AnimatePresence>
+      <MotionAnimatePresence>
         {showEditModal && editingProduct && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
             onClick={() => setShowEditModal(false)}
           >
-            <motion.div
+            <MotionDiv
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -2330,15 +2872,15 @@ export default function MenuMaker() {
                   </div>
                 )}
               </div>
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
         )}
-      </AnimatePresence>
+      </MotionAnimatePresence>
 
       {/* Category Items Modal */}
-      <AnimatePresence>
+      <MotionAnimatePresence>
         {showCategoryItems && selectedCategoryForEdit && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -2348,7 +2890,7 @@ export default function MenuMaker() {
               setSelectedCategoryForEdit(null);
             }}
           >
-            <motion.div
+            <MotionDiv
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -2425,22 +2967,22 @@ export default function MenuMaker() {
                   </div>
                 )}
               </div>
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
         )}
-      </AnimatePresence>
+      </MotionAnimatePresence>
 
       {/* Manual Entry Modal */}
-      <AnimatePresence>
+      <MotionAnimatePresence>
         {showManualEntryModal && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
             onClick={() => setShowManualEntryModal(false)}
           >
-            <motion.div
+            <MotionDiv
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -2603,11 +3145,157 @@ export default function MenuMaker() {
                   </button>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
         )}
-      </AnimatePresence>
+      </MotionAnimatePresence>
+        </div>
       </div>
+
+      {/* Jedlo Profile Modal */}
+      {showMenuItemDetail && selectedMenuItem && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <div className="flex items-center gap-4">
+                {selectedMenuItem.image && (
+                  <img 
+                    src={selectedMenuItem.image} 
+                    alt={selectedMenuItem.name}
+                    className="w-16 h-16 rounded-lg object-cover"
+                  />
+                )}
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">{selectedMenuItem.name}</h2>
+                  <p className="text-gray-600">€{selectedMenuItem.price}</p>
+                </div>
+              </div>
+              <button
+                onClick={closeMenuItemDetail}
+                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Tabs */}
+            <div className="flex border-b border-gray-200">
+              {[
+                { id: 'chef', label: 'Chef Manual', icon: UtensilsCrossed },
+                { id: 'waiter', label: 'Waiter Manual', icon: Users },
+                { id: 'marketing', label: 'Marketing', icon: TrendingUp },
+                { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+                { id: 'supply', label: 'Supply Chain', icon: Package },
+                { id: 'financial', label: 'Financial', icon: DollarSign },
+                { id: 'sustainability', label: 'Sustainability', icon: Leaf }
+              ].map((tab) => {
+                const Icon = tab.icon;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${
+                      activeTab === tab.id
+                        ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Tab Content */}
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+              {activeTab === 'chef' && (
+                <ChefTool
+                  chefManual={selectedMenuItem.chefManual}
+                  onSave={handleSaveChefManual}
+                  isEditing={editingTab === 'chef'}
+                  onEdit={() => setEditingTab('chef')}
+                  onCancel={() => setEditingTab(null)}
+                />
+              )}
+              
+              {activeTab === 'waiter' && (
+                <WaiterTool
+                  waiterManual={selectedMenuItem.waiterManual}
+                  onSave={handleSaveWaiterManual}
+                  isEditing={editingTab === 'waiter'}
+                  onEdit={() => setEditingTab('waiter')}
+                  onCancel={() => setEditingTab(null)}
+                />
+              )}
+              
+              {activeTab === 'marketing' && (
+                <MarketingTool
+                  marketingManual={selectedMenuItem.marketingManual}
+                  onSave={handleSaveMarketingManual}
+                  isEditing={editingTab === 'marketing'}
+                  onEdit={() => setEditingTab('marketing')}
+                  onCancel={() => setEditingTab(null)}
+                />
+              )}
+              
+              {activeTab === 'analytics' && (
+                <AnalyticsTool
+                  analytics={selectedMenuItem.analytics}
+                  onSave={handleSaveAnalytics}
+                  isEditing={editingTab === 'analytics'}
+                  onEdit={() => setEditingTab('analytics')}
+                  onCancel={() => setEditingTab(null)}
+                />
+              )}
+              
+              {activeTab === 'supply' && (
+                <SupplyChainTool
+                  supplyChain={selectedMenuItem.supplyChain}
+                  onSave={handleSaveSupplyChain}
+                  isEditing={editingTab === 'supply'}
+                  onEdit={() => setEditingTab('supply')}
+                  onCancel={() => setEditingTab(null)}
+                />
+              )}
+              
+              {activeTab === 'financial' && (
+                <FinancialTool
+                  financial={selectedMenuItem.financial}
+                  onSave={handleSaveFinancial}
+                  isEditing={editingTab === 'financial'}
+                  onEdit={() => setEditingTab('financial')}
+                  onCancel={() => setEditingTab(null)}
+                />
+              )}
+              
+              {activeTab === 'sustainability' && (
+                <SustainabilityTool
+                  sustainability={selectedMenuItem.sustainability}
+                  onSave={handleSaveSustainability}
+                  isEditing={editingTab === 'sustainability'}
+                  onEdit={() => setEditingTab('sustainability')}
+                  onCancel={() => setEditingTab(null)}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* AI Interview Modal */}
+      {showAIInterview && (
+        <AIInterview
+          onComplete={handleAIInterviewComplete}
+          onCancel={handleAIInterviewCancel}
+        />
+      )}
+      
+      {/* AI Assistant Widget - Always visible */}
+      <AIAssistantWidget
+        restaurantContext={createRestaurantContext()}
+      />
     </AuthGuard>
   );
 } 

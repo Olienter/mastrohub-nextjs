@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { MotionDiv, MotionH1, MotionP, MotionButton, fadeIn, slideUp } from '@/lib/optimizedImports';
 import { 
   Search, 
   Menu, 

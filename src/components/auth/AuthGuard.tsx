@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
@@ -27,7 +27,10 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
 
   // Not authenticated - redirect to login
   if (!user) {
-    router.push('/login');
+    // Use useEffect to avoid SSR issues
+    React.useEffect(() => {
+      router.push('/login');
+    }, [router]);
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
