@@ -14,7 +14,7 @@ const LoginPrompt = () => (
   <div className="text-center p-8">
     <h2 className="text-xl font-semibold mb-2">Please Log In</h2>
     <p className="text-gray-600 mb-4">You need to be logged in to access this feature.</p>
-    <a href="/login" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+    <a href="/login" className="bg-blue-600 text-gray-900 px-4 py-2 rounded-lg hover:bg-blue-700">
       Go to Login
     </a>
   </div>
@@ -25,7 +25,7 @@ const UpgradePrompt = () => (
   <div className="text-center p-8">
     <h2 className="text-xl font-semibold mb-2">Premium Feature</h2>
     <p className="text-gray-600 mb-4">This feature requires a premium subscription.</p>
-    <a href="/upgrade" className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+    <a href="/upgrade" className="bg-green-600 text-gray-900 px-4 py-2 rounded-lg hover:bg-green-700">
       Upgrade Now
     </a>
   </div>

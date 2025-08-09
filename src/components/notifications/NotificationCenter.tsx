@@ -106,6 +106,20 @@ export default function NotificationCenter({ isOpen, onClose }: NotificationCent
     }
   };
 
+  // Reset notifications (delete all)
+  const handleResetNotifications = async () => {
+    if (confirm('Are you sure you want to reset all notifications? This action cannot be undone.')) {
+      try {
+        await notificationService.resetNotifications();
+        await loadNotifications();
+        alert('All notifications have been reset.');
+      } catch (error) {
+        console.error('Error resetting notifications:', error);
+        alert('Failed to reset notifications.');
+      }
+    }
+  };
+
   // Filter notifications
   const filteredNotifications = notifications.filter(notification => {
     if (filter === 'unread' && notification.read) return false;
@@ -169,6 +183,14 @@ export default function NotificationCenter({ isOpen, onClose }: NotificationCent
                   title="Mark all as read"
                 >
                   <Check className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={handleResetNotifications}
+                  disabled={loading}
+                  className="p-1 text-gray-400 hover:text-red-600 disabled:opacity-50"
+                  title="Reset notifications"
+                >
+                  <Trash2 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={loadNotifications}

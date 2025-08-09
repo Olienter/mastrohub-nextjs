@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Development server configuration
+  devIndicators: {
+    buildActivity: true,
+    buildActivityPosition: 'bottom-right',
+  },
+  
   // Enable ESLint for better code quality
   eslint: {
     ignoreDuringBuilds: false, // Enable ESLint during builds
@@ -65,6 +71,15 @@ const nextConfig = {
       // Better source maps for debugging
       config.devtool = 'eval-source-map'
     }
+    
+    // Bundle analyzer
+    if (process.env.ANALYZE === 'true') {
+      const { BundleAnalyzerPlugin } = require('@next/bundle-analyzer')({
+        enabled: true,
+      })
+      config.plugins.push(new BundleAnalyzerPlugin())
+    }
+    
     return config
   },
 }

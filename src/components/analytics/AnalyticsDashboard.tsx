@@ -85,11 +85,11 @@ export default function AnalyticsDashboard() {
   }, [isRealTime]);
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
+    <div className="bg-white rounded-xl shadow-lg p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <BarChart3 className="w-6 h-6 text-blue-600" />
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+          <h3 className="text-xl font-bold text-gray-900">
             Analytics Dashboard
           </h3>
         </div>
@@ -98,8 +98,8 @@ export default function AnalyticsDashboard() {
           onClick={() => setIsRealTime(!isRealTime)}
           className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
             isRealTime 
-              ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400'
-              : 'bg-gray-100 text-gray-700 dark:bg-gray-900/20 dark:text-gray-400'
+              ? 'bg-green-100 text-green-700'
+              : 'bg-gray-100 text-gray-700'
           }`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -112,7 +112,7 @@ export default function AnalyticsDashboard() {
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <motion.div
-          className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg"
+          className="bg-blue-50 p-4 rounded-lg"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.1 }}
@@ -124,13 +124,13 @@ export default function AnalyticsDashboard() {
           <p className="text-2xl font-bold text-blue-600">
             {analytics.pageViews.toLocaleString()}
           </p>
-          <p className="text-xs text-gray-600 dark:text-gray-400">
+          <p className="text-xs text-gray-600">
             +12% from last week
           </p>
         </motion.div>
 
         <motion.div
-          className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg"
+          className="bg-green-50 p-4 rounded-lg"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2 }}
@@ -142,13 +142,13 @@ export default function AnalyticsDashboard() {
           <p className="text-2xl font-bold text-green-600">
             {analytics.uniqueVisitors.toLocaleString()}
           </p>
-          <p className="text-xs text-gray-600 dark:text-gray-400">
+          <p className="text-xs text-gray-600">
             +8% from last week
           </p>
         </motion.div>
 
         <motion.div
-          className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg"
+          className="bg-purple-50 p-4 rounded-lg"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.3 }}
@@ -160,13 +160,13 @@ export default function AnalyticsDashboard() {
           <p className="text-2xl font-bold text-purple-600">
             {analytics.averageTimeOnPage}m
           </p>
-          <p className="text-xs text-gray-600 dark:text-gray-400">
+          <p className="text-xs text-gray-600">
             +2.3% from last week
           </p>
         </motion.div>
 
         <motion.div
-          className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg"
+          className="bg-orange-50 p-4 rounded-lg"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.4 }}
@@ -178,7 +178,7 @@ export default function AnalyticsDashboard() {
           <p className="text-2xl font-bold text-orange-600">
             {analytics.realTimeVisitors}
           </p>
-          <p className="text-xs text-gray-600 dark:text-gray-400">
+          <p className="text-xs text-gray-600">
             Currently online
           </p>
         </motion.div>
@@ -186,23 +186,23 @@ export default function AnalyticsDashboard() {
 
       {/* Top Articles */}
       <div className="mb-8">
-        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <h4 className="text-lg font-semibold text-gray-900 mb-4">
           Top Performing Articles
         </h4>
         <div className="space-y-3">
           {analytics.topArticles.map((article, index) => (
             <motion.div
               key={index}
-              className="flex items-center justify-between p-3 bg-gray-50 dark:bg-slate-700 rounded-lg"
+              className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 + index * 0.1 }}
             >
               <div className="flex-1">
-                <p className="font-medium text-gray-900 dark:text-white text-sm line-clamp-1">
+                <p className="font-medium text-gray-900 text-sm line-clamp-1">
                   {article.title}
                 </p>
-                <div className="flex items-center gap-4 mt-1 text-xs text-gray-600 dark:text-gray-400">
+                <div className="flex items-center gap-4 mt-1 text-xs text-gray-600">
                   <span className="flex items-center gap-1">
                     <Eye className="w-3 h-3" />
                     {article.views.toLocaleString()}
@@ -224,7 +224,7 @@ export default function AnalyticsDashboard() {
 
       {/* Traffic Sources */}
       <div className="mb-8">
-        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <h4 className="text-lg font-semibold text-gray-900 mb-4">
           Traffic Sources
         </h4>
         <div className="space-y-3">
@@ -241,9 +241,9 @@ export default function AnalyticsDashboard() {
                   className="w-4 h-4 rounded-full"
                   style={{ backgroundColor: source.color }}
                 />
-                <span className="text-gray-700 dark:text-gray-300">{source.source}</span>
+                <span className="text-gray-700">{source.source}</span>
               </div>
-              <span className="font-semibold text-gray-900 dark:text-white">
+              <span className="font-semibold text-gray-900">
                 {source.percentage}%
               </span>
             </motion.div>
@@ -253,22 +253,22 @@ export default function AnalyticsDashboard() {
 
       {/* Engagement Metrics */}
       <div>
-        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <h4 className="text-lg font-semibold text-gray-900 mb-4">
           Engagement Metrics
         </h4>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {Object.entries(analytics.engagementMetrics).map(([metric, value], index) => (
             <motion.div
               key={metric}
-              className="text-center p-3 bg-gray-50 dark:bg-slate-700 rounded-lg"
+              className="text-center p-3 bg-gray-50 rounded-lg"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.7 + index * 0.1 }}
             >
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-2xl font-bold text-gray-900">
                 {value.toLocaleString()}
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 capitalize">
+              <p className="text-sm text-gray-600 capitalize">
                 {metric}
               </p>
             </motion.div>

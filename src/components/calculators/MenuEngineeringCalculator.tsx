@@ -134,7 +134,7 @@ export default function MenuEngineeringCalculator() {
           </h3>
           <motion.button
             onClick={addMenuItem}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-blue-600 text-gray-900 rounded-lg hover:bg-blue-700 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -149,33 +149,33 @@ export default function MenuEngineeringCalculator() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
-              className="grid grid-cols-1 md:grid-cols-6 gap-4 p-4 bg-gray-50 dark:bg-slate-700 rounded-lg mb-4"
+              className="grid grid-cols-1 md:grid-cols-6 gap-4 p-4 bg-gray-50 rounded-lg mb-4"
             >
               <input
                 type="text"
                 placeholder="Item name"
                 value={item.name}
                 onChange={(e) => updateMenuItem(item.id, 'name', e.target.value)}
-                className="md:col-span-2 p-2 border border-gray-300 dark:border-slate-600 rounded focus:ring-2 focus:ring-blue-500 dark:bg-slate-600 dark:text-white"
+                className="md:col-span-2 p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="number"
                 placeholder="Price"
                 value={item.price}
                 onChange={(e) => updateMenuItem(item.id, 'price', parseFloat(e.target.value) || 0)}
-                className="p-2 border border-gray-300 dark:border-slate-600 rounded focus:ring-2 focus:ring-blue-500 dark:bg-slate-600 dark:text-white"
+                className="p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="number"
                 placeholder="Cost"
                 value={item.cost}
                 onChange={(e) => updateMenuItem(item.id, 'cost', parseFloat(e.target.value) || 0)}
-                className="p-2 border border-gray-300 dark:border-slate-600 rounded focus:ring-2 focus:ring-blue-500 dark:bg-slate-600 dark:text-white"
+                className="p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
               />
               <select
                 value={item.popularity}
                 onChange={(e) => updateMenuItem(item.id, 'popularity', parseInt(e.target.value))}
-                className="p-2 border border-gray-300 dark:border-slate-600 rounded focus:ring-2 focus:ring-blue-500 dark:bg-slate-600 dark:text-white"
+                className="p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
               >
                 {[1,2,3,4,5,6,7,8,9,10].map(num => (
                   <option key={num} value={num}>{num}/10 Popularity</option>
@@ -183,7 +183,7 @@ export default function MenuEngineeringCalculator() {
               </select>
               <button
                 onClick={() => removeMenuItem(item.id)}
-                className="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900 rounded"
+                className="p-2 text-red-600 hover:bg-red-100 rounded"
               >
                 Remove
               </button>
@@ -194,7 +194,7 @@ export default function MenuEngineeringCalculator() {
         <motion.button
           onClick={calculateMenu}
           disabled={menuItems.length === 0 || isCalculating}
-          className="w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+          className="w-full py-3 bg-green-600 text-gray-900 rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
           whileHover={{ scale: isCalculating ? 1 : 1.02 }}
           whileTap={{ scale: isCalculating ? 1 : 0.98 }}
         >
@@ -271,7 +271,7 @@ export default function MenuEngineeringCalculator() {
 
             {/* Financial Summary */}
             <motion.div
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-gray-900 p-6 rounded-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -279,15 +279,15 @@ export default function MenuEngineeringCalculator() {
               <h3 className="text-xl font-bold mb-4">Financial Summary</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <p className="text-blue-100">Total Revenue</p>
+                  <p className="text-gray-700">Total Revenue</p>
                   <p className="text-2xl font-bold">${analysis.totalRevenue.toFixed(2)}</p>
                 </div>
                 <div>
-                  <p className="text-blue-100">Total Profit</p>
+                  <p className="text-gray-700">Total Profit</p>
                   <p className="text-2xl font-bold">${analysis.totalProfit.toFixed(2)}</p>
                 </div>
                 <div>
-                  <p className="text-blue-100">Profit Margin</p>
+                  <p className="text-gray-700">Profit Margin</p>
                   <p className="text-2xl font-bold">{analysis.profitMargin.toFixed(1)}%</p>
                 </div>
               </div>
@@ -295,19 +295,19 @@ export default function MenuEngineeringCalculator() {
 
             {/* Recommendations */}
             <motion.div
-              className="bg-gray-50 dark:bg-slate-700 p-6 rounded-lg"
+              className="bg-gray-50 p-6 rounded-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
             >
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
                 Recommendations
               </h3>
               <ul className="space-y-2">
                 {analysis.recommendations.map((rec, index) => (
                   <motion.li
                     key={index}
-                    className="flex items-start gap-2 text-gray-700 dark:text-gray-300"
+                    className="flex items-start gap-2 text-gray-700"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.7 + index * 0.1 }}

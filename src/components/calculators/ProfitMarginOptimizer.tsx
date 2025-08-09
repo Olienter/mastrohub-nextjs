@@ -113,7 +113,7 @@ export default function ProfitMarginOptimizer() {
       <motion.button
         onClick={calculateOptimization}
         disabled={currentPrice <= 0 || currentCost <= 0}
-        className="w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors mb-8"
+        className="w-full py-3 bg-green-600 text-gray-900 rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors mb-8"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >

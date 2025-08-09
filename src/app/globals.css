@@ -7,6 +7,48 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 🎨 GLOBAL COLOR SYSTEM - SEMANTIC COLOR TOKENS */
+:root {
+  /* Light theme colors */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --fg: #111827;
+  --muted: #6b7280;
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #111827;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e5e7eb;
+  --input: #ffffff;
+  --ring: #3b82f6;
+  --radius: 0.5rem;
+}
+
+/* Dark theme colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0a0a;
+    --surface: #1f2937;
+    --fg: #f9fafb;
+    --muted: #9ca3af;
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+    --secondary: #374151;
+    --secondary-foreground: #f9fafb;
+    --accent: #374151;
+    --accent-foreground: #f9fafb;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #374151;
+    --input: #1f2937;
+    --ring: #3b82f6;
+  }
+}
+
 /* 🎨 THEME CONFIGURATION */
 @theme {
   /* 🌈 Custom Colors for 2026 Design */
@@ -68,13 +110,13 @@
   /* 📜 Smooth Scrolling */
   html {
     scroll-behavior: smooth;
-    background-color: #0a0a0a;
+    background-color: var(--bg);
   }
   
   /* 🎭 Body Styles */
   body {
-    background-color: #0a0a0a !important;
-    color: white !important;
+    background-color: var(--bg);
+    color: var(--fg);
     min-height: 100vh;
     font-family: var(--font-family-body);
   }
@@ -1235,4 +1277,411 @@ body {
   opacity: 1;
   transform: none;
   transition: none;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* 🎯 GLOBAL TEXT CONTRAST FIXES - FINAL SOLUTION */
+/* Opravy pre biele texty na bielom pozadí - SYSTEMATICKÉ RIEŠENIE */
+
+/* 1. INPUT FIELDS - oprava placeholder textov */
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 2. SEARCH ICONS - oprava farby */
+.search-icon,
+[class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 3. DROPDOWN TEXTY - oprava farby */
+select,
+option {
+  color: #111827 !important; /* text-gray-900 */
+  background-color: #ffffff !important;
+}
+
+/* 4. BUTTON TEXTY - oprava farby */
+button[class*="text-gray-400"],
+button[class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 5. ICON TEXTY - oprava farby */
+[class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 6. LABEL TEXTY - oprava farby */
+label[class*="text-gray-400"],
+label[class*="text-gray-300"] {
+  color: #374151 !important; /* text-gray-700 */
+}
+
+/* 7. PARAGRAPH TEXTY - oprava farby */
+p[class*="text-gray-400"],
+p[class*="text-gray-300"] {
+  color: #4b5563 !important; /* text-gray-600 */
+}
+
+/* 8. SPAN TEXTY - oprava farby */
+span[class*="text-gray-400"],
+span[class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 9. DIV TEXTY - oprava farby */
+div[class*="text-gray-400"],
+div[class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 10. SPECIFICKÉ OPRAVY PRE KOMPONENTY */
+.search-input,
+.filter-input,
+.dropdown-input {
+  color: #111827 !important; /* text-gray-900 */
+  background-color: #ffffff !important;
+}
+
+.search-input::placeholder,
+.filter-input::placeholder,
+.dropdown-input::placeholder {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 11. OPRAVY PRE IKONY V INPUT POLIACH */
+.input-icon,
+.search-icon {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 12. OPRAVY PRE DROPDOWN TEXTY */
+.dropdown-text,
+.select-text {
+  color: #111827 !important; /* text-gray-900 */
+}
+
+/* 13. OPRAVY PRE BUTTON TEXTY */
+.button-text,
+.action-text {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 14. OPRAVY PRE HOVER STATES */
+.hover-text:hover {
+  color: #374151 !important; /* text-gray-700 */
+}
+
+/* 15. OPRAVY PRE FOCUS STATES */
+.focus-text:focus {
+  color: #111827 !important; /* text-gray-900 */
+}
+
+/* 16. OPRAVY PRE DISABLED STATES */
+.disabled-text:disabled {
+  color: #9ca3af !important; /* text-gray-400 */
+}
+
+/* 17. OPRAVY PRE ACTIVE STATES */
+.active-text:active {
+  color: #111827 !important; /* text-gray-900 */
+}
+
+/* 18. OPRAVY PRE SELECTED STATES */
+.selected-text:selected {
+  color: #111827 !important; /* text-gray-900 */
+}
+
+/* 19. OPRAVY PRE CHECKED STATES */
+.checked-text:checked {
+  color: #111827 !important; /* text-gray-900 */
+}
+
+/* 20. OPRAVY PRE REQUIRED STATES */
+.required-text:required {
+  color: #111827 !important; /* text-gray-900 */
+}
+
+/* 21. OPRAVY PRE INVALID STATES */
+.invalid-text:invalid {
+  color: #dc2626 !important; /* text-red-600 */
+}
+
+/* 22. OPRAVY PRE VALID STATES */
+.valid-text:valid {
+  color: #059669 !important; /* text-green-600 */
+}
+
+/* 23. OPRAVY PRE LOADING STATES */
+.loading-text:loading {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 24. OPRAVY PRE ERROR STATES */
+.error-text:error {
+  color: #dc2626 !important; /* text-red-600 */
+}
+
+/* 25. OPRAVY PRE SUCCESS STATES */
+.success-text:success {
+  color: #059669 !important; /* text-green-600 */
+}
+
+/* 26. OPRAVY PRE WARNING STATES */
+.warning-text:warning {
+  color: #d97706 !important; /* text-yellow-600 */
+}
+
+/* 27. OPRAVY PRE INFO STATES */
+.info-text:info {
+  color: #2563eb !important; /* text-blue-600 */
+}
+
+/* 28. OPRAVY PRE DARK MODE */
+@media (prefers-color-scheme: dark) {
+  .dark-text {
+    color: #f3f4f6 !important; /* text-gray-100 */
+  }
+  
+  .dark-input::placeholder {
+    color: #9ca3af !important; /* text-gray-400 */
+  }
+  
+  .dark-icon {
+    color: #9ca3af !important; /* text-gray-400 */
+  }
+}
+
+/* 29. OPRAVY PRE LIGHT MODE */
+@media (prefers-color-scheme: light) {
+  .light-text {
+    color: #111827 !important; /* text-gray-900 */
+  }
+  
+  .light-input::placeholder {
+    color: #6b7280 !important; /* text-gray-500 */
+  }
+  
+  .light-icon {
+    color: #6b7280 !important; /* text-gray-500 */
+  }
+}
+
+/* 30. SPECIFICKÉ OPRAVY PRE MENU MAKER */
+.menu-maker input::placeholder,
+.menu-maker textarea::placeholder,
+.menu-maker select::placeholder {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.menu-maker [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.menu-maker [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 31. SPECIFICKÉ OPRAVY PRE NAVIGATION */
+.navigation [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.navigation [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 32. SPECIFICKÉ OPRAVY PRE HEADER */
+.header [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.header [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 33. SPECIFICKÉ OPRAVY PRE FOOTER */
+.footer [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.footer [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 34. SPECIFICKÉ OPRAVY PRE SIDEBAR */
+.sidebar [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.sidebar [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 35. SPECIFICKÉ OPRAVY PRE MODAL */
+.modal [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.modal [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 36. SPECIFICKÉ OPRAVY PRE CARD */
+.card [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.card [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 37. SPECIFICKÉ OPRAVY PRE BUTTON */
+.button [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.button [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 38. SPECIFICKÉ OPRAVY PRE FORM */
+.form [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.form [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 39. SPECIFICKÉ OPRAVY PRE TABLE */
+.table [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.table [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 40. SPECIFICKÉ OPRAVY PRE LIST */
+.list [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.list [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 41. SPECIFICKÉ OPRAVY PRE SEARCH */
+.search [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.search [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 42. SPECIFICKÉ OPRAVY PRE FILTER */
+.filter [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.filter [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 43. SPECIFICKÉ OPRAVY PRE DROPDOWN */
+.dropdown [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.dropdown [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 44. SPECIFICKÉ OPRAVY PRE TOOLTIP */
+.tooltip [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.tooltip [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 45. SPECIFICKÉ OPRAVY PRE BADGE */
+.badge [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.badge [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 46. SPECIFICKÉ OPRAVY PRE ALERT */
+.alert [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.alert [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 47. SPECIFICKÉ OPRAVY PRE NOTIFICATION */
+.notification [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.notification [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 48. SPECIFICKÉ OPRAVY PRE MENU */
+.menu [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.menu [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 49. SPECIFICKÉ OPRAVY PRE TABS */
+.tabs [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.tabs [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+/* 50. SPECIFICKÉ OPRAVY PRE ACCORDION */
+.accordion [class*="text-gray-400"] {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.accordion [class*="text-gray-300"] {
+  color: #6b7280 !important; /* text-gray-500 */
 }

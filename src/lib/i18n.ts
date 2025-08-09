@@ -1,5 +1,3 @@
-import { createI18n } from 'next-i18next';
-
 // Supported languages
 export const SUPPORTED_LANGUAGES = {
   'sk': { name: 'Slovenčina', flag: '🇸🇰' },
@@ -13,7 +11,7 @@ export const SUPPORTED_LANGUAGES = {
 export type SupportedLanguage = keyof typeof SUPPORTED_LANGUAGES;
 
 // Default language
-export const DEFAULT_LANGUAGE: SupportedLanguage = 'sk';
+export const DEFAULT_LANGUAGE: SupportedLanguage = 'en';
 
 // Language detection
 export function detectLanguage(): SupportedLanguage {
@@ -486,7 +484,20 @@ export const translations: Record<SupportedLanguage, TranslationKeys> = {
       notifications: 'Notifikace',
       privacy: 'Soukromí',
       branding: 'Značka',
-      language: 'Jazyk'
+      language: 'Jazyk',
+      languageDescription: 'Nastavte si jazyk aplikace podle vašich preferencí.',
+      currentLanguage: 'Aktuální jazyk',
+      languageCode: 'Kód jazyka',
+      availableLanguages: 'Dostupné jazyky',
+      quickActions: 'Rychlé akce',
+      useBrowserLanguage: 'Použít jazyk prohlížeče',
+      resetToDefault: 'Obnovit výchozí',
+      enableAutoDetect: 'Povolit automatickou detekci',
+      languageInfo: 'Informace o jazyku',
+      browserLanguage: 'Jazyk prohlížeče',
+      savedLanguage: 'Uložený jazyk',
+      autoDetect: 'Automatická detekce',
+      notSet: 'Není nastaveno'
     }
   },
   de: {
@@ -587,7 +598,20 @@ export const translations: Record<SupportedLanguage, TranslationKeys> = {
       notifications: 'Benachrichtigungen',
       privacy: 'Datenschutz',
       branding: 'Marke',
-      language: 'Sprache'
+      language: 'Sprache',
+      languageDescription: 'Stellen Sie die Sprache der Anwendung nach Ihren Präferenzen ein.',
+      currentLanguage: 'Aktuelle Sprache',
+      languageCode: 'Sprachcode',
+      availableLanguages: 'Verfügbare Sprachen',
+      quickActions: 'Schnelle Aktionen',
+      useBrowserLanguage: 'Browser-Sprache verwenden',
+      resetToDefault: 'Auf Standard zurücksetzen',
+      enableAutoDetect: 'Automatische Erkennung aktivieren',
+      languageInfo: 'Sprachinformationen',
+      browserLanguage: 'Browser-Sprache',
+      savedLanguage: 'Gespeicherte Sprache',
+      autoDetect: 'Automatische Erkennung',
+      notSet: 'Nicht gesetzt'
     }
   },
   hu: {
@@ -688,7 +712,20 @@ export const translations: Record<SupportedLanguage, TranslationKeys> = {
       notifications: 'Értesítések',
       privacy: 'Adatvédelem',
       branding: 'Márka',
-      language: 'Nyelv'
+      language: 'Nyelv',
+      languageDescription: 'Állítsa be az alkalmazás nyelvét az Ön preferenciái szerint.',
+      currentLanguage: 'Jelenlegi nyelv',
+      languageCode: 'Nyelvi kód',
+      availableLanguages: 'Elérhető nyelvek',
+      quickActions: 'Gyors műveletek',
+      useBrowserLanguage: 'Böngésző nyelv használata',
+      resetToDefault: 'Alapértelmezett visszaállítása',
+      enableAutoDetect: 'Automatikus felismerés engedélyezése',
+      languageInfo: 'Nyelvi információk',
+      browserLanguage: 'Böngésző nyelv',
+      savedLanguage: 'Mentett nyelv',
+      autoDetect: 'Automatikus felismerés',
+      notSet: 'Nincs beállítva'
     }
   },
   pl: {
@@ -789,7 +826,20 @@ export const translations: Record<SupportedLanguage, TranslationKeys> = {
       notifications: 'Powiadomienia',
       privacy: 'Prywatność',
       branding: 'Marka',
-      language: 'Język'
+      language: 'Język',
+      languageDescription: 'Ustaw język aplikacji zgodnie z Twoimi preferencjami.',
+      currentLanguage: 'Aktualny język',
+      languageCode: 'Kod języka',
+      availableLanguages: 'Dostępne języki',
+      quickActions: 'Szybkie akcje',
+      useBrowserLanguage: 'Użyj języka przeglądarki',
+      resetToDefault: 'Przywróć domyślne',
+      enableAutoDetect: 'Włącz automatyczne wykrywanie',
+      languageInfo: 'Informacje o języku',
+      browserLanguage: 'Język przeglądarki',
+      savedLanguage: 'Zapisany język',
+      autoDetect: 'Automatyczne wykrywanie',
+      notSet: 'Nie ustawiono'
     }
   }
 };

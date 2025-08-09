@@ -56,7 +56,7 @@ export default function LanguageSettingsPage() {
     const browserLang = navigator.language.split('-')[0];
     const supportedLang = Object.keys(SUPPORTED_LANGUAGES).includes(browserLang) 
       ? browserLang as SupportedLanguage 
-      : 'sk';
+      : 'en';
     
     await handleLanguageChange(supportedLang);
     setSettings(prev => ({
@@ -66,7 +66,7 @@ export default function LanguageSettingsPage() {
   };
 
   const resetToDefault = async () => {
-    await handleLanguageChange('sk');
+    await handleLanguageChange('en');
     setSettings(prev => ({
       ...prev,
       isAutoDetect: false

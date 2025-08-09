@@ -11,7 +11,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <AuthProvider>
         <WorkspaceProvider>
           <Navigation />
-          <main className="min-h-screen bg-gray-50">
+          <main className="min-h-screen bg-bg pt-0">
             {children}
           </main>
         </WorkspaceProvider>

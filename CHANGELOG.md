@@ -5,6 +5,68 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2024-12-19
+
+### 🎨 Added - Theme System Overhaul
+
+- **Semantic Color System**: Implemented a comprehensive semantic color system using CSS variables
+  - Added core color tokens: `bg`, `surface`, `fg`, `muted`, `primary`, `secondary`, `accent`, `destructive`, `border`, `input`, `ring`
+  - Support for both light and dark themes
+  - Automatic theme switching based on `prefers-color-scheme`
+
+- **Global CSS Variables**: Added CSS variables in `src/app/globals.css`
+  - Light theme colors with proper contrast ratios
+  - Dark theme colors for better accessibility
+  - Consistent color tokens across the entire application
+
+- **Tailwind Configuration**: Updated `tailwind.config.js`
+  - Added semantic color tokens that reference CSS variables
+  - Maintained backward compatibility with existing custom colors
+  - Integrated with existing design system
+
+- **Component Updates**: Migrated all components to use semantic colors
+  - Navigation component updated with new color tokens
+  - Menu Maker page fully migrated
+  - Language Switcher component updated
+  - All forms, buttons, and interactive elements updated
+
+- **ESLint Rules**: Added custom ESLint rules
+  - Prevents usage of `text-white` and `bg-white`
+  - Enforces semantic color usage
+  - Provides helpful error messages with alternatives
+
+- **Documentation**: Created comprehensive theme documentation
+  - Usage guidelines and examples
+  - Migration guide from old system
+  - Common patterns and best practices
+
+### 🐛 Fixed - White-on-White Text Issues
+
+- **Global Fix**: Resolved all white text on white background issues
+  - Systematic approach using semantic colors
+  - Proper contrast ratios maintained
+  - Accessibility improvements
+
+- **Component-Specific Fixes**:
+  - Fixed text visibility in search bars and inputs
+  - Resolved dropdown text contrast issues
+  - Fixed button text visibility
+  - Corrected navigation text colors
+
+### 🔧 Technical Improvements
+
+- **Performance**: Optimized color system for better performance
+- **Maintainability**: Centralized color management
+- **Scalability**: Easy to extend with new themes
+- **Accessibility**: WCAG compliant contrast ratios
+
+### 📚 Documentation
+
+- Added `docs/theme.md` with comprehensive theme system documentation
+- Updated component usage examples
+- Migration guide for existing code
+- Best practices and common patterns
+
 ## [Unreleased]
 
 ### Added

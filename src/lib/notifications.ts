@@ -34,6 +34,7 @@ export interface NotificationSettings {
 export class NotificationService {
   private notifications: Notification[] = [];
   private subscribers: ((notification: Notification) => void)[] = [];
+  private maxNotifications = 50; // Maximum number of notifications to keep
 
   // Mock notification data
   private mockNotifications: Notification[] = [
@@ -103,13 +104,30 @@ export class NotificationService {
 
   constructor() {
     this.notifications = [...this.mockNotifications];
+    // Clean up old notifications on initialization
+    this.cleanupOldNotifications();
+  }
+
+  // Reset notifications to initial state
+  async resetNotifications(): Promise<void> {
+    this.notifications = [...this.mockNotifications];
+    this.cleanupOldNotifications();
   }
 
   // Get all notifications
   async getNotifications(userId?: string): Promise<Notification[]> {
+    // Clean up old notifications (older than 7 days)
+    this.cleanupOldNotifications();
+    
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 100));
     return this.notifications.filter(n => !userId || n.userId === userId);
+  }
+
+  // Clean up old notifications (older than 7 days)
+  private cleanupOldNotifications(): void {
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    this.notifications = this.notifications.filter(n => n.timestamp > sevenDaysAgo);
   }
 
   // Get unread notifications count
@@ -144,9 +162,15 @@ export class NotificationService {
     };
 
     this.notifications.unshift(newNotification);
+    
+    // Keep only the latest maxNotifications
+    if (this.notifications.length > this.maxNotifications) {
+      this.notifications = this.notifications.slice(0, this.maxNotifications);
+    }
+    
     this.notifySubscribers(newNotification);
     
-    // Simulate real-time notification
+    // Simulate real-time notification (less frequently)
     this.simulateRealTimeNotification(newNotification);
     
     return newNotification;
@@ -155,6 +179,11 @@ export class NotificationService {
   // Delete notification
   async deleteNotification(notificationId: string): Promise<void> {
     this.notifications = this.notifications.filter(n => n.id !== notificationId);
+  }
+
+  // Delete all notifications
+  async deleteAllNotifications(): Promise<void> {
+    this.notifications = [];
   }
 
   // Subscribe to real-time notifications
@@ -172,6 +201,11 @@ export class NotificationService {
 
   // Simulate real-time notifications
   private simulateRealTimeNotification(notification: Notification): void {
+    // Only simulate real-time notifications occasionally (10% chance)
+    if (Math.random() > 0.1) {
+      return;
+    }
+
     // Simulate different types of real-time events
     setTimeout(() => {
       const realTimeNotifications = [
@@ -205,7 +239,7 @@ export class NotificationService {
         userId: 'current-user',
         workspaceId: 'current-workspace'
       });
-    }, Math.random() * 30000 + 10000); // Random time between 10-40 seconds
+    }, Math.random() * 300000 + 300000); // Random time between 5-10 minutes (much longer intervals)
   }
 
   // Get notification settings

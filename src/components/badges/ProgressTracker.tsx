@@ -97,15 +97,15 @@ export default function ProgressTracker({ userId, className = '' }: ProgressTrac
   return (
     <div className={`space-y-6 ${className}`}>
       {/* Level Progress */}
-      <div className="bg-gradient-to-r from-mastroCyan-500 to-mastroCyan-600 rounded-lg p-6 text-white">
+      <div className="bg-gradient-to-r from-mastroCyan-500 to-mastroCyan-600 rounded-lg p-6 text-gray-900">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-2xl font-bold">Level {levelProgress.current}</h2>
-            <p className="text-mastroCyan-100">Progress to Level {levelProgress.next}</p>
+            <p className="text-gray-700">Progress to Level {levelProgress.next}</p>
           </div>
           <div className="text-right">
             <div className="text-3xl font-bold">{progress.total_points}</div>
-            <div className="text-sm text-mastroCyan-100">Total Points</div>
+            <div className="text-sm text-gray-700">Total Points</div>
           </div>
         </div>
         

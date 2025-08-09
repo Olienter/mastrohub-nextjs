@@ -26,14 +26,14 @@ export async function GET(request: NextRequest) {
           return NextResponse.json({ error: 'Failed to fetch language preference' }, { status: 500 });
         }
 
-        const language = userPrefs?.language || 'sk';
+        const language = userPrefs?.language || 'en';
         return NextResponse.json({ language });
 
       case 'supported':
         // Get list of supported languages
         return NextResponse.json({ 
           languages: SUPPORTED_LANGUAGES,
-          default: 'sk'
+          default: 'en'
         });
 
       case 'translations':

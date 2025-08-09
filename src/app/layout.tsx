@@ -86,7 +86,7 @@ export default function RootLayout({
           Skip to main content
         </a>
       </head>
-      <body className={`${inter.className} optimized-render`}>
+      <body className={`${inter.className} optimized-render min-h-screen bg-bg text-fg antialiased`}>
         <Providers>
           <div id="main-content" className="critical">
             {children}

@@ -12,6 +12,31 @@ module.exports = {
         'display': ['Space Grotesk', 'sans-serif'],
       },
       colors: {
+        // Semantic color tokens
+        bg: 'var(--bg)',
+        surface: 'var(--surface)',
+        fg: 'var(--fg)',
+        muted: 'var(--muted)',
+        primary: {
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
+        },
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)',
+        },
+        destructive: {
+          DEFAULT: 'var(--destructive)',
+          foreground: 'var(--destructive-foreground)',
+        },
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
+        // Existing custom colors
         'mint': {
           50: '#f0fdf4',
           100: '#dcfce7',

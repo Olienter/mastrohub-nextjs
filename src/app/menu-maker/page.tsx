@@ -67,6 +67,7 @@ import { useWorkspaceContext } from '@/contexts/WorkspaceContext';
 import { useAuth } from '@/contexts/AuthContext';
 import AIInterview from '@/components/menu-maker/AIInterview';
 import AIAssistantWidget from '@/components/menu-maker/AIAssistantWidget';
+import ImageUpload from '@/components/menu-maker/ImageUpload';
 import { RestaurantContext } from '@/lib/ai-agent';
 
 // Types
@@ -132,6 +133,7 @@ export default function MenuMaker() {
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem | null>(null);
   const [showAIInterview, setShowAIInterview] = useState(false);
   const [showAddItemModal, setShowAddItemModal] = useState(false);
+  const [showImageUpload, setShowImageUpload] = useState(false);
   
   // New item form
   const [newItem, setNewItem] = useState({
@@ -339,6 +341,35 @@ export default function MenuMaker() {
     }
   }
 
+  // Handle edit item
+  const handleEditItem = (item: MenuItem) => {
+    setSelectedMenuItem(item);
+    setShowAddItemModal(true);
+  };
+
+  // Handle delete item
+  const handleDeleteItem = async (itemId: string) => {
+    if (confirm('Are you sure you want to delete this menu item?')) {
+      try {
+        await deleteMenuItem(itemId);
+        await loadMenuData();
+      } catch (error) {
+        console.error('Error deleting menu item:', error);
+      }
+    }
+  };
+
+  // Handle toggle item status
+  const handleToggleItemStatus = async (item: MenuItem) => {
+    try {
+      const updatedItem = { ...item, is_active: !item.is_active };
+      await updateMenuItem(updatedItem.id, updatedItem);
+      await loadMenuData();
+    } catch (error) {
+      console.error('Error updating menu item:', error);
+    }
+  };
+
   if (!currentWorkspace) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -356,40 +387,52 @@ export default function MenuMaker() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-bg">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-surface shadow-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 min-w-0 flex-1">
               <Link 
                 href="/restaurant-curator"
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                className="flex items-center text-muted hover:text-fg whitespace-nowrap"
               >
-                <ArrowLeft className="h-5 w-5 mr-2" />
-                Back to Restaurant Curator
+                <ArrowLeft className="h-5 w-5 mr-2 flex-shrink-0" />
+                <span className="hidden sm:inline">Back to Restaurant Curator</span>
+                <span className="sm:hidden">Back</span>
               </Link>
-              <div className="h-6 w-px bg-gray-300" />
-              <h1 className="text-xl font-semibold text-gray-900">
+              <div className="h-6 w-px bg-border flex-shrink-0" />
+              <h1 className="text-xl font-semibold text-fg truncate">
                 Menu Maker - {currentWorkspace.name}
               </h1>
             </div>
             
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
               <button
                 onClick={() => setShowAIInterview(true)}
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center px-3 sm:px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-sm sm:text-base"
               >
-                <Sparkles className="h-4 w-4 mr-2" />
-                AI Interview
+                <Sparkles className="h-4 w-4 mr-1 sm:mr-2 flex-shrink-0" />
+                <span className="hidden sm:inline">AI Interview</span>
+                <span className="sm:hidden">AI</span>
+              </button>
+              
+              <button
+                onClick={() => setShowImageUpload(true)}
+                className="flex items-center px-3 sm:px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-sm sm:text-base"
+              >
+                <Camera className="h-4 w-4 mr-1 sm:mr-2 flex-shrink-0" />
+                <span className="hidden sm:inline">OCR Upload</span>
+                <span className="sm:hidden">OCR</span>
               </button>
               
               <button
                 onClick={() => setShowAddItemModal(true)}
-                className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="flex items-center px-3 sm:px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-sm sm:text-base"
               >
-                <Plus className="h-4 w-4 mr-2" />
-                Add Item
+                <Plus className="h-4 w-4 mr-1 sm:mr-2 flex-shrink-0" />
+                <span className="hidden sm:inline">Add Item</span>
+                <span className="sm:hidden">Add</span>
               </button>
             </div>
           </div>
@@ -400,24 +443,24 @@ export default function MenuMaker() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Search and Filters */}
         <div className="mb-6 flex flex-col sm:flex-row gap-4">
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted" />
               <input
                 type="text"
                 placeholder="Search menu items..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-fg placeholder-muted bg-surface"
               />
             </div>
           </div>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
             <select
               value={activeCategoryFilter}
               onChange={(e) => setActiveCategoryFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-fg bg-surface"
             >
               <option value="all">All Categories</option>
               {menuData.categories.map(category => (
@@ -427,29 +470,39 @@ export default function MenuMaker() {
               ))}
             </select>
             
-            <div className="flex border border-gray-300 rounded-lg">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`px-3 py-2 ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600'}`}
-              >
-                <Grid className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={`px-3 py-2 ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600'}`}
-              >
-                <List className="h-4 w-4" />
-              </button>
-            </div>
+            <button
+              onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
+              className="p-2 border border-border rounded-lg hover:bg-accent transition-colors text-fg"
+            >
+              {viewMode === 'grid' ? <List className="h-4 w-4" /> : <Grid className="h-4 w-4" />}
+            </button>
+            
+            <button
+              onClick={() => setShowAIInterview(true)}
+              className="flex items-center px-3 sm:px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-sm sm:text-base"
+            >
+              <Sparkles className="h-4 w-4 mr-1 sm:mr-2 flex-shrink-0" />
+              <span className="hidden sm:inline">AI Interview</span>
+              <span className="sm:hidden">AI</span>
+            </button>
+            
+            <button
+              onClick={() => setShowImageUpload(true)}
+              className="flex items-center px-3 sm:px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-sm sm:text-base"
+            >
+              <Upload className="h-4 w-4 mr-1 sm:mr-2 flex-shrink-0" />
+              <span className="hidden sm:inline">Upload Menu</span>
+              <span className="sm:hidden">Upload</span>
+            </button>
           </div>
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <div className="mb-6 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
             <div className="flex">
-              <AlertCircle className="h-5 w-5 text-red-400 mr-2" />
-              <span className="text-red-800">{error}</span>
+              <AlertCircle className="h-5 w-5 text-destructive mr-2" />
+              <span className="text-destructive">{error}</span>
             </div>
           </div>
         )}
@@ -457,7 +510,7 @@ export default function MenuMaker() {
         {/* Loading State */}
         {loading && (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         )}
 
@@ -469,70 +522,85 @@ export default function MenuMaker() {
                 key={item.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+                className="bg-surface rounded-lg shadow-sm border border-border hover:shadow-md transition-shadow"
               >
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg font-semibold text-fg mb-2 truncate">
                         {item.name}
                       </h3>
-                      <p className="text-gray-600 text-sm mb-3">
+                      <p className="text-muted text-sm mb-3 line-clamp-2">
                         {item.description}
                       </p>
                       <div className="flex items-center justify-between">
-                        <span className="text-xl font-bold text-green-600">
+                        <span className="text-xl font-bold text-primary flex-shrink-0">
                           €{item.price.toFixed(2)}
                         </span>
-                        <div className="flex items-center space-x-2">
-                          {item.is_vegetarian && <Leaf className="h-4 w-4 text-green-500" />}
-                          {item.is_vegan && <Hash className="h-4 w-4 text-green-600" />}
-                          {item.is_gluten_free && <Tag className="h-4 w-4 text-blue-500" />}
+                        <div className="flex items-center space-x-2 flex-shrink-0">
+                          {item.is_vegetarian && (
+                            <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                              Vegetarian
+                            </span>
+                          )}
+                          {item.is_vegan && (
+                            <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                              Vegan
+                            </span>
+                          )}
+                          {item.is_gluten_free && (
+                            <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
+                              Gluten Free
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4 text-sm text-gray-500">
-                      {item.preparation_time && (
-                        <span className="flex items-center">
-                          <Clock className="h-4 w-4 mr-1" />
-                          {item.preparation_time}min
-                        </span>
-                      )}
-                      {item.category_name && (
-                        <span className="flex items-center">
-                          <Menu className="h-4 w-4 mr-1" />
-                          {item.category_name}
-                        </span>
-                      )}
+                  <div className="flex items-center space-x-4 text-sm text-muted min-w-0 flex-1">
+                    {item.preparation_time && (
+                      <span className="flex items-center whitespace-nowrap">
+                        <Clock className="h-4 w-4 mr-1 flex-shrink-0" />
+                        {item.preparation_time}min
+                      </span>
+                    )}
+                    {item.category_name && (
+                      <span className="flex items-center whitespace-nowrap">
+                        <Menu className="h-4 w-4 mr-1 flex-shrink-0" />
+                        <span className="truncate">{item.category_name}</span>
+                      </span>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => handleEditItem(item)}
+                        className="flex items-center px-3 py-1 text-sm text-primary hover:text-primary/80 hover:bg-primary/10 rounded-md transition-colors"
+                      >
+                        <Edit className="h-3 w-3 mr-1" />
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteItem(item.id)}
+                        className="flex items-center px-3 py-1 text-sm text-destructive hover:text-destructive/80 hover:bg-destructive/10 rounded-md transition-colors"
+                      >
+                        <Trash2 className="h-3 w-3 mr-1" />
+                        Delete
+                      </button>
                     </div>
                     
                     <div className="flex items-center space-x-2">
                       <button
-                        onClick={() => {
-                          setSelectedMenuItem(item);
-                          setShowMenuItemDetail(true);
-                        }}
-                        className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
+                        onClick={() => handleToggleItemStatus(item)}
+                        className={`px-3 py-1 text-sm rounded-md transition-colors ${
+                          item.is_active
+                            ? 'bg-green-100 text-green-700 hover:bg-green-200'
+                            : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                        }`}
                       >
-                        <Eye className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => {
-                          setSelectedMenuItem(item);
-                          setShowAIInterview(true);
-                        }}
-                        className="p-2 text-gray-400 hover:text-purple-600 transition-colors"
-                      >
-                        <Sparkles className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => deleteMenuItem(item.id)}
-                        className="p-2 text-gray-400 hover:text-red-600 transition-colors"
-                      >
-                        <Trash2 className="h-4 w-4" />
+                        {item.is_active ? 'Active' : 'Inactive'}
                       </button>
                     </div>
                   </div>
@@ -545,25 +613,21 @@ export default function MenuMaker() {
         {/* Empty State */}
         {!loading && filteredItems.length === 0 && (
           <div className="text-center py-12">
-            <UtensilsCrossed className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
-              No menu items found
-            </h3>
-            <p className="text-gray-600 mb-6">
+            <UtensilsCrossed className="h-12 w-12 text-muted mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-fg mb-2">No menu items found</h3>
+            <p className="text-muted mb-6">
               {searchTerm || activeCategoryFilter !== 'all' 
-                ? 'Try adjusting your search or filters'
-                : 'Get started by adding your first menu item'
+                ? 'Try adjusting your search or filter criteria.'
+                : 'Get started by adding your first menu item.'
               }
             </p>
-            {!searchTerm && activeCategoryFilter === 'all' && (
-              <button
-                onClick={() => setShowAddItemModal(true)}
-                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Add Menu Item
-              </button>
-            )}
+            <button
+              onClick={() => setShowAddItemModal(true)}
+              className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Add Menu Item
+            </button>
           </div>
         )}
       </div>
@@ -579,15 +643,27 @@ export default function MenuMaker() {
         />
       )}
 
+      {/* Image Upload Modal */}
+      {showImageUpload && (
+        <ImageUpload
+          onImageProcessed={(menuData) => {
+            console.log('Processed menu data:', menuData);
+            setShowImageUpload(false);
+            // TODO: Handle processed menu data
+          }}
+          onCancel={() => setShowImageUpload(false)}
+        />
+      )}
+
       {/* Add Item Modal */}
       {showAddItemModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-surface rounded-lg p-6 w-full max-w-md">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold">Add Menu Item</h2>
+              <h2 className="text-lg font-semibold text-fg">Add Menu Item</h2>
               <button
                 onClick={() => setShowAddItemModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-muted hover:text-fg"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -596,33 +672,33 @@ export default function MenuMaker() {
             <form onSubmit={(e) => { e.preventDefault(); createMenuItem(); }}>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-fg mb-1">
                     Name
                   </label>
                   <input
                     type="text"
                     value={newItem.name}
                     onChange={(e) => setNewItem({...newItem, name: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-fg bg-surface"
                     required
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-fg mb-1">
                     Description
                   </label>
                   <textarea
                     value={newItem.description}
                     onChange={(e) => setNewItem({...newItem, description: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-fg bg-surface"
                     rows={3}
                   />
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-fg mb-1">
                       Price (€)
                     </label>
                     <input
@@ -630,19 +706,19 @@ export default function MenuMaker() {
                       step="0.01"
                       value={newItem.price}
                       onChange={(e) => setNewItem({...newItem, price: parseFloat(e.target.value)})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-fg bg-surface"
                       required
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-fg mb-1">
                       Category
                     </label>
                     <select
                       value={newItem.category_id}
                       onChange={(e) => setNewItem({...newItem, category_id: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-fg bg-surface"
                     >
                       <option value="">Select Category</option>
                       {menuData.categories.map(category => (
@@ -662,7 +738,7 @@ export default function MenuMaker() {
                       onChange={(e) => setNewItem({...newItem, is_vegetarian: e.target.checked})}
                       className="mr-2"
                     />
-                    <span className="text-sm">Vegetarian</span>
+                    <span className="text-sm text-fg">Vegetarian</span>
                   </label>
                   
                   <label className="flex items-center">
@@ -672,7 +748,7 @@ export default function MenuMaker() {
                       onChange={(e) => setNewItem({...newItem, is_vegan: e.target.checked})}
                       className="mr-2"
                     />
-                    <span className="text-sm">Vegan</span>
+                    <span className="text-sm text-fg">Vegan</span>
                   </label>
                   
                   <label className="flex items-center">
@@ -682,7 +758,7 @@ export default function MenuMaker() {
                       onChange={(e) => setNewItem({...newItem, is_gluten_free: e.target.checked})}
                       className="mr-2"
                     />
-                    <span className="text-sm">Gluten Free</span>
+                    <span className="text-sm text-fg">Gluten Free</span>
                   </label>
                 </div>
               </div>
@@ -691,13 +767,13 @@ export default function MenuMaker() {
                 <button
                   type="button"
                   onClick={() => setShowAddItemModal(false)}
-                  className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                  className="px-4 py-2 text-muted hover:text-fg"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
                 >
                   Add Item
                 </button>

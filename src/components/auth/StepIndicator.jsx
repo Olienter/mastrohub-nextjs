@@ -9,14 +9,14 @@ const StepIndicator = ({ currentStep, totalSteps, steps }) => {
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
               index + 1 <= currentStep
                 ? 'bg-mint-400 text-neutral-900'
-                : 'bg-white/10 text-white/40'
+                : 'bg-white/10 text-gray-400'
             }`}>
               {index + 1}
             </div>
             <span className={`ml-2 text-sm font-medium ${
               index + 1 <= currentStep
-                ? 'text-white'
-                : 'text-white/40'
+                ? 'text-gray-900'
+                : 'text-gray-400'
             }`}>
               {step}
             </span>

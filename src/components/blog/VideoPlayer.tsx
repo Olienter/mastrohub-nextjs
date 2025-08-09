@@ -101,7 +101,7 @@ export default function VideoPlayer({
         <div className="absolute top-4 right-4 flex items-center gap-2">
           <motion.button
             onClick={toggleMute}
-            className="p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
+            className="p-2 bg-black/50 text-gray-900 rounded-full hover:bg-black/70 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -109,7 +109,7 @@ export default function VideoPlayer({
           </motion.button>
           
           <motion.button
-            className="p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
+            className="p-2 bg-black/50 text-gray-900 rounded-full hover:bg-black/70 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -121,7 +121,7 @@ export default function VideoPlayer({
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.button
             onClick={togglePlay}
-            className="p-4 bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition-colors"
+            className="p-4 bg-white/20 backdrop-blur-sm text-gray-900 rounded-full hover:bg-white/30 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -147,7 +147,7 @@ export default function VideoPlayer({
           </div>
 
           {/* Time and Title */}
-          <div className="flex items-center justify-between text-white">
+          <div className="flex items-center justify-between text-gray-900">
             <div className="flex items-center gap-4">
               <span className="text-sm">
                 {formatTime(currentTime)} / {formatTime(duration)}

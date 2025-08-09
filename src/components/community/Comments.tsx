@@ -103,8 +103,8 @@ export default function Comments({ articleId, comments: initialComments }: Comme
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
-      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+    <div className="bg-white rounded-xl shadow-lg p-6">
+      <h3 className="text-xl font-bold text-gray-900 mb-4">
         Comments ({localComments.length})
       </h3>
 
@@ -116,11 +116,11 @@ export default function Comments({ articleId, comments: initialComments }: Comme
             placeholder="Add a comment..."
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            className="flex-1 p-2 rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-900 dark:text-white"
+            className="flex-1 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-blue-600 text-gray-900 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Post
           </button>
@@ -142,12 +142,12 @@ export default function Comments({ articleId, comments: initialComments }: Comme
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="font-semibold text-gray-900 dark:text-white">{comment.author}</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">{comment.authorTitle}</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">{comment.timestamp}</span>
+                  <span className="font-semibold text-gray-900">{comment.author}</span>
+                  <span className="text-xs text-gray-500">{comment.authorTitle}</span>
+                  <span className="text-xs text-gray-500">{comment.timestamp}</span>
                 </div>
-                <p className="text-gray-800 dark:text-gray-200 text-sm">{comment.content}</p>
-                <div className="flex items-center gap-2 mt-2 text-gray-600 dark:text-gray-400 text-xs">
+                <p className="text-gray-800 text-sm">{comment.content}</p>
+                <div className="flex items-center gap-2 mt-2 text-gray-600 text-xs">
                   <button onClick={() => handleLikeComment(comment.id)}>
                     <Heart className={`w-4 h-4 ${comment.isLiked ? 'fill-red-500' : ''}`} />
                     {comment.likes}
@@ -178,11 +178,11 @@ export default function Comments({ articleId, comments: initialComments }: Comme
                     placeholder="Reply to this comment..."
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
-                    className="flex-1 p-2 rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-900 dark:text-white"
+                    className="flex-1 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="px-4 py-2 bg-blue-600 text-gray-900 rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     Reply
                   </button>

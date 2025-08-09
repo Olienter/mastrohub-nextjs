@@ -42,50 +42,35 @@ export async function GET(request: NextRequest) {
         const recentNotifications = await notificationService.getRecentNotifications(userId);
         return NextResponse.json({ success: true, data: recentNotifications });
       
-      case 'settings':
-        const settings = await notificationService.getNotificationSettings(userId);
-        return NextResponse.json({ success: true, data: settings });
-      
       default:
-        return NextResponse.json({ success: false, error: 'Invalid action parameter' }, { status: 400 });
+        return NextResponse.json({ success: false, error: 'Invalid action' }, { status: 400 });
     }
   } catch (error) {
-    console.error('Notifications API Error:', error);
+    console.error('Error in notifications API:', error);
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { action, data } = body;
+    const { searchParams } = new URL(request.url);
+    const action = searchParams.get('action');
 
     switch (action) {
-      case 'create':
-        const newNotification = await notificationService.createNotification(data);
-        return NextResponse.json({ success: true, data: newNotification });
+      case 'reset':
+        await notificationService.resetNotifications();
+        return NextResponse.json({ success: true, message: 'Notifications reset successfully' });
       
-      case 'mark-as-read':
-        await notificationService.markAsRead(data.notificationId);
-        return NextResponse.json({ success: true, message: 'Notification marked as read' });
-      
-      case 'mark-all-as-read':
-        await notificationService.markAllAsRead(data.userId);
+      case 'mark-all-read':
+        const userId = searchParams.get('userId') || 'current-user';
+        await notificationService.markAllAsRead(userId);
         return NextResponse.json({ success: true, message: 'All notifications marked as read' });
-      
-      case 'delete':
-        await notificationService.deleteNotification(data.notificationId);
-        return NextResponse.json({ success: true, message: 'Notification deleted' });
-      
-      case 'update-settings':
-        await notificationService.updateNotificationSettings(data.userId, data.settings);
-        return NextResponse.json({ success: true, message: 'Settings updated' });
       
       default:
         return NextResponse.json({ success: false, error: 'Invalid action' }, { status: 400 });
     }
   } catch (error) {
-    console.error('Notifications POST Error:', error);
+    console.error('Error in notifications API:', error);
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 }

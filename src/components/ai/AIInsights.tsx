@@ -117,11 +117,11 @@ export default function AIInsights() {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
+    <div className="bg-white rounded-xl shadow-lg p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Brain className="w-6 h-6 text-purple-600" />
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+          <h3 className="text-xl font-bold text-gray-900">
             AI-Powered Insights
           </h3>
         </div>
@@ -129,14 +129,14 @@ export default function AIInsights() {
         <motion.button
           onClick={analyzeInsights}
           disabled={isAnalyzing}
-          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-2 bg-purple-600 text-gray-900 rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           {isAnalyzing ? (
             <div className="flex items-center gap-2">
               <motion.div
-                className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                className="w-4 h-4 border-2 border-gray-900 border-t-transparent rounded-full"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
               />
@@ -155,7 +155,7 @@ export default function AIInsights() {
         {insights.map((insight, index) => (
           <motion.div
             key={insight.id}
-            className="border border-gray-200 dark:border-slate-700 rounded-lg p-4"
+            className="border border-gray-200 rounded-lg p-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
@@ -167,7 +167,7 @@ export default function AIInsights() {
               
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
+                  <h4 className="font-semibold text-gray-900">
                     {insight.title}
                   </h4>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${getImpactColor(insight.impact)}`}>
@@ -175,16 +175,16 @@ export default function AIInsights() {
                   </span>
                 </div>
                 
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                <p className="text-gray-600 text-sm mb-3">
                   {insight.description}
                 </p>
                 
                 {insight.action && (
-                  <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-                    <p className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-1">
+                  <div className="bg-blue-50 p-3 rounded-lg">
+                    <p className="text-sm font-medium text-blue-700 mb-1">
                       Recommended Action:
                     </p>
-                    <p className="text-sm text-blue-600 dark:text-blue-400">
+                    <p className="text-sm text-blue-600">
                       {insight.action}
                     </p>
                   </div>
@@ -192,10 +192,10 @@ export default function AIInsights() {
               </div>
               
               <div className="text-right">
-                <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                <div className="text-sm text-gray-500 mb-1">
                   Confidence
                 </div>
-                <div className="text-lg font-bold text-gray-900 dark:text-white">
+                <div className="text-lg font-bold text-gray-900">
                   {insight.confidence}%
                 </div>
               </div>
@@ -205,7 +205,7 @@ export default function AIInsights() {
       </div>
 
       {/* AI Analysis Stats */}
-      <div className="mt-6 pt-6 border-t border-gray-200 dark:border-slate-700">
+      <div className="mt-6 pt-6 border-t border-gray-200">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <motion.div
             className="text-center"
@@ -213,10 +213,10 @@ export default function AIInsights() {
             animate={{ scale: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+            <p className="text-2xl font-bold text-gray-900">
               {insights.length}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600">
               Active Insights
             </p>
           </motion.div>
@@ -227,10 +227,10 @@ export default function AIInsights() {
             animate={{ scale: 1 }}
             transition={{ delay: 0.6 }}
           >
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+            <p className="text-2xl font-bold text-gray-900">
               {insights.filter(i => i.impact === 'high').length}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600">
               High Impact
             </p>
           </motion.div>
@@ -241,10 +241,10 @@ export default function AIInsights() {
             animate={{ scale: 1 }}
             transition={{ delay: 0.7 }}
           >
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+            <p className="text-2xl font-bold text-gray-900">
               {Math.round(insights.reduce((acc, i) => acc + i.confidence, 0) / insights.length)}%
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600">
               Avg Confidence
             </p>
           </motion.div>

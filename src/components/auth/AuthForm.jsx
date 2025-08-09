@@ -14,8 +14,8 @@ const AuthForm = ({
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">{title}</h1>
-          {subtitle && <p className="text-white/60">{subtitle}</p>}
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{title}</h1>
+          {subtitle && <p className="text-gray-600">{subtitle}</p>}
         </div>
 
         {/* Form */}
@@ -36,7 +36,7 @@ const AuthForm = ({
               className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 ${
                 isValid && !isLoading
                   ? 'bg-mint-400 hover:bg-mint-500 text-neutral-900 hover:scale-105'
-                  : 'bg-white/10 text-white/40 cursor-not-allowed'
+                  : 'bg-white/10 text-gray-400 cursor-not-allowed'
               }`}
             >
               {isLoading ? 'Loading...' : submitText}

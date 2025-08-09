@@ -211,7 +211,7 @@ export default function UserManagement() {
         </div>
         <button
           onClick={() => setShowAddUser(true)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="flex items-center px-4 py-2 bg-blue-600 text-gray-900 rounded-lg hover:bg-blue-700 transition-colors"
         >
           <UserPlus className="w-4 h-4 mr-2" />
           Add User
@@ -412,7 +412,7 @@ export default function UserManagement() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  className="px-4 py-2 bg-blue-600 text-gray-900 rounded-lg hover:bg-blue-700"
                 >
                   Add User
                 </button>
@@ -496,7 +496,7 @@ export default function UserManagement() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  className="px-4 py-2 bg-blue-600 text-gray-900 rounded-lg hover:bg-blue-700"
                 >
                   Update User
                 </button>
@@ -573,7 +573,7 @@ export default function UserManagement() {
                   setEditingUser(selectedUser);
                   setSelectedUser(null);
                 }}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="px-4 py-2 bg-blue-600 text-gray-900 rounded-lg hover:bg-blue-700"
               >
                 Edit User
               </button>
@@ -582,7 +582,7 @@ export default function UserManagement() {
                   handleDeleteUser(selectedUser.id);
                   setSelectedUser(null);
                 }}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                className="px-4 py-2 bg-red-600 text-gray-900 rounded-lg hover:bg-red-700"
               >
                 Delete User
               </button>

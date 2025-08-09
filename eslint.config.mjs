@@ -13,6 +13,18 @@ export default [
       'no-unused-vars': 'warn',
       'no-console': 'off',
       'prefer-const': 'warn',
+      // Custom rules for semantic colors
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'Literal[value=/text-white/]',
+          message: 'Use semantic color tokens instead of text-white. Use text-fg, text-primary-foreground, or text-surface-foreground.',
+        },
+        {
+          selector: 'Literal[value=/bg-white/]',
+          message: 'Use semantic color tokens instead of bg-white. Use bg-surface, bg-bg, or bg-primary-foreground.',
+        },
+      ],
     },
   },
   {
