@@ -1,14 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ESLint configuration
+  // Enable ESLint for better code quality
   eslint: {
-    ignoreDuringBuilds: true, // Temporarily ignore ESLint during builds
+    ignoreDuringBuilds: false, // Enable ESLint during builds
   },
   
-  // Remove experimental features that slow down compilation
+  // Enable React Strict Mode for better development experience
+  reactStrictMode: true,
+  
+  // Optimize package imports
   experimental: {
-    // mdxRs: true, // Commented out for faster compilation
-    optimizePackageImports: ['lucide-react'], // Remove framer-motion from optimization
+    optimizePackageImports: ['lucide-react'],
   },
   
   // Optimize images for faster loading
@@ -21,9 +23,9 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
-    formats: ['image/webp'], // Remove avif for faster processing
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920], // Reduced sizes
-    imageSizes: [16, 32, 48, 64, 96, 128, 256], // Reduced sizes
+    formats: ['image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
   },
   
   // Optimize headers for faster response
@@ -44,7 +46,6 @@ const nextConfig = {
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
-  reactStrictMode: false, // Disable for faster development
   
   // Development optimizations
   webpack: (config, { dev, isServer }) => {
@@ -55,15 +56,14 @@ const nextConfig = {
         aggregateTimeout: 500,
       }
       
-      // Disable optimization in development for faster builds
+      // Keep optimization enabled for better debugging
       config.optimization = {
         ...config.optimization,
         minimize: false,
-        splitChunks: false,
       }
       
-      // Faster source maps
-      config.devtool = 'eval-cheap-module-source-map'
+      // Better source maps for debugging
+      config.devtool = 'eval-source-map'
     }
     return config
   },

@@ -1,266 +1,212 @@
-const CACHE_NAME = 'mastrohub-v1';
-const STATIC_CACHE_NAME = 'mastrohub-static-v1';
-const DYNAMIC_CACHE_NAME = 'mastrohub-dynamic-v1';
+// Service Worker for MastroHub PWA
+const CACHE_NAME = 'mastrohub-v1'
+const STATIC_CACHE = 'mastrohub-static-v1'
+const DYNAMIC_CACHE = 'mastrohub-dynamic-v1'
 
-const STATIC_ASSETS = [
+// Files to cache
+const STATIC_FILES = [
   '/',
-  '/manifest.json',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png',
-  '/api/notifications',
-  '/api/ai-assistant',
-  '/api/advanced-analytics',
-  '/api/supply-chain'
-];
+  '/manifest.webmanifest',
+  '/icon-192x192.png',
+  '/icon-512x512.png',
+  '/apple-touch-icon.png',
+]
 
-const STATIC_RESOURCES = [
-  '/_next/static/',
-  '/images/',
-  '/fonts/'
-];
-
-// Install event - cache static assets
+// Install event
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(STATIC_CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
+    caches.open(STATIC_CACHE).then((cache) => {
+      return cache.addAll(STATIC_FILES)
     })
-  );
-  self.skipWaiting();
-});
+  )
+  self.skipWaiting()
+})
 
-// Activate event - clean up old caches
+// Activate event
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== STATIC_CACHE_NAME && cacheName !== DYNAMIC_CACHE_NAME) {
-            return caches.delete(cacheName);
+          if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
+            return caches.delete(cacheName)
           }
         })
-      );
+      )
     })
-  );
-  self.clients.claim();
-});
+  )
+  self.clients.claim()
+})
 
-// Fetch event - handle requests
+// Fetch event
 self.addEventListener('fetch', (event) => {
-  const { request } = event;
-  const url = new URL(request.url);
+  const { request } = event
+  const url = new URL(request.url)
+
+  // Skip non-GET requests
+  if (request.method !== 'GET') {
+    return
+  }
+
+  // Skip chrome-extension and other non-http requests
+  if (!url.protocol.startsWith('http')) {
+    return
+  }
 
   // Handle API requests
   if (url.pathname.startsWith('/api/')) {
-    event.respondWith(handleApiRequest(request));
-    return;
+    event.respondWith(handleApiRequest(request))
+    return
   }
 
-  // Handle static resources
-  if (isStaticResource(url.pathname)) {
-    event.respondWith(handleStaticResource(request));
-    return;
+  // Handle static files
+  if (isStaticFile(url.pathname)) {
+    event.respondWith(handleStaticRequest(request))
+    return
   }
 
   // Handle navigation requests
   if (request.mode === 'navigate') {
-    event.respondWith(handleNavigationRequest(request));
-    return;
+    event.respondWith(handleNavigationRequest(request))
+    return
   }
 
   // Default: network first, fallback to cache
-  event.respondWith(
-    fetch(request)
-      .then((response) => {
-        if (response.status === 200) {
-          const responseClone = response.clone();
-          caches.open(DYNAMIC_CACHE_NAME).then((cache) => {
-            cache.put(request, responseClone);
-          });
-        }
-        return response;
-      })
-      .catch(() => {
-        return caches.match(request);
-      })
-  );
-});
+  event.respondWith(handleDefaultRequest(request))
+})
 
-// Handle API requests with cache-first strategy
+// Handle API requests
 async function handleApiRequest(request) {
   try {
-    // Try network first
-    const networkResponse = await fetch(request);
-    
-    if (networkResponse.status === 200) {
-      // Cache successful responses
-      const responseClone = networkResponse.clone();
-      const cache = await caches.open(DYNAMIC_CACHE_NAME);
-      cache.put(request, responseClone);
-    }
-    
-    return networkResponse;
+    const response = await fetch(request)
+    return response
   } catch (error) {
-    // Fallback to cache
-    const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
-      return cachedResponse;
-    }
-    
-    // Return offline response for API calls
+    // Return offline response for API requests
     return new Response(
-      JSON.stringify({ 
-        success: false, 
-        error: 'Offline - No internet connection',
-        data: null 
-      }),
+      JSON.stringify({ error: 'Offline - API not available' }),
       {
         status: 503,
-        statusText: 'Service Unavailable',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
       }
-    );
+    )
   }
 }
 
-// Handle static resources with cache-first strategy
-async function handleStaticResource(request) {
-  const cachedResponse = await caches.match(request);
+// Handle static file requests
+async function handleStaticRequest(request) {
+  const cache = await caches.open(STATIC_CACHE)
+  const cachedResponse = await cache.match(request)
+  
   if (cachedResponse) {
-    return cachedResponse;
+    return cachedResponse
   }
 
   try {
-    const networkResponse = await fetch(request);
-    if (networkResponse.status === 200) {
-      const responseClone = networkResponse.clone();
-      const cache = await caches.open(STATIC_CACHE_NAME);
-      cache.put(request, responseClone);
+    const response = await fetch(request)
+    if (response.ok) {
+      cache.put(request, response.clone())
     }
-    return networkResponse;
+    return response
   } catch (error) {
-    return new Response('Resource not available offline', { status: 404 });
+    return new Response('Offline', { status: 503 })
   }
 }
 
-// Handle navigation requests with network-first strategy
+// Handle navigation requests
 async function handleNavigationRequest(request) {
   try {
-    const networkResponse = await fetch(request);
-    if (networkResponse.status === 200) {
-      const responseClone = networkResponse.clone();
-      const cache = await caches.open(DYNAMIC_CACHE_NAME);
-      cache.put(request, responseClone);
-    }
-    return networkResponse;
+    const response = await fetch(request)
+    return response
   } catch (error) {
-    const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
-      return cachedResponse;
-    }
-    
     // Return offline page
-    return caches.match('/offline');
+    const cache = await caches.open(STATIC_CACHE)
+    const offlineResponse = await cache.match('/offline')
+    return offlineResponse || new Response('Offline', { status: 503 })
   }
 }
 
-// Check if URL is a static resource
-function isStaticResource(pathname) {
-  return STATIC_RESOURCES.some(resource => pathname.startsWith(resource));
+// Handle default requests
+async function handleDefaultRequest(request) {
+  try {
+    const response = await fetch(request)
+    const cache = await caches.open(DYNAMIC_CACHE)
+    cache.put(request, response.clone())
+    return response
+  } catch (error) {
+    const cachedResponse = await caches.match(request)
+    return cachedResponse || new Response('Offline', { status: 503 })
+  }
 }
 
-// Background sync for offline actions
+// Check if file is static
+function isStaticFile(pathname) {
+  return (
+    pathname.includes('.') &&
+    !pathname.startsWith('/api/') &&
+    !pathname.includes('?') &&
+    (pathname.endsWith('.js') ||
+      pathname.endsWith('.css') ||
+      pathname.endsWith('.png') ||
+      pathname.endsWith('.jpg') ||
+      pathname.endsWith('.jpeg') ||
+      pathname.endsWith('.gif') ||
+      pathname.endsWith('.svg') ||
+      pathname.endsWith('.woff') ||
+      pathname.endsWith('.woff2') ||
+      pathname.endsWith('.ttf') ||
+      pathname.endsWith('.eot'))
+  )
+}
+
+// Background sync
 self.addEventListener('sync', (event) => {
   if (event.tag === 'background-sync') {
-    event.waitUntil(doBackgroundSync());
+    event.waitUntil(doBackgroundSync())
   }
-});
+})
 
-// Background sync implementation
 async function doBackgroundSync() {
-  try {
-    // Sync pending notifications
-    const pendingNotifications = await getPendingNotifications();
-    for (const notification of pendingNotifications) {
-      await syncNotification(notification);
-    }
-    
-    // Sync pending analytics
-    const pendingAnalytics = await getPendingAnalytics();
-    for (const analytics of pendingAnalytics) {
-      await syncAnalytics(analytics);
-    }
-  } catch (error) {
-    console.error('Background sync failed:', error);
-  }
+  // TODO: Implement background sync for offline data
+  console.log('Background sync triggered')
 }
 
-// Mock functions for background sync
-async function getPendingNotifications() {
-  // In a real app, this would read from IndexedDB
-  return [];
-}
-
-async function syncNotification(notification) {
-  // In a real app, this would send to server
-  console.log('Syncing notification:', notification);
-}
-
-async function getPendingAnalytics() {
-  // In a real app, this would read from IndexedDB
-  return [];
-}
-
-async function syncAnalytics(analytics) {
-  // In a real app, this would send to server
-  console.log('Syncing analytics:', analytics);
-}
-
-// Push notification handling
+// Push notifications
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'New notification from MastroHub',
-    icon: '/icons/icon-192x192.png',
-    badge: '/icons/icon-72x72.png',
+    icon: '/icon-192x192.png',
+    badge: '/icon-192x192.png',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: 1
+      primaryKey: 1,
     },
     actions: [
       {
         action: 'explore',
         title: 'View',
-        icon: '/icons/icon-192x192.png'
+        icon: '/icon-192x192.png',
       },
       {
         action: 'close',
         title: 'Close',
-        icon: '/icons/icon-192x192.png'
-      }
-    ]
-  };
+        icon: '/icon-192x192.png',
+      },
+    ],
+  }
 
   event.waitUntil(
     self.registration.showNotification('MastroHub', options)
-  );
-});
+  )
+})
 
-// Notification click handling
+// Notification click
 self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
+  event.notification.close()
 
   if (event.action === 'explore') {
     event.waitUntil(
-      self.clients.openWindow('/')
-    );
-  } else if (event.action === 'close') {
-    // Just close the notification
-    return;
-  } else {
-    // Default action - open the app
-    event.waitUntil(
-      self.clients.openWindow('/')
-    );
+      clients.openWindow('/')
+    )
   }
-}); 
+}) 

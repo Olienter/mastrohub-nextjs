@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Providers } from '@/components/providers'
@@ -28,13 +28,18 @@ export const metadata: Metadata = {
     title: 'MastroHub - Restaurant Management Platform',
     description: 'Comprehensive restaurant management platform with AI assistant'
   },
-  viewport: 'width=device-width, initial-scale=1',
-  themeColor: '#3b82f6',
   manifest: '/manifest.json',
   icons: {
     icon: '/favicon.ico',
     apple: '/apple-touch-icon.png'
   }
+}
+
+// Separate viewport export for Next.js 15
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#3b82f6',
 }
 
 // Initialize launch manager and performance monitoring
@@ -63,14 +68,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="launch-ready">
       <head>
-        {/* Preload critical resources */}
-        <link rel="preload" href="/api/menu" as="fetch" crossOrigin="anonymous" />
-        <link rel="preload" href="/api/categories" as="fetch" crossOrigin="anonymous" />
-        <link rel="preload" href="/api/user" as="fetch" crossOrigin="anonymous" />
-        
-        {/* Preload critical fonts */}
-        <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        
         {/* Security headers */}
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
         <meta httpEquiv="X-Frame-Options" content="DENY" />
@@ -80,7 +77,6 @@ export default function RootLayout({
         
         {/* PWA manifest */}
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#3b82f6" />
         
         {/* Apple touch icon */}
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
