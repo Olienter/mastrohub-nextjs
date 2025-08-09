@@ -20,7 +20,7 @@ export default function BadgeDemoPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       {/* Header */}
       <div className="bg-gradient-to-r from-mastroCyan-500 to-mastroCyan-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -39,20 +39,20 @@ export default function BadgeDemoPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Demo Controls */}
-        <div className="bg-white rounded-lg p-6 border border-gray-200 mb-8">
+        <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50 mb-8">
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
             <div>
               <h2 className="text-xl font-bold mb-2">Demo Controls</h2>
-              <p className="text-gray-600">Switch between view modes to explore different aspects of the badge system.</p>
+              <p className="text-slate-300">Switch between view modes to explore different aspects of the badge system.</p>
             </div>
             
-            <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
+            <div className="flex space-x-1 bg-slate-700/50 rounded-lg p-1">
               <button
                 onClick={() => setDemoMode('view')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   demoMode === 'view'
                     ? 'bg-mastroCyan-500 text-white'
-                    : 'text-gray-600 hover:text-gray-900'
+                    : 'text-slate-300 hover:text-white'
                 }`}
               >
                 View Mode
@@ -62,7 +62,7 @@ export default function BadgeDemoPage() {
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   demoMode === 'interactive'
                     ? 'bg-mastroCyan-500 text-white'
-                    : 'text-gray-600 hover:text-gray-900'
+                    : 'text-slate-300 hover:text-white'
                 }`}
               >
                 Interactive
@@ -73,14 +73,14 @@ export default function BadgeDemoPage() {
 
         {/* Badge System Overview */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
+          <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-blue-100 rounded-lg">
                 <Trophy className="w-6 h-6 text-blue-600" />
               </div>
               <h3 className="text-lg font-semibold">Badge Types</h3>
             </div>
-            <div className="space-y-2 text-sm text-gray-600">
+            <div className="space-y-2 text-sm text-slate-300">
               <div className="flex justify-between">
                 <span>Common:</span>
                 <span className="font-medium">{rarityStats.common}</span>
@@ -100,14 +100,14 @@ export default function BadgeDemoPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
+          <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-green-100 rounded-lg">
                 <Star className="w-6 h-6 text-green-600" />
               </div>
               <h3 className="text-lg font-semibold">Categories</h3>
             </div>
-            <div className="space-y-2 text-sm text-gray-600">
+            <div className="space-y-2 text-sm text-slate-300">
               <div className="flex justify-between">
                 <span>Content:</span>
                 <span className="font-medium">{demoBadges.filter(b => b.category === 'content').length}</span>
@@ -127,14 +127,14 @@ export default function BadgeDemoPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
+          <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-purple-100 rounded-lg">
                 <Zap className="w-6 h-6 text-purple-600" />
               </div>
               <h3 className="text-lg font-semibold">Features</h3>
             </div>
-            <ul className="space-y-2 text-sm text-gray-600">
+            <ul className="space-y-2 text-sm text-slate-300">
               <li>• Progress tracking</li>
               <li>• Level system</li>
               <li>• Achievement notifications</li>
@@ -146,9 +146,9 @@ export default function BadgeDemoPage() {
 
         {/* Interactive Demo */}
         {demoMode === 'interactive' && (
-          <div className="bg-white rounded-lg p-6 border border-gray-200 mb-8">
+          <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50 mb-8">
             <h2 className="text-xl font-bold mb-4">Interactive Badge Explorer</h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-slate-300 mb-6">
               Click on badges to see detailed information and requirements.
             </p>
             
@@ -161,7 +161,7 @@ export default function BadgeDemoPage() {
                     p-4 rounded-lg border-2 cursor-pointer transition-all duration-200
                     ${selectedBadge === badge.id 
                       ? 'border-mastroCyan-500 bg-mastroCyan-50' 
-                      : 'border-gray-200 bg-gray-50'
+                      : 'border-slate-700/50 bg-slate-700/50'
                     }
                   `}
                   onClick={() => setSelectedBadge(selectedBadge === badge.id ? null : badge.id)}
@@ -169,7 +169,7 @@ export default function BadgeDemoPage() {
                   <div className="flex items-center justify-between mb-3">
                     <div className="text-2xl">{badge.icon}</div>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      badge.rarity === 'common' ? 'bg-gray-100 text-gray-600' :
+                      badge.rarity === 'common' ? 'bg-slate-700/50 text-slate-300' :
                       badge.rarity === 'rare' ? 'bg-blue-100 text-blue-600' :
                       badge.rarity === 'epic' ? 'bg-purple-100 text-purple-600' :
                       'bg-yellow-100 text-yellow-600'
@@ -179,9 +179,9 @@ export default function BadgeDemoPage() {
                   </div>
                   
                   <h3 className="font-semibold text-sm mb-2">{badge.name}</h3>
-                  <p className="text-xs text-gray-600 mb-3">{badge.description}</p>
+                  <p className="text-xs text-slate-300 mb-3">{badge.description}</p>
                   
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-slate-400">
                     <div className="flex justify-between mb-1">
                       <span>Points:</span>
                       <span>+{badge.points}</span>
@@ -216,9 +216,9 @@ export default function BadgeDemoPage() {
         )}
 
         {/* Badge Display Demo */}
-        <div className="bg-white rounded-lg p-6 border border-gray-200 mb-8">
+        <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50 mb-8">
           <h2 className="text-xl font-bold mb-4">Badge Display Component</h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-slate-300 mb-6">
             This shows how badges appear in the actual application with progress tracking and unlock status.
           </p>
           
@@ -230,9 +230,9 @@ export default function BadgeDemoPage() {
         </div>
 
         {/* Progress Tracker Demo */}
-        <div className="bg-white rounded-lg p-6 border border-gray-200 mb-8">
+        <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50 mb-8">
           <h2 className="text-xl font-bold mb-4">Progress Tracker Component</h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-slate-300 mb-6">
             Track user progress, levels, and achievements with visual indicators and statistics.
           </p>
           
@@ -240,13 +240,13 @@ export default function BadgeDemoPage() {
         </div>
 
         {/* Code Examples */}
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
+        <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50">
           <h2 className="text-xl font-bold mb-4">Implementation Examples</h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
               <h3 className="font-semibold mb-3">Badge Engine Usage</h3>
-              <pre className="bg-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+              <pre className="bg-slate-700/50 p-4 rounded-lg text-sm overflow-x-auto">
 {`// Check and award badges
 const newBadges = await BadgeEngine.checkBadges(userId);
 
@@ -260,7 +260,7 @@ const level = BadgeEngine.calculateLevel(progress.total_points);`}
             
             <div>
               <h3 className="font-semibold mb-3">Component Integration</h3>
-              <pre className="bg-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+              <pre className="bg-slate-700/50 p-4 rounded-lg text-sm overflow-x-auto">
 {`// Display badges
 <BadgeDisplay 
   showProgress={true}

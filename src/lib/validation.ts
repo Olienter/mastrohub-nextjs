@@ -115,14 +115,14 @@ export const validationHelpers = {
     if (result.success) {
       return result.data
     }
-    logger.warn('Validation failed', { errors: result.error.errors, data })
+    logger.warn('Validation failed', { errors: result.error.issues, data })
     return undefined
   },
 
   // Validate partial data
   validatePartial<T>(schema: z.ZodSchema<T>, data: unknown): { success: true; data: Partial<T> } | { success: false; errors: string[] } {
     try {
-      const result = schema.partial().parse(data)
+      const result = schema.parse(data)
       return { success: true, data: result }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -141,7 +141,7 @@ export const validationHelpers = {
       return { success: true, data: result }
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errors = error.errors.map(err => err.message)
+        const errors = error.issues.map(err => err.message)
         logger.warn('Array validation failed', { errors, data })
         return { success: false, errors }
       }

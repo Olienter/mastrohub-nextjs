@@ -169,20 +169,20 @@ export default function AdvancedAnalytics() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-slate-800/80 shadow-sm border-b border-slate-700/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
               <BarChart3 className="w-8 h-8 text-indigo-600" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Advanced Analytics</h1>
-                <p className="text-sm text-gray-500">Comprehensive insights and reporting</p>
+                <h1 className="text-2xl font-bold text-white">Advanced Analytics</h1>
+                <p className="text-sm text-slate-300">Comprehensive insights and reporting</p>
               </div>
             </div>
             <div className="flex items-center space-x-3">
-              <button className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+              <button className="flex items-center px-3 py-2 text-sm font-medium text-slate-300 bg-slate-700/50 border border-slate-600/50 rounded-md hover:bg-slate-700/70">
                 <Filter className="w-4 h-4 mr-2" />
                 Filters
               </button>
@@ -211,7 +211,7 @@ export default function AdvancedAnalytics() {
                   className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm ${
                     activeTab === tab.id
                       ? 'border-indigo-500 text-indigo-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-600'
                   }`}
                 >
                   <Icon className="w-4 h-4 mr-2" />
@@ -242,11 +242,11 @@ export default function AdvancedAnalytics() {
                 {activeTab === 'sales' && (
                   <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="bg-white p-6 rounded-lg shadow-sm border">
+                      <div className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
                         <div className="flex items-center justify-between">
                           <div>
-                            <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-                            <p className="text-2xl font-bold text-gray-900">
+                            <p className="text-sm font-medium text-slate-300">Total Revenue</p>
+                            <p className="text-2xl font-bold text-white">
                               {formatCurrency(salesData.reduce((sum, item) => sum + item.revenue, 0))}
                             </p>
                           </div>
@@ -256,11 +256,11 @@ export default function AdvancedAnalytics() {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-white p-6 rounded-lg shadow-sm border">
+                      <div className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
                         <div className="flex items-center justify-between">
                           <div>
-                            <p className="text-sm font-medium text-gray-600">Total Orders</p>
-                            <p className="text-2xl font-bold text-gray-900">
+                            <p className="text-sm font-medium text-slate-300">Total Orders</p>
+                            <p className="text-2xl font-bold text-white">
                               {salesData.reduce((sum, item) => sum + item.orders, 0)}
                             </p>
                           </div>
@@ -270,11 +270,11 @@ export default function AdvancedAnalytics() {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-white p-6 rounded-lg shadow-sm border">
+                      <div className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
                         <div className="flex items-center justify-between">
                           <div>
-                            <p className="text-sm font-medium text-gray-600">Avg Order Value</p>
-                            <p className="text-2xl font-bold text-gray-900">
+                            <p className="text-sm font-medium text-slate-300">Avg Order Value</p>
+                            <p className="text-2xl font-bold text-white">
                               {formatCurrency(salesData.reduce((sum, item) => sum + item.avgOrder, 0) / salesData.length)}
                             </p>
                           </div>
@@ -286,27 +286,27 @@ export default function AdvancedAnalytics() {
                       </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-lg shadow-sm border">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">Daily Sales Trend</h3>
+                    <div className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
+                      <h3 className="text-lg font-semibold text-white mb-4">Daily Sales Trend</h3>
                       <div className="space-y-4">
                         {salesData.map((item, index) => (
-                          <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <div key={index} className="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
                             <div className="flex items-center space-x-4">
-                              <Calendar className="w-5 h-5 text-gray-400" />
-                              <span className="font-medium text-gray-900">{item.date}</span>
+                              <Calendar className="w-5 h-5 text-slate-400" />
+                              <span className="font-medium text-white">{item.date}</span>
                             </div>
                             <div className="flex items-center space-x-6">
                               <div className="text-right">
-                                <p className="text-sm text-gray-600">Revenue</p>
-                                <p className="font-semibold text-gray-900">{formatCurrency(item.revenue)}</p>
+                                <p className="text-sm text-slate-300">Revenue</p>
+                                <p className="font-semibold text-white">{formatCurrency(item.revenue)}</p>
                               </div>
                               <div className="text-right">
-                                <p className="text-sm text-gray-600">Orders</p>
-                                <p className="font-semibold text-gray-900">{item.orders}</p>
+                                <p className="text-sm text-slate-300">Orders</p>
+                                <p className="font-semibold text-white">{item.orders}</p>
                               </div>
                               <div className="text-right">
-                                <p className="text-sm text-gray-600">Avg Order</p>
-                                <p className="font-semibold text-gray-900">{formatCurrency(item.avgOrder)}</p>
+                                <p className="text-sm text-slate-300">Avg Order</p>
+                                <p className="font-semibold text-white">{formatCurrency(item.avgOrder)}</p>
                               </div>
                             </div>
                           </div>
@@ -321,23 +321,23 @@ export default function AdvancedAnalytics() {
                   <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                       {customerData.map((segment, index) => (
-                        <div key={index} className="bg-white p-6 rounded-lg shadow-sm border">
+                        <div key={index} className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
                           <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-semibold text-gray-900">{segment.segment}</h3>
+                            <h3 className="text-lg font-semibold text-white">{segment.segment}</h3>
                             <Users className="w-5 h-5 text-indigo-600" />
                           </div>
                           <div className="space-y-3">
                             <div>
-                              <p className="text-sm text-gray-600">Count</p>
-                              <p className="text-2xl font-bold text-gray-900">{segment.count}</p>
+                              <p className="text-sm text-slate-300">Count</p>
+                              <p className="text-2xl font-bold text-white">{segment.count}</p>
                             </div>
                             <div>
-                              <p className="text-sm text-gray-600">Revenue</p>
-                              <p className="text-lg font-semibold text-gray-900">{formatCurrency(segment.revenue)}</p>
+                              <p className="text-sm text-slate-300">Revenue</p>
+                              <p className="text-lg font-semibold text-white">{formatCurrency(segment.revenue)}</p>
                             </div>
                             <div>
-                              <p className="text-sm text-gray-600">Avg Order</p>
-                              <p className="text-lg font-semibold text-gray-900">{formatCurrency(segment.avgOrder)}</p>
+                              <p className="text-sm text-slate-300">Avg Order</p>
+                              <p className="text-lg font-semibold text-white">{formatCurrency(segment.avgOrder)}</p>
                             </div>
                           </div>
                         </div>
@@ -349,28 +349,28 @@ export default function AdvancedAnalytics() {
                 {/* Menu Analytics */}
                 {activeTab === 'menu' && (
                   <div className="space-y-6">
-                    <div className="bg-white p-6 rounded-lg shadow-sm border">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Performing Items</h3>
+                    <div className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
+                      <h3 className="text-lg font-semibold text-white mb-4">Top Performing Items</h3>
                       <div className="space-y-4">
                         {menuData.map((item, index) => (
-                          <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                          <div key={index} className="flex items-center justify-between p-4 bg-slate-700/50 rounded-lg">
                             <div className="flex items-center space-x-4">
                               <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center">
                                 <span className="text-sm font-bold text-indigo-600">{index + 1}</span>
                               </div>
                               <div>
-                                <p className="font-semibold text-gray-900">{item.item}</p>
-                                <p className="text-sm text-gray-600">Margin: {formatPercentage(item.margin)}</p>
+                                <p className="font-semibold text-white">{item.item}</p>
+                                <p className="text-sm text-slate-300">Margin: {formatPercentage(item.margin)}</p>
                               </div>
                             </div>
                             <div className="flex items-center space-x-6">
                               <div className="text-right">
-                                <p className="text-sm text-gray-600">Sales</p>
-                                <p className="font-semibold text-gray-900">{item.sales}</p>
+                                <p className="text-sm text-slate-300">Sales</p>
+                                <p className="font-semibold text-white">{item.sales}</p>
                               </div>
                               <div className="text-right">
-                                <p className="text-sm text-gray-600">Revenue</p>
-                                <p className="font-semibold text-gray-900">{formatCurrency(item.revenue)}</p>
+                                <p className="text-sm text-slate-300">Revenue</p>
+                                <p className="font-semibold text-white">{formatCurrency(item.revenue)}</p>
                               </div>
                             </div>
                           </div>
@@ -383,31 +383,31 @@ export default function AdvancedAnalytics() {
                 {/* Operations Analytics */}
                 {activeTab === 'operations' && (
                   <div className="space-y-6">
-                    <div className="bg-white p-6 rounded-lg shadow-sm border">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">Staff Performance</h3>
+                    <div className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
+                      <h3 className="text-lg font-semibold text-white mb-4">Staff Performance</h3>
                       <div className="space-y-4">
                         {staffData.map((staff, index) => (
-                          <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                          <div key={index} className="flex items-center justify-between p-4 bg-slate-700/50 rounded-lg">
                             <div className="flex items-center space-x-4">
                               <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
                                 <ChefHat className="w-5 h-5 text-indigo-600" />
                               </div>
                               <div>
-                                <p className="font-semibold text-gray-900">{staff.name}</p>
-                                <p className="text-sm text-gray-600">Orders: {staff.orders}</p>
+                                <p className="font-semibold text-white">{staff.name}</p>
+                                <p className="text-sm text-slate-300">Orders: {staff.orders}</p>
                               </div>
                             </div>
                             <div className="flex items-center space-x-6">
                               <div className="text-right">
-                                <p className="text-sm text-gray-600">Rating</p>
+                                <p className="text-sm text-slate-300">Rating</p>
                                 <div className="flex items-center">
                                   <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                                  <span className="font-semibold text-gray-900 ml-1">{staff.avgRating}</span>
+                                  <span className="font-semibold text-white ml-1">{staff.avgRating}</span>
                                 </div>
                               </div>
                               <div className="text-right">
-                                <p className="text-sm text-gray-600">Efficiency</p>
-                                <p className="font-semibold text-gray-900">{formatPercentage(staff.efficiency)}</p>
+                                <p className="text-sm text-slate-300">Efficiency</p>
+                                <p className="font-semibold text-white">{formatPercentage(staff.efficiency)}</p>
                               </div>
                             </div>
                           </div>
@@ -421,47 +421,47 @@ export default function AdvancedAnalytics() {
                 {activeTab === 'financial' && financialData && (
                   <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                      <div className="bg-white p-6 rounded-lg shadow-sm border">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Profit Margins</h3>
+                      <div className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
+                        <h3 className="text-lg font-semibold text-white mb-4">Profit Margins</h3>
                         <div className="space-y-3">
                           <div className="flex justify-between">
-                            <span className="text-sm text-gray-600">Food</span>
-                            <span className="font-semibold text-gray-900">{formatPercentage(financialData.profitMargins.food)}</span>
+                            <span className="text-sm text-slate-300">Food</span>
+                            <span className="font-semibold text-white">{formatPercentage(financialData.profitMargins.food)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-sm text-gray-600">Beverages</span>
-                            <span className="font-semibold text-gray-900">{formatPercentage(financialData.profitMargins.beverages)}</span>
+                            <span className="text-sm text-slate-300">Beverages</span>
+                            <span className="font-semibold text-white">{formatPercentage(financialData.profitMargins.beverages)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-sm text-gray-600">Desserts</span>
-                            <span className="font-semibold text-gray-900">{formatPercentage(financialData.profitMargins.desserts)}</span>
+                            <span className="text-sm text-slate-300">Desserts</span>
+                            <span className="font-semibold text-white">{formatPercentage(financialData.profitMargins.desserts)}</span>
                           </div>
                           <div className="flex justify-between border-t pt-2">
-                            <span className="text-sm font-medium text-gray-900">Overall</span>
-                            <span className="font-bold text-gray-900">{formatPercentage(financialData.profitMargins.overall)}</span>
+                            <span className="text-sm font-medium text-white">Overall</span>
+                            <span className="font-bold text-white">{formatPercentage(financialData.profitMargins.overall)}</span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm border">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Revenue Streams</h3>
+                      <div className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
+                        <h3 className="text-lg font-semibold text-white mb-4">Revenue Streams</h3>
                         <div className="space-y-3">
                           {financialData.revenueStreams.map((stream, index) => (
                             <div key={index} className="flex justify-between">
-                              <span className="text-sm text-gray-600">{stream.stream}</span>
-                              <span className="font-semibold text-gray-900">{formatCurrency(stream.revenue)}</span>
+                              <span className="text-sm text-slate-300">{stream.stream}</span>
+                              <span className="font-semibold text-white">{formatCurrency(stream.revenue)}</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm border">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Cost Analysis</h3>
+                      <div className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
+                        <h3 className="text-lg font-semibold text-white mb-4">Cost Analysis</h3>
                         <div className="space-y-3">
                           {financialData.costAnalysis.map((cost, index) => (
                             <div key={index} className="flex justify-between">
-                              <span className="text-sm text-gray-600">{cost.category}</span>
-                              <span className="font-semibold text-gray-900">{formatCurrency(cost.cost)}</span>
+                              <span className="text-sm text-slate-300">{cost.category}</span>
+                              <span className="font-semibold text-white">{formatCurrency(cost.cost)}</span>
                             </div>
                           ))}
                         </div>
@@ -474,38 +474,38 @@ export default function AdvancedAnalytics() {
                 {activeTab === 'predictive' && predictiveData && (
                   <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="bg-white p-6 rounded-lg shadow-sm border">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Demand Forecast</h3>
+                      <div className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
+                        <h3 className="text-lg font-semibold text-white mb-4">Demand Forecast</h3>
                         <div className="space-y-3">
                           {predictiveData.demandForecast.slice(0, 5).map((forecast, index) => (
-                            <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div key={index} className="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
                               <div>
-                                <p className="font-medium text-gray-900">{forecast.date}</p>
-                                <p className="text-sm text-gray-600">Confidence: {formatPercentage(forecast.confidence)}</p>
+                                <p className="font-medium text-white">{forecast.date}</p>
+                                <p className="text-sm text-slate-300">Confidence: {formatPercentage(forecast.confidence)}</p>
                               </div>
                               <div className="text-right">
-                                <p className="text-lg font-semibold text-gray-900">{forecast.predictedOrders}</p>
-                                <p className="text-sm text-gray-600">orders</p>
+                                <p className="text-lg font-semibold text-white">{forecast.predictedOrders}</p>
+                                <p className="text-sm text-slate-300">orders</p>
                               </div>
                             </div>
                           ))}
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm border">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Seasonal Predictions</h3>
+                      <div className="bg-slate-800/80 p-6 rounded-lg shadow-sm border border-slate-700/50">
+                        <h3 className="text-lg font-semibold text-white mb-4">Seasonal Predictions</h3>
                         <div className="space-y-4">
                           {predictiveData.seasonalPredictions.map((season, index) => (
-                            <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                            <div key={index} className="p-4 bg-slate-700/50 rounded-lg">
                               <div className="flex items-center justify-between mb-2">
-                                <h4 className="font-semibold text-gray-900">{season.season}</h4>
+                                <h4 className="font-semibold text-white">{season.season}</h4>
                                 <div className="flex items-center text-green-600">
                                   <ArrowUpRight className="w-4 h-4" />
                                   <span className="text-sm font-medium">{formatPercentage(season.expectedGrowth)}</span>
                                 </div>
                               </div>
                               <div>
-                                <p className="text-sm text-gray-600">Top Items:</p>
+                                <p className="text-sm text-slate-300">Top Items:</p>
                                 <div className="flex flex-wrap gap-1 mt-1">
                                   {season.topItems.map((item, itemIndex) => (
                                     <span key={itemIndex} className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded">

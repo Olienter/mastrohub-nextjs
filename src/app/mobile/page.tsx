@@ -187,14 +187,14 @@ export default function MobilePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">MastroHub</h1>
-          <p className="text-gray-600">Mobile Dashboard</p>
+          <h1 className="text-2xl font-bold text-white">MastroHub</h1>
+          <p className="text-slate-300">Mobile Dashboard</p>
         </div>
         <div className="flex items-center space-x-2">
-          <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
+          <button className="p-2 text-slate-300 hover:text-white hover:bg-slate-700/50 rounded-lg">
             <Search className="w-5 h-5" />
           </button>
-          <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
+          <button className="p-2 text-slate-300 hover:text-white hover:bg-slate-700/50 rounded-lg">
             <Bell className="w-5 h-5" />
           </button>
         </div>
@@ -217,7 +217,7 @@ export default function MobilePage() {
             </div>
             <button
               onClick={() => setShowInstallPrompt(true)}
-              className="bg-white text-blue-600 px-3 py-1 rounded-lg text-sm font-medium"
+              className="bg-slate-700/50 text-blue-400 px-3 py-1 rounded-lg text-sm font-medium"
             >
               Install
             </button>
@@ -227,27 +227,27 @@ export default function MobilePage() {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white rounded-lg p-4 shadow-sm">
+        <div className="bg-slate-800/80 rounded-lg p-4 shadow-sm">
           <div className="flex items-center space-x-2">
             <TrendingUp className="w-5 h-5 text-green-600" />
-            <span className="text-sm text-gray-600">Today's Sales</span>
+            <span className="text-sm text-slate-300">Today's Sales</span>
           </div>
-          <p className="text-2xl font-bold text-gray-900 mt-1">€2,847</p>
+          <p className="text-2xl font-bold text-white mt-1">€2,847</p>
           <p className="text-sm text-green-600">+12% from yesterday</p>
         </div>
-        <div className="bg-white rounded-lg p-4 shadow-sm">
+        <div className="bg-slate-800/80 rounded-lg p-4 shadow-sm">
           <div className="flex items-center space-x-2">
             <Users className="w-5 h-5 text-blue-600" />
-            <span className="text-sm text-gray-600">Active Orders</span>
+            <span className="text-sm text-slate-300">Active Orders</span>
           </div>
-          <p className="text-2xl font-bold text-gray-900 mt-1">8</p>
+          <p className="text-2xl font-bold text-white mt-1">8</p>
           <p className="text-sm text-blue-600">3 pending</p>
         </div>
       </div>
 
       {/* Quick Actions */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-3">Quick Actions</h3>
+        <h3 className="text-lg font-semibold text-white mb-3">Quick Actions</h3>
         <div className="grid grid-cols-2 gap-3">
           {quickActions.map((action) => (
             <motion.button
@@ -265,24 +265,24 @@ export default function MobilePage() {
 
       {/* Recent Activities */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-3">Recent Activities</h3>
+        <h3 className="text-lg font-semibold text-white mb-3">Recent Activities</h3>
         <div className="space-y-3">
           {recentActivities.map((activity) => (
             <motion.div
               key={activity.id}
               whileHover={{ scale: 1.01 }}
-              className="bg-white rounded-lg p-4 shadow-sm"
+              className="bg-slate-800/80 rounded-lg p-4 shadow-sm"
             >
               <div className="flex items-start space-x-3">
                 <div className={`mt-1 ${activity.color}`}>
                   {activity.icon}
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-medium text-gray-900">{activity.title}</h4>
-                  <p className="text-sm text-gray-600">{activity.description}</p>
+                  <h4 className="font-medium text-white">{activity.title}</h4>
+                  <p className="text-sm text-slate-300">{activity.description}</p>
                   <div className="flex items-center space-x-2 mt-2">
-                    <Clock className="w-3 h-3 text-gray-400" />
-                    <span className="text-xs text-gray-500">{activity.time}</span>
+                    <Clock className="w-3 h-3 text-slate-400" />
+                    <span className="text-xs text-slate-400">{activity.time}</span>
                   </div>
                 </div>
               </div>
@@ -296,8 +296,8 @@ export default function MobilePage() {
   const renderMenuTab = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-900">All Features</h2>
-        <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
+        <h2 className="text-xl font-semibold text-white">All Features</h2>
+        <button className="p-2 text-slate-300 hover:text-white hover:bg-slate-700/50 rounded-lg">
           <Search className="w-5 h-5" />
         </button>
       </div>
@@ -309,7 +309,7 @@ export default function MobilePage() {
             href={item.href}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="block bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+            className="block bg-slate-800/80 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
           >
             <div className="flex items-center space-x-4">
               <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${item.color} text-white`}>
@@ -317,16 +317,16 @@ export default function MobilePage() {
               </div>
               <div className="flex-1">
                 <div className="flex items-center space-x-2">
-                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                  <h3 className="font-semibold text-white">{item.title}</h3>
                   {item.badge && (
                     <span className="bg-red-500 text-white text-xs rounded-full px-2 py-1">
                       {item.badge}
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-gray-600">{item.description}</p>
+                <p className="text-sm text-slate-300">{item.description}</p>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
+              <ChevronRight className="w-5 h-5 text-slate-400" />
             </div>
           </motion.a>
         ))}
@@ -336,18 +336,18 @@ export default function MobilePage() {
 
   const renderSettingsTab = () => (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-900">App Settings</h2>
+      <h2 className="text-xl font-semibold text-white">App Settings</h2>
 
       {/* PWA Features */}
-      <div className="bg-white rounded-lg p-4 shadow-sm">
-        <h3 className="font-semibold text-gray-900 mb-3">Progressive Web App</h3>
+      <div className="bg-slate-800/80 rounded-lg p-4 shadow-sm">
+        <h3 className="font-semibold text-white mb-3">Progressive Web App</h3>
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <Smartphone className="w-5 h-5 text-blue-600" />
-              <span className="text-sm text-gray-700">App Installation</span>
+              <span className="text-sm text-slate-300">App Installation</span>
             </div>
-            <span className={`text-sm ${features.isInstalled ? 'text-green-600' : 'text-gray-500'}`}>
+            <span className={`text-sm ${features.isInstalled ? 'text-green-600' : 'text-slate-400'}`}>
               {features.isInstalled ? 'Installed' : 'Not installed'}
             </span>
           </div>
@@ -355,9 +355,9 @@ export default function MobilePage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <Wifi className="w-5 h-5 text-green-600" />
-              <span className="text-sm text-gray-700">Offline Support</span>
+              <span className="text-sm text-slate-300">Offline Support</span>
             </div>
-            <span className={`text-sm ${features.hasServiceWorker ? 'text-green-600' : 'text-gray-500'}`}>
+            <span className={`text-sm ${features.hasServiceWorker ? 'text-green-600' : 'text-slate-400'}`}>
               {features.hasServiceWorker ? 'Available' : 'Not available'}
             </span>
           </div>
@@ -365,9 +365,9 @@ export default function MobilePage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <Zap className="w-5 h-5 text-purple-600" />
-              <span className="text-sm text-gray-700">Push Notifications</span>
+              <span className="text-sm text-slate-300">Push Notifications</span>
             </div>
-            <span className={`text-sm ${features.hasPushSupport ? 'text-green-600' : 'text-gray-500'}`}>
+            <span className={`text-sm ${features.hasPushSupport ? 'text-green-600' : 'text-slate-400'}`}>
               {features.hasPushSupport ? 'Available' : 'Not available'}
             </span>
           </div>
@@ -376,13 +376,13 @@ export default function MobilePage() {
 
       {/* App Actions */}
       <div className="space-y-3">
-        <button className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+        <button className="w-full bg-slate-700/50 text-slate-200 py-3 px-4 rounded-lg font-medium hover:bg-slate-700/70 transition-colors">
           Request Push Notifications
         </button>
-        <button className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+        <button className="w-full bg-slate-700/50 text-slate-200 py-3 px-4 rounded-lg font-medium hover:bg-slate-700/70 transition-colors">
           Clear Cache
         </button>
-        <button className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+        <button className="w-full bg-slate-700/50 text-slate-200 py-3 px-4 rounded-lg font-medium hover:bg-slate-700/70 transition-colors">
           Check for Updates
         </button>
       </div>
@@ -390,11 +390,11 @@ export default function MobilePage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       <OfflineIndicator />
       
       {/* Main Content */}
-      <div className="max-w-md mx-auto bg-gray-50 min-h-screen">
+      <div className="max-w-md mx-auto bg-gradient-to-br from-slate-900 to-slate-800 min-h-screen">
         <div className="p-4">
           <AnimatePresence mode="wait">
             {activeTab === 'home' && (
@@ -437,12 +437,12 @@ export default function MobilePage() {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200">
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-slate-800/80 border-t border-slate-700/50">
         <div className="flex items-center justify-around py-2">
           <button
             onClick={() => setActiveTab('home')}
             className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${
-              activeTab === 'home' ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-gray-900'
+              activeTab === 'home' ? 'text-blue-400 bg-blue-900/20' : 'text-slate-300 hover:text-white'
             }`}
           >
             <Home className="w-5 h-5" />
@@ -452,7 +452,7 @@ export default function MobilePage() {
           <button
             onClick={() => setActiveTab('menu')}
             className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${
-              activeTab === 'menu' ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-gray-900'
+              activeTab === 'menu' ? 'text-blue-400 bg-blue-900/20' : 'text-slate-300 hover:text-white'
             }`}
           >
             <Menu className="w-5 h-5" />
@@ -462,7 +462,7 @@ export default function MobilePage() {
           <button
             onClick={() => setActiveTab('settings')}
             className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${
-              activeTab === 'settings' ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-gray-900'
+              activeTab === 'settings' ? 'text-blue-400 bg-blue-900/20' : 'text-slate-300 hover:text-white'
             }`}
           >
             <Settings className="w-5 h-5" />

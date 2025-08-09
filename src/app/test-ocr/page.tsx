@@ -153,14 +153,14 @@ export default function TestOCR() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">OCR Test Page</h1>
+        <h1 className="text-3xl font-bold text-white mb-8">OCR Test Page</h1>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Test OCR Service */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold mb-4">Test OCR Service</h2>
+          <div className="bg-slate-800/80 rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold text-white mb-4">Test OCR Service</h2>
             
             <button
               onClick={testOCR}
@@ -172,19 +172,19 @@ export default function TestOCR() {
             
             {result && (
               <div className="mt-6">
-                <h3 className="text-lg font-semibold mb-2">OCR Result:</h3>
-                <div className="bg-gray-100 p-4 rounded-lg max-h-64 overflow-auto text-sm">
+                <h3 className="text-lg font-semibold text-white mb-2">OCR Result:</h3>
+                <div className="bg-slate-700/50 p-4 rounded-lg max-h-64 overflow-auto text-sm">
                   <div className="mb-2">
-                    <strong>Success:</strong> {result.success ? '✅ Yes' : '❌ No'}
+                    <strong className="text-slate-300">Success:</strong> {result.success ? '✅ Yes' : '❌ No'}
                   </div>
                   <div className="mb-2">
-                    <strong>Texts Found:</strong> {result.texts?.length || 0}
+                    <strong className="text-slate-300">Texts Found:</strong> {result.texts?.length || 0}
                   </div>
                   <div className="mb-2">
-                    <strong>Language:</strong> {result.language || 'Unknown'}
+                    <strong className="text-slate-300">Language:</strong> {result.language || 'Unknown'}
                   </div>
                   {result.error && (
-                    <div className="text-red-600">
+                    <div className="text-red-400">
                       <strong>Error:</strong> {result.error}
                     </div>
                   )}
@@ -194,42 +194,42 @@ export default function TestOCR() {
           </div>
 
           {/* Processed Menu Items */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold mb-4">Processed Menu Items</h2>
+          <div className="bg-slate-800/80 rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold text-white mb-4">Processed Menu Items</h2>
             
             {processedItems.length > 0 ? (
               <div className="space-y-4">
                 {processedItems.map((item, index) => (
-                  <div key={index} className="border border-gray-200 rounded-lg p-4">
+                  <div key={index} className="border border-slate-600 rounded-lg p-4 bg-slate-700/50">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-lg">{item.name}</h3>
-                      <span className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                      <h3 className="font-semibold text-lg text-white">{item.name}</h3>
+                      <span className="text-sm bg-blue-900/50 text-blue-300 px-2 py-1 rounded">
                         {item.category}
                       </span>
                     </div>
                     {item.description && (
-                      <p className="text-gray-600 text-sm mb-2">{item.description}</p>
+                      <p className="text-slate-300 text-sm mb-2">{item.description}</p>
                     )}
                     <div className="flex justify-between items-center">
-                      <span className="text-green-600 font-semibold">
+                      <span className="text-green-400 font-semibold">
                         ${item.price.toFixed(2)}
                       </span>
-                      <span className="text-xs text-gray-500">ID: {item.id}</span>
+                      <span className="text-xs text-slate-400">ID: {item.id}</span>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-gray-500 text-center py-8">
+              <div className="text-slate-400 text-center py-8">
                 No processed items yet. Click "Test OCR" to see results.
               </div>
             )}
           </div>
         </div>
         
-        <div className="bg-white rounded-lg shadow-md p-6 mt-8">
-          <h2 className="text-xl font-semibold mb-4">Instructions</h2>
-          <ol className="list-decimal list-inside space-y-2 text-gray-700">
+        <div className="bg-slate-800/80 rounded-lg shadow-md p-6 mt-8">
+          <h2 className="text-xl font-semibold text-white mb-4">Instructions</h2>
+          <ol className="list-decimal list-inside space-y-2 text-slate-300">
             <li>Click "Test OCR" to verify OCR service is working</li>
             <li>Check console for detailed logs (F12 → Console)</li>
             <li>If using MockOCRService, create .env.local file with your API key</li>

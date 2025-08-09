@@ -270,9 +270,9 @@ export default function MarketingAssistant() {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-12">
-            <AlertCircleIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <h2 className="text-xl font-semibold text-gray-600 mb-2">No Workspace Selected</h2>
-            <p className="text-gray-500">Please select a workspace to view marketing data.</p>
+            <AlertCircleIcon className="mx-auto h-12 w-12 text-slate-400 mb-4" />
+            <h2 className="text-xl font-semibold text-slate-300 mb-2">No Workspace Selected</h2>
+            <p className="text-slate-400">Please select a workspace to view marketing data.</p>
           </div>
         </div>
       </div>
@@ -282,18 +282,18 @@ export default function MarketingAssistant() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-slate-800/80 shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <Link href="/restaurant-curator" className="flex items-center text-gray-600 hover:text-gray-900">
+              <Link href="/restaurant-curator" className="flex items-center text-slate-300 hover:text-white">
                 <ArrowLeft className="h-5 w-5 mr-2" />
                 Back to Restaurant Curator
               </Link>
-              <div className="h-6 w-px bg-gray-300" />
+              <div className="h-6 w-px bg-slate-600" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Marketing Assistant</h1>
-                <p className="text-sm text-gray-600">{currentWorkspace.name}</p>
+                <h1 className="text-2xl font-bold text-white">Marketing Assistant</h1>
+                <p className="text-sm text-slate-300">{currentWorkspace.name}</p>
               </div>
             </div>
             
@@ -321,9 +321,9 @@ export default function MarketingAssistant() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Loading State */}
         {loading && (
-          <div className="bg-white rounded-lg shadow-sm border p-12 text-center">
-            <RefreshCwIcon className="mx-auto h-8 w-8 text-gray-400 animate-spin mb-4" />
-            <p className="text-gray-600">Loading marketing data...</p>
+          <div className="bg-slate-800/80 rounded-lg shadow-sm border p-12 text-center">
+            <RefreshCwIcon className="mx-auto h-8 w-8 text-slate-400 animate-spin mb-4" />
+            <p className="text-slate-300">Loading marketing data...</p>
           </div>
         )}
 
@@ -344,7 +344,7 @@ export default function MarketingAssistant() {
         {marketingData && !loading && (
           <div className="space-y-6">
             {/* Tabs */}
-            <div className="bg-white rounded-lg shadow-sm border">
+            <div className="bg-slate-800/80 rounded-lg shadow-sm border">
               <div className="border-b border-gray-200">
                 <nav className="-mb-px flex space-x-8 px-6">
                   {[
@@ -360,7 +360,7 @@ export default function MarketingAssistant() {
                       className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 ${
                         activeTab === tab.id
                           ? 'border-blue-500 text-blue-600'
-                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                          : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-600/50'
                       }`}
                     >
                       <tab.icon className="h-4 w-4" />
@@ -374,41 +374,41 @@ export default function MarketingAssistant() {
             {/* Content based on active tab */}
             {activeTab === 'overview' && (
               <div className="text-center py-12">
-                <BarChart3Icon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Marketing Overview</h3>
-                <p className="text-gray-600">Overview content will be implemented here</p>
+                <BarChart3Icon className="mx-auto h-12 w-12 text-slate-400 mb-4" />
+                <h3 className="text-lg font-medium text-white mb-2">Marketing Overview</h3>
+                <p className="text-slate-300">Overview content will be implemented here</p>
               </div>
             )}
 
             {activeTab === 'campaigns' && (
               <div className="text-center py-12">
-                <Megaphone className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Campaigns</h3>
-                <p className="text-gray-600">Campaigns content will be implemented here</p>
+                <Megaphone className="mx-auto h-12 w-12 text-slate-400 mb-4" />
+                <h3 className="text-lg font-medium text-white mb-2">Campaigns</h3>
+                <p className="text-slate-300">Campaigns content will be implemented here</p>
               </div>
             )}
 
             {activeTab === 'contacts' && (
               <div className="text-center py-12">
-                <UsersIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Contacts</h3>
-                <p className="text-gray-600">Contacts content will be implemented here</p>
+                <UsersIcon className="mx-auto h-12 w-12 text-slate-400 mb-4" />
+                <h3 className="text-lg font-medium text-white mb-2">Contacts</h3>
+                <p className="text-slate-300">Contacts content will be implemented here</p>
               </div>
             )}
 
             {activeTab === 'analytics' && (
               <div className="text-center py-12">
-                <BarChart3Icon2 className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Analytics</h3>
-                <p className="text-gray-600">Analytics content will be implemented here</p>
+                <BarChart3Icon2 className="mx-auto h-12 w-12 text-slate-400 mb-4" />
+                <h3 className="text-lg font-medium text-white mb-2">Analytics</h3>
+                <p className="text-slate-300">Analytics content will be implemented here</p>
               </div>
             )}
 
             {activeTab === 'ai' && (
               <div className="text-center py-12">
-                <BrainIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">AI Assistant</h3>
-                <p className="text-gray-600">AI Assistant content will be implemented here</p>
+                <BrainIcon className="mx-auto h-12 w-12 text-slate-400 mb-4" />
+                <h3 className="text-lg font-medium text-white mb-2">AI Assistant</h3>
+                <p className="text-slate-300">AI Assistant content will be implemented here</p>
               </div>
             )}
           </div>

@@ -3,7 +3,7 @@ import { createHash, randomBytes, createCipheriv, createDecipheriv } from 'crypt
 // Security Interfaces
 export interface SecurityEvent {
   id: string;
-  timestamp: string;
+  timestamp: Date;
   userId: string;
   action: string;
   resource: string;
@@ -720,7 +720,7 @@ export class SecurityManager {
 }
 
 // Types
-export interface SecurityEvent {
+export interface SecurityEventExtended {
   timestamp: string;
   eventType: SecurityEventType;
   details: any;

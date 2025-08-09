@@ -56,24 +56,24 @@ export default function CommunityDemoPage() {
         >
           {/* Header */}
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-white dark:text-white mb-4">
               Community Features Demo
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
+            <p className="text-lg text-slate-300 dark:text-slate-300">
               Test the interactive community features including reactions, comments, and bookmarks
             </p>
           </div>
 
           {/* Article with Community Features */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="bg-slate-800/80 dark:bg-slate-800 rounded-2xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-white dark:text-white mb-6">
               Sample Article with Community Features
             </h2>
             
             <div className="space-y-8">
               {/* Article Reactions */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg font-semibold text-white dark:text-white mb-4">
                   Article Reactions
                 </h3>
                 <ArticleReactions
@@ -90,7 +90,7 @@ export default function CommunityDemoPage() {
 
               {/* Comments Section */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg font-semibold text-white dark:text-white mb-4">
                   Comments Section
                 </h3>
                 <CommentSection articleId={mockArticle.id} />
@@ -99,8 +99,8 @@ export default function CommunityDemoPage() {
           </div>
 
           {/* Bookmarks Demo */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="bg-slate-800/80 dark:bg-slate-800 rounded-2xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-white dark:text-white mb-6">
               Bookmarks Management
             </h2>
             <BookmarksList />
@@ -108,36 +108,36 @@ export default function CommunityDemoPage() {
 
           {/* Feature Overview */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+            <div className="bg-slate-800/80 dark:bg-slate-800 rounded-xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold text-white dark:text-white mb-3">
                 Reactions
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
+              <p className="text-slate-300 dark:text-slate-300 text-sm">
                 Like, love, and bookmark articles. Track engagement and build community around content.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+            <div className="bg-slate-800/80 dark:bg-slate-800 rounded-xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold text-white dark:text-white mb-3">
                 Comments
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
+              <p className="text-slate-300 dark:text-slate-300 text-sm">
                 Nested comments with replies, reactions, and moderation. Real-time updates and user interactions.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+            <div className="bg-slate-800/80 dark:bg-slate-800 rounded-xl shadow-lg p-6">
+              <h3 className="text-lg font-semibold text-white dark:text-white mb-3">
                 Bookmarks
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
+              <p className="text-slate-300 dark:text-slate-300 text-sm">
                 Save and organize favorite articles. Filter by recent, popular, or all bookmarks.
               </p>
             </div>
           </div>
 
           {/* Code Examples */}
-          <div className="bg-gray-900 dark:bg-gray-950 rounded-2xl shadow-lg p-8">
+          <div className="bg-slate-900 dark:bg-slate-950 rounded-2xl shadow-lg p-8">
             <h2 className="text-2xl font-bold text-white mb-6">
               Implementation Examples
             </h2>

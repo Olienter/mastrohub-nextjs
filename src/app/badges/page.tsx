@@ -20,7 +20,7 @@ export default function BadgesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       {/* Header */}
       <div className="bg-gradient-to-r from-mastroCyan-500 to-mastroCyan-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -40,13 +40,13 @@ export default function BadgesPage() {
       {/* Navigation Tabs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <div className="flex space-x-1 bg-white rounded-lg p-1 shadow-sm">
+          <div className="flex space-x-1 bg-slate-700/50 rounded-lg p-1 shadow-sm">
             <button
               onClick={() => setActiveTab('badges')}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 activeTab === 'badges'
                   ? 'bg-mastroCyan-500 text-white'
-                  : 'text-gray-600 hover:text-gray-900'
+                  : 'text-slate-300 hover:text-white'
               }`}
             >
               Badges
@@ -56,7 +56,7 @@ export default function BadgesPage() {
               className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 activeTab === 'progress'
                   ? 'bg-mastroCyan-500 text-white'
-                  : 'text-gray-600 hover:text-gray-900'
+                  : 'text-slate-300 hover:text-white'
               }`}
             >
               Progress
@@ -72,7 +72,7 @@ export default function BadgesPage() {
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     selectedCategory === category.value
                       ? 'bg-mastroCyan-500 text-white'
-                      : 'bg-white text-gray-600 hover:text-gray-900 border border-gray-200'
+                      : 'bg-slate-700/50 text-slate-300 hover:text-white border border-slate-600/50'
                   }`}
                 >
                   {category.icon}
@@ -93,9 +93,9 @@ export default function BadgesPage() {
           {activeTab === 'badges' ? (
             <div className="space-y-8">
               {/* Badge Overview */}
-              <div className="bg-white rounded-lg p-6 border border-gray-200">
+              <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50">
                 <h2 className="text-2xl font-bold mb-4">Badge Collection</h2>
-                <p className="text-gray-600 mb-6">
+                <p className="text-slate-300 mb-6">
                   {selectedCategory === 'all' 
                     ? 'Browse all available badges and track your progress towards unlocking them.'
                     : `Browse ${selectedCategory} badges and track your progress towards unlocking them.`
@@ -111,38 +111,38 @@ export default function BadgesPage() {
 
               {/* Badge Categories Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white rounded-lg p-6 border border-gray-200">
+                <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 bg-blue-100 rounded-lg">
                       <Target className="w-6 h-6 text-blue-600" />
                     </div>
                     <h3 className="text-lg font-semibold">Content Badges</h3>
                   </div>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-slate-300 text-sm">
                     Earn badges by creating and publishing articles. From your first article to becoming a prolific writer.
                   </p>
                 </div>
 
-                <div className="bg-white rounded-lg p-6 border border-gray-200">
+                <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 bg-green-100 rounded-lg">
                       <Star className="w-6 h-6 text-green-600" />
                     </div>
                     <h3 className="text-lg font-semibold">Engagement Badges</h3>
                   </div>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-slate-300 text-sm">
                     Show your engagement by commenting, reacting, and bookmarking content from the community.
                   </p>
                 </div>
 
-                <div className="bg-white rounded-lg p-6 border border-gray-200">
+                <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 bg-purple-100 rounded-lg">
                       <Award className="w-6 h-6 text-purple-600" />
                     </div>
                     <h3 className="text-lg font-semibold">Community Badges</h3>
                   </div>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-slate-300 text-sm">
                     Contribute significantly to the community and earn recognition for your valuable contributions.
                   </p>
                 </div>
@@ -153,12 +153,12 @@ export default function BadgesPage() {
               <ProgressTracker />
               
               {/* Tips Section */}
-              <div className="bg-white rounded-lg p-6 border border-gray-200">
+              <div className="bg-slate-800/80 rounded-lg p-6 border border-slate-700/50">
                 <h2 className="text-2xl font-bold mb-4">How to Earn Badges</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold text-mastroCyan-600">Content Creation</h3>
-                    <ul className="space-y-2 text-sm text-gray-600">
+                    <ul className="space-y-2 text-sm text-slate-300">
                       <li>• Write and publish your first article</li>
                       <li>• Reach 5 published articles</li>
                       <li>• Achieve 10 published articles</li>
@@ -168,7 +168,7 @@ export default function BadgesPage() {
                   
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold text-mastroCyan-600">Community Engagement</h3>
-                    <ul className="space-y-2 text-sm text-gray-600">
+                    <ul className="space-y-2 text-sm text-slate-300">
                       <li>• Leave thoughtful comments</li>
                       <li>• React to articles and comments</li>
                       <li>• Bookmark interesting content</li>

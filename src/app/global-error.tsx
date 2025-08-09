@@ -18,7 +18,7 @@ export default function GlobalError({
   return (
     <html>
       <body>
-        <div className="min-h-screen bg-gray-50 dark:bg-slate-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 dark:bg-slate-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -30,11 +30,11 @@ export default function GlobalError({
               </div>
             </div>
             
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-2xl font-bold text-white dark:text-white mb-4">
               Critical Error
             </h1>
             
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-slate-300 dark:text-slate-400 mb-8">
               A critical error occurred. Please refresh the page or try again later.
             </p>
 
@@ -43,7 +43,7 @@ export default function GlobalError({
                 onClick={reset}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="w-full flex items-center justify-center px-4 py-2 border border-slate-600/50 text-sm font-medium rounded-lg text-slate-300 dark:text-slate-300 bg-slate-800/80 dark:bg-slate-800 hover:bg-slate-700/50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Try again
@@ -53,7 +53,7 @@ export default function GlobalError({
                 onClick={() => window.location.href = '/'}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-slate-600 text-sm font-medium rounded-lg text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="w-full flex items-center justify-center px-4 py-2 border border-slate-600/50 dark:border-slate-600 text-sm font-medium rounded-lg text-slate-300 dark:text-slate-300 bg-slate-800/80 dark:bg-slate-800 hover:bg-slate-700/50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 <Home className="h-4 w-4 mr-2" />
                 Go to homepage
@@ -62,10 +62,10 @@ export default function GlobalError({
 
             {process.env.NODE_ENV === 'development' && (
               <details className="mt-8 text-left">
-                <summary className="cursor-pointer text-sm text-gray-500 dark:text-gray-400 mb-2">
+                <summary className="cursor-pointer text-sm text-slate-400 dark:text-slate-400 mb-2">
                   Error details (development only)
                 </summary>
-                <pre className="bg-gray-100 dark:bg-slate-800 p-4 rounded-lg text-xs text-gray-700 dark:text-gray-300 overflow-auto">
+                <pre className="bg-slate-700/50 dark:bg-slate-800 p-4 rounded-lg text-xs text-slate-200 dark:text-slate-300 overflow-auto">
                   {error.message}
                   {error.stack && `\n\n${error.stack}`}
                 </pre>

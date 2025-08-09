@@ -119,7 +119,7 @@ export default function SmartCTA() {
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center gap-3">
               <motion.div
-                className="p-3 bg-white/20 rounded-xl"
+                className="p-3 bg-slate-700/20 rounded-xl"
                 whileHover={{ scale: 1.1, rotate: 5 }}
               >
                 {currentCTA.icon}
@@ -127,7 +127,7 @@ export default function SmartCTA() {
               <div>
                 {currentCTA.badge && (
                   <motion.span
-                    className="inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-semibold mb-2"
+                    className="inline-block px-3 py-1 bg-slate-700/20 rounded-full text-xs font-semibold mb-2"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.2 }}
@@ -160,7 +160,7 @@ export default function SmartCTA() {
           {/* CTA Button */}
           <motion.button
             onClick={() => handleCTAClick(currentCTA.id)}
-            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-gray-900 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-700/50 text-white font-semibold rounded-xl hover:bg-slate-700/70 transition-all duration-300 shadow-lg hover:shadow-xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -205,7 +205,7 @@ export default function SmartCTA() {
             className={`w-3 h-3 rounded-full transition-colors ${
               index === selectedCTA 
                 ? 'bg-blue-600' 
-                : 'bg-gray-300 dark:bg-slate-600'
+                : 'bg-slate-600 dark:bg-slate-600'
             }`}
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.8 }}

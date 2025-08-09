@@ -44,10 +44,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
       }
 
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 dark:bg-slate-900">
           <div className="text-center p-8 max-w-md">
             <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl font-bold text-white dark:text-white mb-4">
               Oops! Something went wrong
             </h2>
             <p className="text-slate-300 mb-6">
@@ -56,14 +56,14 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             <div className="flex gap-3 justify-center">
               <button
                 onClick={() => window.location.reload()}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white rounded-lg font-medium transition-colors"
               >
                 <RefreshCw className="w-4 h-4" />
                 Try Again
               </button>
               <Link
                 href="/"
-                className="flex items-center gap-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white rounded-lg font-medium transition-colors"
               >
                 <Home className="w-4 h-4" />
                 Go Home

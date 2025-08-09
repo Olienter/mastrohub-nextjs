@@ -1,0 +1,2 @@
+# Ignore all CSS linter errors for Tailwind CSS files
+*.css

@@ -49,7 +49,7 @@ const UltraModernBackground: React.FC<UltraModernBackgroundProps> = ({
         {[...Array(200)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-white rounded-full"
+            className="absolute w-1 h-1 bg-slate-400 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,

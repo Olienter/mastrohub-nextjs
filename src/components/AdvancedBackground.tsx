@@ -59,7 +59,7 @@ const AdvancedBackground: React.FC<AdvancedBackgroundProps> = ({ isVisible, hasS
       const generatedParticles = Array.from({ length: 50 }, (_, i) => ({ // Reduced from 200 to 50
         id: i,
         size: i % 4 === 0 ? 'w-2 h-2' : i % 4 === 1 ? 'w-1 h-1' : i % 4 === 2 ? 'w-0.5 h-0.5' : 'w-1.5 h-1.5',
-        color: i % 4 === 0 ? 'bg-cyan-400' : i % 4 === 1 ? 'bg-teal-400' : i % 4 === 2 ? 'bg-white' : 'bg-blue-400',
+        color: i % 4 === 0 ? 'bg-cyan-400' : i % 4 === 1 ? 'bg-teal-400' : i % 4 === 2 ? 'bg-slate-400' : 'bg-blue-400',
         left: `${Math.random() * 100}%`,
         top: `${Math.random() * 100}%`,
         duration: 4 + Math.random() * 3,

@@ -13,14 +13,14 @@ interface BadgeDisplayProps {
 }
 
 const rarityIcons = {
-  common: <Star className="w-4 h-4 text-gray-400" />,
+  common: <Star className="w-4 h-4 text-slate-400" />,
   rare: <Award className="w-4 h-4 text-blue-400" />,
   epic: <Trophy className="w-4 h-4 text-purple-400" />,
   legendary: <Crown className="w-4 h-4 text-yellow-400" />
 };
 
 const rarityColors = {
-  common: 'border-gray-300 bg-gray-50',
+  common: 'border-slate-600/50 bg-slate-700/50',
   rare: 'border-blue-300 bg-blue-50',
   epic: 'border-purple-300 bg-purple-50',
   legendary: 'border-yellow-300 bg-yellow-50'
@@ -84,7 +84,7 @@ export default function BadgeDisplay({
 
   if (!targetUserId) {
     return (
-      <div className={`text-center p-8 text-gray-500 ${className}`}>
+      <div className={`text-center p-8 text-slate-400 ${className}`}>
         Please log in to view badges
       </div>
     );
@@ -107,7 +107,7 @@ export default function BadgeDisplay({
                 whileHover={{ scale: 1.05 }}
                 className={`
                   relative p-4 rounded-lg border-2 cursor-pointer transition-all duration-200
-                  ${unlocked ? rarityColors[badge.rarity] : 'border-gray-200 bg-gray-50 opacity-60'}
+                  ${unlocked ? rarityColors[badge.rarity] : 'border-slate-700/50 bg-slate-700/50 opacity-60'}
                   ${unlocked ? 'hover:shadow-lg' : 'hover:opacity-80'}
                 `}
                 onClick={() => setSelectedBadge(badge)}
@@ -120,10 +120,10 @@ export default function BadgeDisplay({
 
                 {/* Badge Info */}
                 <div className="space-y-2">
-                  <h3 className={`font-semibold text-sm ${unlocked ? 'text-gray-900' : 'text-gray-500'}`}>
+                  <h3 className={`font-semibold text-sm ${unlocked ? 'text-white' : 'text-slate-400'}`}>
                     {badge.name}
                   </h3>
-                  <p className={`text-xs ${unlocked ? 'text-gray-700' : 'text-gray-400'}`}>
+                  <p className={`text-xs ${unlocked ? 'text-slate-200' : 'text-slate-400'}`}>
                     {badge.description}
                   </p>
                 </div>
@@ -131,11 +131,11 @@ export default function BadgeDisplay({
                 {/* Progress Bar */}
                 {showProgress && (
                   <div className="mt-3">
-                    <div className="flex justify-between text-xs text-gray-500 mb-1">
+                    <div className="flex justify-between text-xs text-slate-400 mb-1">
                       <span>Progress</span>
                       <span>{unlockedBadge?.progress || 0}/{badge.requirements[0]?.count || 1}</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-slate-700 rounded-full h-2">
                       <motion.div
                         className="bg-mastroCyan-400 h-2 rounded-full"
                         initial={{ width: 0 }}
@@ -155,7 +155,7 @@ export default function BadgeDisplay({
                   <motion.div
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="absolute -top-2 -right-2 bg-green-500 text-gray-900 rounded-full p-1"
+                    className="absolute -top-2 -right-2 bg-green-500 text-white rounded-full p-1"
                   >
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -189,13 +189,13 @@ export default function BadgeDisplay({
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-lg p-6 max-w-md w-full"
+              className="bg-slate-800/80 rounded-lg p-6 max-w-md w-full"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="text-center">
                 <div className="text-4xl mb-4">{selectedBadge.icon}</div>
                 <h2 className="text-xl font-bold mb-2">{selectedBadge.name}</h2>
-                <p className="text-gray-600 mb-4">{selectedBadge.description}</p>
+                <p className="text-slate-300 mb-4">{selectedBadge.description}</p>
                 
                 <div className="flex items-center justify-center gap-2 mb-4">
                   {rarityIcons[selectedBadge.rarity]}
@@ -221,7 +221,7 @@ export default function BadgeDisplay({
 
                 <button
                   onClick={() => setSelectedBadge(null)}
-                  className="mt-6 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                  className="mt-6 px-4 py-2 bg-slate-700/50 text-slate-200 rounded-lg hover:bg-slate-700/70 transition-colors"
                 >
                   Close
                 </button>

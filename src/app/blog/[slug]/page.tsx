@@ -28,13 +28,13 @@ export default function BlogPostPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 dark:bg-slate-900">
       {/* Header */}
-      <header className="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700">
+      <header className="bg-slate-800/80 dark:bg-slate-800 border-b border-slate-700/50 dark:border-slate-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link 
             href="/blog"
-            className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+            className="inline-flex items-center gap-2 text-slate-300 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Blog
@@ -62,17 +62,17 @@ export default function BlogPostPage() {
           )}
 
           {/* Title */}
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-white dark:text-white mb-4">
             {article.title}
           </h1>
 
           {/* Meta Information */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-6">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-slate-300 dark:text-slate-400 mb-6">
             <div className="flex items-center gap-1">
               <User className="w-4 h-4" />
               <span>{article.author}</span>
               {article.authorTitle && (
-                <span className="text-gray-500">• {article.authorTitle}</span>
+                <span className="text-slate-400">• {article.authorTitle}</span>
               )}
             </div>
             <div className="flex items-center gap-1">
@@ -127,7 +127,7 @@ export default function BlogPostPage() {
           className="prose prose-lg dark:prose-invert max-w-none"
         >
           <div 
-            className="text-gray-800 dark:text-gray-200 leading-relaxed"
+            className="text-slate-200 dark:text-slate-200 leading-relaxed"
             dangerouslySetInnerHTML={{ 
               __html: article.content.replace(/\n/g, '<br>') 
             }}
@@ -142,15 +142,15 @@ export default function BlogPostPage() {
           className="mt-12 pt-8 border-t border-gray-200 dark:border-slate-700"
         >
           <div className="flex items-center justify-between">
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-slate-300 dark:text-slate-400">
               Last updated: {formatDate(article.lastUpdated)}
             </div>
             <div className="flex items-center gap-4">
-              <button className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+              <button className="flex items-center gap-2 px-4 py-2 text-slate-300 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400">
                 <Heart className="w-4 h-4" />
                 Like
               </button>
-              <button className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+              <button className="flex items-center gap-2 px-4 py-2 text-slate-300 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400">
                 Share
               </button>
             </div>

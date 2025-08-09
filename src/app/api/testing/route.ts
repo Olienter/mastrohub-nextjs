@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { TestUtils, TestRunner, UnitTests, IntegrationTests, EndToEndTests, PerformanceTests } from '@/lib/testing';
+import { testUtils, TestingFramework, createUnitTestSuite, createIntegrationTestSuite, createE2ETestSuite, createPerformanceTestSuite } from '@/lib/testing';
 import { supabase } from '@/lib/supabase';
 
 export async function GET(request: NextRequest) {
@@ -15,7 +15,8 @@ export async function GET(request: NextRequest) {
 
     switch (type) {
       case 'run_all':
-        const report = await TestUtils.runAllTests();
+        const framework = TestingFramework.getInstance();
+        const report = await framework.runAllTests();
         return NextResponse.json({ report });
 
       case 'run_suite':
@@ -24,28 +25,24 @@ export async function GET(request: NextRequest) {
         }
 
         let results;
+        const testingFramework = TestingFramework.getInstance();
+        
         switch (testType) {
           case 'unit':
-            results = [
-              ...await UnitTests.testAIAgent(),
-              ...await UnitTests.testCacheManager(),
-              ...await UnitTests.testRBAC()
-            ];
+            const unitSuite = createUnitTestSuite();
+            results = await testingFramework.runTestSuite(unitSuite);
             break;
           case 'integration':
-            results = [
-              ...await IntegrationTests.testAPIIntegration(),
-              ...await IntegrationTests.testDatabaseIntegration()
-            ];
+            const integrationSuite = createIntegrationTestSuite();
+            results = await testingFramework.runTestSuite(integrationSuite);
             break;
           case 'e2e':
-            results = await EndToEndTests.testUserWorkflow();
+            const e2eSuite = createE2ETestSuite();
+            results = await testingFramework.runTestSuite(e2eSuite);
             break;
           case 'performance':
-            results = [
-              ...await PerformanceTests.testCachePerformance(),
-              ...await PerformanceTests.testAIPerformance()
-            ];
+            const performanceSuite = createPerformanceTestSuite();
+            results = await testingFramework.runTestSuite(performanceSuite);
             break;
           default:
             return NextResponse.json({ error: 'Invalid test type' }, { status: 400 });
@@ -82,31 +79,25 @@ export async function POST(request: NextRequest) {
 
     switch (action) {
       case 'run_tests':
-        const runner = new TestRunner();
+        const framework = TestingFramework.getInstance();
         let testResults;
 
         switch (test_type) {
           case 'unit':
-            testResults = [
-              ...await UnitTests.testAIAgent(),
-              ...await UnitTests.testCacheManager(),
-              ...await UnitTests.testRBAC()
-            ];
+            const unitSuite = createUnitTestSuite();
+            testResults = await framework.runTestSuite(unitSuite);
             break;
           case 'integration':
-            testResults = [
-              ...await IntegrationTests.testAPIIntegration(),
-              ...await IntegrationTests.testDatabaseIntegration()
-            ];
+            const integrationSuite = createIntegrationTestSuite();
+            testResults = await framework.runTestSuite(integrationSuite);
             break;
           case 'e2e':
-            testResults = await EndToEndTests.testUserWorkflow();
+            const e2eSuite = createE2ETestSuite();
+            testResults = await framework.runTestSuite(e2eSuite);
             break;
           case 'performance':
-            testResults = [
-              ...await PerformanceTests.testCachePerformance(),
-              ...await PerformanceTests.testAIPerformance()
-            ];
+            const performanceSuite = createPerformanceTestSuite();
+            testResults = await framework.runTestSuite(performanceSuite);
             break;
           case 'all':
             const report = await TestUtils.runAllTests();

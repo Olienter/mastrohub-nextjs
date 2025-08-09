@@ -137,20 +137,20 @@ export default function NotificationsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-slate-800/80 border-b border-slate-700/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="py-6">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
-                <p className="text-gray-600 mt-1">Manage your notifications and preferences</p>
+                <h1 className="text-2xl font-bold text-white">Notifications</h1>
+                <p className="text-slate-300 mt-1">Manage your notifications and preferences</p>
               </div>
               <div className="flex items-center space-x-3">
                 <button
                   onClick={() => setShowSettings(!showSettings)}
-                  className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="p-2 text-slate-300 hover:text-white hover:bg-slate-700/50 rounded-lg transition-colors"
                   title="Notification Settings"
                 >
                   <Settings className="w-5 h-5" />
@@ -158,7 +158,7 @@ export default function NotificationsPage() {
                 <button
                   onClick={loadNotifications}
                   disabled={loading}
-                  className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
+                  className="p-2 text-slate-300 hover:text-white hover:bg-slate-700/50 rounded-lg transition-colors disabled:opacity-50"
                   title="Refresh"
                 >
                   <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
@@ -174,18 +174,18 @@ export default function NotificationsPage() {
           {/* Main Content */}
           <div className="lg:col-span-3">
             {/* Filters */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+            <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6 mb-6">
               <div className="flex flex-col sm:flex-row gap-4">
                 {/* Search */}
                 <div className="flex-1">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
                     <input
                       type="text"
                       placeholder="Search notifications..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-slate-700/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -199,7 +199,7 @@ export default function NotificationsPage() {
                       className={`px-4 py-2 text-sm rounded-lg transition-colors ${
                         filter === filterOption
                           ? 'bg-blue-100 text-blue-700'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700/70'
                       }`}
                     >
                       {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
@@ -212,7 +212,7 @@ export default function NotificationsPage() {
                 <select
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value as any)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="px-4 py-2 border border-slate-700/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   {categories.map(category => (
                     <option key={category.value} value={category.value}>
@@ -224,7 +224,7 @@ export default function NotificationsPage() {
                 <select
                   value={priorityFilter}
                   onChange={(e) => setPriorityFilter(e.target.value as any)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="px-4 py-2 border border-slate-700/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   {priorities.map(priority => (
                     <option key={priority.value} value={priority.value}>
@@ -245,17 +245,17 @@ export default function NotificationsPage() {
             </div>
 
             {/* Notifications List */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50">
               {loading ? (
                 <div className="p-8 text-center">
-                  <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-4 text-gray-400" />
-                  <p className="text-gray-500">Loading notifications...</p>
+                  <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-4 text-slate-400" />
+                  <p className="text-slate-400">Loading notifications...</p>
                 </div>
               ) : filteredNotifications.length === 0 ? (
                 <div className="p-8 text-center">
-                  <Bell className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No notifications found</h3>
-                  <p className="text-gray-500">Try adjusting your filters or search terms</p>
+                  <Bell className="w-16 h-16 mx-auto mb-4 text-slate-400" />
+                  <h3 className="text-lg font-medium text-white mb-2">No notifications found</h3>
+                  <p className="text-slate-400">Try adjusting your filters or search terms</p>
                 </div>
               ) : (
                 <div className="divide-y divide-gray-100">
@@ -264,7 +264,7 @@ export default function NotificationsPage() {
                       key={notification.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={`p-6 hover:bg-gray-50 transition-colors ${
+                      className={`p-6 hover:bg-slate-700/50 transition-colors ${
                         !notification.read ? 'bg-blue-50' : ''
                       }`}
                     >
@@ -276,21 +276,21 @@ export default function NotificationsPage() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
-                              <h3 className="text-lg font-medium text-gray-900">
+                              <h3 className="text-lg font-medium text-white">
                                 {notification.title}
                               </h3>
-                              <p className="text-gray-600 mt-1">
+                              <p className="text-slate-300 mt-1">
                                 {notification.message}
                               </p>
                               <div className="flex items-center space-x-4 mt-3">
-                                <span className="text-sm text-gray-400 flex items-center">
+                                <span className="text-sm text-slate-400 flex items-center">
                                   <Clock className="w-4 h-4 mr-1" />
                                   {formatNotificationTime(notification.timestamp)}
                                 </span>
                                 <span className={`text-sm px-2 py-1 rounded-full ${getPriorityColor(notification.priority)}`}>
                                   {notification.priority}
                                 </span>
-                                <span className="text-sm text-gray-500 capitalize">
+                                <span className="text-sm text-slate-400 capitalize">
                                   {notification.category}
                                 </span>
                               </div>
@@ -310,7 +310,7 @@ export default function NotificationsPage() {
                               {!notification.read && (
                                 <button
                                   onClick={() => handleMarkAsRead(notification.id)}
-                                  className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                                  className="p-2 text-slate-400 hover:text-slate-300 hover:bg-slate-700/50 rounded-lg transition-colors"
                                   title="Mark as read"
                                 >
                                   <Check className="w-4 h-4" />
@@ -319,7 +319,7 @@ export default function NotificationsPage() {
                               
                               <button
                                 onClick={() => handleDeleteNotification(notification.id)}
-                                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-colors"
                                 title="Delete"
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -343,13 +343,13 @@ export default function NotificationsPage() {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
-                  className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+                  className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6"
                 >
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Notification Settings</h3>
+                  <h3 className="text-lg font-medium text-white mb-4">Notification Settings</h3>
                   
                   <div className="space-y-4">
                     <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-2">Notification Methods</h4>
+                      <h4 className="text-sm font-medium text-slate-300 mb-2">Notification Methods</h4>
                       <div className="space-y-2">
                         <label className="flex items-center">
                           <input
@@ -358,8 +358,8 @@ export default function NotificationsPage() {
                             onChange={(e) => handleUpdateSettings({ email: e.target.checked })}
                             className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                           />
-                          <Mail className="w-4 h-4 ml-2 text-gray-400" />
-                          <span className="ml-2 text-sm text-gray-700">Email</span>
+                          <Mail className="w-4 h-4 ml-2 text-slate-400" />
+                          <span className="ml-2 text-sm text-slate-300">Email</span>
                         </label>
                         
                         <label className="flex items-center">
@@ -369,8 +369,8 @@ export default function NotificationsPage() {
                             onChange={(e) => handleUpdateSettings({ push: e.target.checked })}
                             className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                           />
-                          <Smartphone className="w-4 h-4 ml-2 text-gray-400" />
-                          <span className="ml-2 text-sm text-gray-700">Push</span>
+                          <Smartphone className="w-4 h-4 ml-2 text-slate-400" />
+                          <span className="ml-2 text-sm text-slate-300">Push</span>
                         </label>
                         
                         <label className="flex items-center">
@@ -380,14 +380,14 @@ export default function NotificationsPage() {
                             onChange={(e) => handleUpdateSettings({ inApp: e.target.checked })}
                             className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                           />
-                          <Volume2 className="w-4 h-4 ml-2 text-gray-400" />
-                          <span className="ml-2 text-sm text-gray-700">In-App</span>
+                          <Volume2 className="w-4 h-4 ml-2 text-slate-400" />
+                          <span className="ml-2 text-sm text-slate-300">In-App</span>
                         </label>
                       </div>
                     </div>
 
                     <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-2">Categories</h4>
+                      <h4 className="text-sm font-medium text-slate-300 mb-2">Categories</h4>
                       <div className="space-y-2">
                         {Object.entries(settings.categories).map(([category, enabled]) => (
                           <label key={category} className="flex items-center">
@@ -402,7 +402,7 @@ export default function NotificationsPage() {
                               })}
                               className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                             />
-                            <span className="ml-2 text-sm text-gray-700 capitalize">
+                            <span className="ml-2 text-sm text-slate-300 capitalize">
                               {category}
                             </span>
                           </label>
@@ -411,11 +411,11 @@ export default function NotificationsPage() {
                     </div>
 
                     <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-2">Frequency</h4>
+                      <h4 className="text-sm font-medium text-slate-300 mb-2">Frequency</h4>
                       <select
                         value={settings.frequency}
                         onChange={(e) => handleUpdateSettings({ frequency: e.target.value as any })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-slate-700/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       >
                         <option value="immediate">Immediate</option>
                         <option value="hourly">Hourly</option>

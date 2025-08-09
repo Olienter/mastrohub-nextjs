@@ -16,10 +16,10 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
   // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600">Checking authentication...</p>
+          <p className="text-slate-300">Checking authentication...</p>
         </div>
       </div>
     );
@@ -32,9 +32,9 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
       router.push('/login');
     }, [router]);
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600">Redirecting to login...</p>
+          <p className="text-slate-300">Redirecting to login...</p>
         </div>
       </div>
     );

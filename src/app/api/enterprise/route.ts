@@ -20,11 +20,11 @@ export async function GET(request: NextRequest) {
 
       case 'audit_logs':
         const filters = {
-          userId: searchParams.get('user_id'),
-          action: searchParams.get('action'),
-          resource: searchParams.get('resource'),
-          startDate: searchParams.get('start_date'),
-          endDate: searchParams.get('end_date'),
+          userId: searchParams.get('user_id') || undefined,
+          action: searchParams.get('action') || undefined,
+          resource: searchParams.get('resource') || undefined,
+          startDate: searchParams.get('start_date') || undefined,
+          endDate: searchParams.get('end_date') || undefined,
           limit: searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : undefined,
         };
         const auditLogs = await enterpriseService.getAuditLogs(tenantId, filters);
@@ -68,21 +68,21 @@ export async function GET(request: NextRequest) {
 
       default:
         // Return overview of enterprise features
-        const tenant = await enterpriseService.getTenant(tenantId);
-        const analytics = await enterpriseService.getEnterpriseAnalytics(tenantId, 'monthly');
-        const plans = await enterpriseService.getSubscriptionPlans();
+        const overviewTenant = await enterpriseService.getTenant(tenantId);
+        const overviewAnalytics = await enterpriseService.getEnterpriseAnalytics(tenantId, 'monthly');
+        const overviewPlans = await enterpriseService.getSubscriptionPlans();
         
         return NextResponse.json({
-          tenant,
-          analytics,
-          available_plans: plans,
+          tenant: overviewTenant,
+          analytics: overviewAnalytics,
+          available_plans: overviewPlans,
           features: {
             multi_tenant: true,
             audit_logging: true,
             compliance_reports: true,
             advanced_analytics: true,
-            white_label: tenant?.settings.features.white_label || false,
-            custom_integrations: tenant?.settings.features.custom_integrations || false,
+            white_label: overviewTenant?.settings.features.white_label || false,
+            custom_integrations: overviewTenant?.settings.features.custom_integrations || false,
           },
         });
     }

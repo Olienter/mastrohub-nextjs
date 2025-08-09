@@ -20,9 +20,9 @@ const ProfileBackground: React.FC<ProfileBackgroundProps> = ({ type, className =
       case 'gradient':
         return 'bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500';
       case 'solid':
-        return 'bg-gray-900';
+        return 'bg-slate-900';
       case 'pattern':
-        return 'bg-gray-100';
+        return 'bg-slate-800';
       case 'image':
         return 'bg-cover bg-center';
       default:

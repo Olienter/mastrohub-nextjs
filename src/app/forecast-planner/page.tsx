@@ -279,9 +279,9 @@ export default function ForecastPlanner() {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-12">
-            <AlertCircleIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <h2 className="text-xl font-semibold text-gray-600 mb-2">No Workspace Selected</h2>
-            <p className="text-gray-500">Please select a workspace to view forecast data.</p>
+            <AlertCircleIcon className="mx-auto h-12 w-12 text-slate-400 mb-4" />
+            <h2 className="text-xl font-semibold text-slate-300 mb-2">No Workspace Selected</h2>
+            <p className="text-slate-400">Please select a workspace to view forecast data.</p>
           </div>
         </div>
       </div>
@@ -291,18 +291,18 @@ export default function ForecastPlanner() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-slate-800/80 shadow-sm border-b border-slate-700/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <Link href="/restaurant-curator" className="flex items-center text-gray-600 hover:text-gray-900">
+              <Link href="/restaurant-curator" className="flex items-center text-slate-300 hover:text-white">
                 <ArrowLeft className="h-5 w-5 mr-2" />
                 Back to Restaurant Curator
               </Link>
-              <div className="h-6 w-px bg-gray-300" />
+              <div className="h-6 w-px bg-slate-600" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Forecast Planner</h1>
-                <p className="text-sm text-gray-600">{currentWorkspace.name}</p>
+                <h1 className="text-2xl font-bold text-white">Forecast Planner</h1>
+                <p className="text-sm text-slate-300">{currentWorkspace.name}</p>
               </div>
             </div>
             
@@ -335,14 +335,14 @@ export default function ForecastPlanner() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Controls */}
-        <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
+        <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Forecast Controls</h2>
+            <h2 className="text-lg font-semibold text-white">Forecast Controls</h2>
             <div className="flex items-center space-x-3">
               <button
                 onClick={loadForecastData}
                 disabled={loading}
-                className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+                className="inline-flex items-center px-3 py-2 border border-slate-600/50 shadow-sm text-sm leading-4 font-medium rounded-md text-slate-300 bg-slate-700/50 hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
               >
                 <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
                 Refresh
@@ -356,7 +356,7 @@ export default function ForecastPlanner() {
                     onChange={(e) => setShowHistorical(e.target.checked)}
                     className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                   />
-                  <span className="ml-2 text-sm text-gray-700">Historical</span>
+                  <span className="ml-2 text-sm text-slate-200">Historical</span>
                 </label>
                 
                 <label className="flex items-center">
@@ -366,7 +366,7 @@ export default function ForecastPlanner() {
                     onChange={(e) => setShowForecast(e.target.checked)}
                     className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                   />
-                  <span className="ml-2 text-sm text-gray-700">Forecast</span>
+                  <span className="ml-2 text-sm text-slate-200">Forecast</span>
                 </label>
               </div>
             </div>
@@ -374,7 +374,7 @@ export default function ForecastPlanner() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Metric</label>
+              <label className="block text-sm font-medium text-slate-300 mb-1">Metric</label>
               <select
                 value={selectedMetric}
                 onChange={(e) => setSelectedMetric(e.target.value as any)}
@@ -387,7 +387,7 @@ export default function ForecastPlanner() {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Forecast Type</label>
+              <label className="block text-sm font-medium text-slate-300 mb-1">Forecast Type</label>
               <select
                 value={forecastType}
                 onChange={(e) => setForecastType(e.target.value)}
@@ -403,7 +403,7 @@ export default function ForecastPlanner() {
             <div className="flex items-end space-x-2">
               <button
                 onClick={() => exportData('csv')}
-                className="flex-1 inline-flex items-center justify-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="flex-1 inline-flex items-center justify-center px-3 py-2 border border-slate-600/50 shadow-sm text-sm leading-4 font-medium rounded-md text-slate-300 bg-slate-700/50 hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 <Download className="h-4 w-4 mr-2" />
                 Export CSV
@@ -411,7 +411,7 @@ export default function ForecastPlanner() {
               
               <button
                 onClick={() => exportData('json')}
-                className="flex-1 inline-flex items-center justify-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="flex-1 inline-flex items-center justify-center px-3 py-2 border border-slate-600/50 shadow-sm text-sm leading-4 font-medium rounded-md text-slate-300 bg-slate-700/50 hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 <FileText className="h-4 w-4 mr-2" />
                 Export JSON
@@ -422,9 +422,9 @@ export default function ForecastPlanner() {
 
         {/* Loading State */}
         {loading && (
-          <div className="bg-white rounded-lg shadow-sm border p-12 text-center">
-            <RefreshCw className="mx-auto h-8 w-8 text-gray-400 animate-spin mb-4" />
-            <p className="text-gray-600">Loading forecast data...</p>
+          <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-12 text-center">
+            <RefreshCw className="mx-auto h-8 w-8 text-slate-400 animate-spin mb-4" />
+            <p className="text-slate-300">Loading forecast data...</p>
           </div>
         )}
 
@@ -446,56 +446,56 @@ export default function ForecastPlanner() {
           <div className="space-y-6">
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <DollarSignIcon className="h-8 w-8 text-green-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Average Revenue</p>
-                    <p className="text-2xl font-semibold text-gray-900">
+                    <p className="text-sm font-medium text-slate-400">Average Revenue</p>
+                    <p className="text-2xl font-semibold text-white">
                       €{Math.round(forecastData.forecast.reduce((sum, item) => sum + item.predicted_revenue, 0) / forecastData.forecast.length)}
                     </p>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <PackageIcon className="h-8 w-8 text-blue-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Average Orders</p>
-                    <p className="text-2xl font-semibold text-gray-900">
+                    <p className="text-sm font-medium text-slate-400">Average Orders</p>
+                    <p className="text-2xl font-semibold text-white">
                       {Math.round(forecastData.forecast.reduce((sum, item) => sum + item.predicted_orders, 0) / forecastData.forecast.length)}
                     </p>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <TrendingUpIcon className="h-8 w-8 text-purple-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Growth Rate</p>
-                    <p className="text-2xl font-semibold text-gray-900">
+                    <p className="text-sm font-medium text-slate-400">Growth Rate</p>
+                    <p className="text-2xl font-semibold text-white">
                       +{Math.round((forecastData.forecast[forecastData.forecast.length - 1].predicted_revenue / forecastData.forecast[0].predicted_revenue - 1) * 100)}%
                     </p>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <TargetIcon className="h-8 w-8 text-orange-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Confidence</p>
-                    <p className="text-2xl font-semibold text-gray-900">
+                    <p className="text-sm font-medium text-slate-400">Confidence</p>
+                    <p className="text-2xl font-semibold text-white">
                       {Math.round(forecastData.forecast.reduce((sum, item) => sum + item.confidence, 0) / forecastData.forecast.length * 100)}%
                     </p>
                   </div>
@@ -504,51 +504,51 @@ export default function ForecastPlanner() {
             </div>
 
             {/* Chart Placeholder */}
-            <div className="bg-white rounded-lg shadow-sm border p-6">
+            <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-900">Forecast Chart</h3>
+                <h3 className="text-lg font-semibold text-white">Forecast Chart</h3>
                 <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-500">Historical</span>
+                  <span className="text-sm text-slate-400">Historical</span>
                   <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                  <span className="text-sm text-gray-500">Forecast</span>
+                  <span className="text-sm text-slate-400">Forecast</span>
                   <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
               </div>
               
-              <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
+              <div className="h-64 bg-slate-700/50 rounded-lg flex items-center justify-center">
                 <div className="text-center">
-                  <BarChart3Icon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                  <p className="text-gray-600">Interactive chart will be implemented here</p>
-                  <p className="text-sm text-gray-500 mt-2">Showing {selectedMetric} data for {period} days</p>
+                  <BarChart3Icon className="mx-auto h-12 w-12 text-slate-400 mb-4" />
+                  <p className="text-slate-300">Interactive chart will be implemented here</p>
+                  <p className="text-sm text-slate-400 mt-2">Showing {selectedMetric} data for {period} days</p>
                 </div>
               </div>
             </div>
 
             {/* Data Table */}
-            <div className="bg-white rounded-lg shadow-sm border">
+            <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50">
               <div className="px-6 py-4 border-b border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900">Forecast Data</h3>
+                <h3 className="text-lg font-semibold text-white">Forecast Data</h3>
               </div>
               
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                  <thead className="bg-slate-700/50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Orders</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Confidence</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Date</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Revenue</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Orders</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Confidence</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Type</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-slate-800/80 divide-y divide-slate-700/50">
                     {forecastData.historical.slice(-10).map((item, index) => (
                       <tr key={`historical-${index}`}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.date}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">€{item.revenue}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.orders}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">-</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">{item.date}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">€{item.revenue}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">{item.orders}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">-</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                             Historical
                           </span>
@@ -557,11 +557,11 @@ export default function ForecastPlanner() {
                     ))}
                     {forecastData.forecast.slice(0, 10).map((item, index) => (
                       <tr key={`forecast-${index}`}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.date}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">€{item.predicted_revenue}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.predicted_orders}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{Math.round(item.confidence * 100)}%</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">{item.date}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">€{item.predicted_revenue}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">{item.predicted_orders}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">{Math.round(item.confidence * 100)}%</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                             Forecast
                           </span>
@@ -577,14 +577,14 @@ export default function ForecastPlanner() {
 
         {/* Custom Forecast Modal */}
         {showCustomForecast && (
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-            <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+          <div className="fixed inset-0 bg-slate-900/50 overflow-y-auto h-full w-full z-50">
+            <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-slate-800/80 border-slate-700/50">
               <div className="mt-3">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Generate Custom Forecast</h3>
+                <h3 className="text-lg font-medium text-white mb-4">Generate Custom Forecast</h3>
                 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Forecast Type</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-1">Forecast Type</label>
                     <select
                       value={customForecastType}
                       onChange={(e) => setCustomForecastType(e.target.value)}
@@ -598,7 +598,7 @@ export default function ForecastPlanner() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Days</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-1">Days</label>
                     <input
                       type="number"
                       value={customParameters.days}
@@ -609,7 +609,7 @@ export default function ForecastPlanner() {
                   
                   {customForecastType === 'revenue' && (
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Growth Rate (%)</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-1">Growth Rate (%)</label>
                       <input
                         type="number"
                         step="0.01"
@@ -622,7 +622,7 @@ export default function ForecastPlanner() {
                   
                   {customForecastType === 'seasonal' && (
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Season</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-1">Season</label>
                       <select
                         value={customParameters.season}
                         onChange={(e) => setCustomParameters({...customParameters, season: e.target.value})}
@@ -640,7 +640,7 @@ export default function ForecastPlanner() {
                 <div className="flex items-center justify-end space-x-3 mt-6">
                   <button
                     onClick={() => setShowCustomForecast(false)}
-                    className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="inline-flex items-center px-4 py-2 border border-slate-600/50 shadow-sm text-sm font-medium rounded-md text-slate-300 bg-slate-700/50 hover:bg-slate-700/70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
                     Cancel
                   </button>
@@ -659,12 +659,12 @@ export default function ForecastPlanner() {
 
         {/* Custom Forecast Results */}
         {customForecast && (
-          <div className="bg-white rounded-lg shadow-sm border p-6 mt-6">
+          <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6 mt-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Custom Forecast Results</h3>
+              <h3 className="text-lg font-semibold text-white">Custom Forecast Results</h3>
               <button
                 onClick={() => setCustomForecast(null)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-slate-400 hover:text-slate-300"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -672,17 +672,17 @@ export default function ForecastPlanner() {
             
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <p className="text-sm font-medium text-gray-500">Type</p>
-                  <p className="text-lg font-semibold text-gray-900 capitalize">{customForecast.type}</p>
+                <div className="bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm font-medium text-slate-400">Type</p>
+                  <p className="text-lg font-semibold text-white capitalize">{customForecast.type}</p>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <p className="text-sm font-medium text-gray-500">Period</p>
-                  <p className="text-lg font-semibold text-gray-900">{customForecast.forecast.length} days</p>
+                <div className="bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm font-medium text-slate-400">Period</p>
+                  <p className="text-lg font-semibold text-white">{customForecast.forecast.length} days</p>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <p className="text-sm font-medium text-gray-500">Average Confidence</p>
-                  <p className="text-lg font-semibold text-gray-900">
+                <div className="bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm font-medium text-slate-400">Average Confidence</p>
+                  <p className="text-lg font-semibold text-white">
                     {Math.round(customForecast.forecast.reduce((sum, item) => sum + (item.confidence || 0), 0) / customForecast.forecast.length * 100)}%
                   </p>
                 </div>
@@ -690,26 +690,26 @@ export default function ForecastPlanner() {
               
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                  <thead className="bg-slate-700/50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Date</th>
                       {customForecast.type === 'revenue' && (
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Revenue</th>
                       )}
                       {customForecast.type === 'demand' && (
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Demand</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Demand</th>
                       )}
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Confidence</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Confidence</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-slate-800/80 divide-y divide-slate-700/50">
                     {customForecast.forecast.slice(0, 10).map((item, index) => (
                       <tr key={index}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.date}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">{item.date}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                           {customForecast.type === 'revenue' ? `€${item.predicted_revenue}` : item.predicted_demand}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{Math.round(item.confidence * 100)}%</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">{Math.round(item.confidence * 100)}%</td>
                       </tr>
                     ))}
                   </tbody>

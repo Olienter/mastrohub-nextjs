@@ -49,76 +49,80 @@ export default function ProfitMarginOptimizer() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg">
+    <div className="max-w-4xl mx-auto p-6 bg-slate-800/80 rounded-xl shadow-lg">
       <div className="text-center mb-8">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.1 }}
         >
-          <TrendingUp className="w-12 h-12 text-green-600 mx-auto mb-4" />
+          <TrendingUp className="w-12 h-12 text-green-400 mx-auto mb-4" />
         </motion.div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h2 className="text-3xl font-bold text-white mb-2">
           Profit Margin Optimizer
         </h2>
-        <p className="text-gray-600 dark:text-gray-300">
-          Optimize your pricing and costs for maximum profitability
+        <p className="text-slate-300 mb-8">
+          Optimize your menu pricing to maximize profitability while maintaining customer satisfaction.
         </p>
       </div>
 
-      {/* Input Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Current Price ($)
-          </label>
-          <input
-            type="number"
-            value={currentPrice}
-            onChange={(e) => setCurrentPrice(parseFloat(e.target.value) || 0)}
-            className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-green-500 dark:bg-slate-600 dark:text-white"
-            placeholder="0.00"
-          />
+      {/* Input Form */}
+      <div className="bg-slate-800/80 rounded-lg p-6 mb-8">
+        <h3 className="text-xl font-semibold text-white mb-4">Menu Item Details</h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-2">
+              Current Price ($)
+            </label>
+            <input
+              type="number"
+              value={currentPrice}
+              onChange={(e) => setCurrentPrice(parseFloat(e.target.value) || 0)}
+              className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="0.00"
+              step="0.01"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-2">
+              Current Cost ($)
+            </label>
+            <input
+              type="number"
+              value={currentCost}
+              onChange={(e) => setCurrentCost(parseFloat(e.target.value) || 0)}
+              className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="0.00"
+              step="0.01"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-2">
+              Target Margin (%)
+            </label>
+            <input
+              type="number"
+              value={targetMargin}
+              onChange={(e) => setTargetMargin(parseFloat(e.target.value) || 0)}
+              className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="70"
+              min="0"
+              max="100"
+            />
+          </div>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Current Cost ($)
-          </label>
-          <input
-            type="number"
-            value={currentCost}
-            onChange={(e) => setCurrentCost(parseFloat(e.target.value) || 0)}
-            className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-green-500 dark:bg-slate-600 dark:text-white"
-            placeholder="0.00"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Target Margin (%)
-          </label>
-          <input
-            type="number"
-            value={targetMargin}
-            onChange={(e) => setTargetMargin(parseFloat(e.target.value) || 0)}
-            className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-green-500 dark:bg-slate-600 dark:text-white"
-            placeholder="70"
-            min="0"
-            max="100"
-          />
-        </div>
+        <button
+          onClick={calculateOptimization}
+          disabled={currentPrice <= 0 || currentCost <= 0}
+          className="w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-slate-600 disabled:cursor-not-allowed transition-colors mb-8"
+        >
+          Calculate Optimization
+        </button>
       </div>
-
-      <motion.button
-        onClick={calculateOptimization}
-        disabled={currentPrice <= 0 || currentCost <= 0}
-        className="w-full py-3 bg-green-600 text-gray-900 rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors mb-8"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        Calculate Optimization
-      </motion.button>
 
       {/* Results */}
       <AnimatePresence>
@@ -131,29 +135,29 @@ export default function ProfitMarginOptimizer() {
             {/* Current vs Target */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div
-                className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg"
+                className="bg-blue-900/20 p-6 rounded-lg"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.1 }}
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <DollarSign className="w-6 h-6 text-blue-600" />
-                  <h3 className="text-xl font-bold text-blue-600">Current Margin</h3>
+                  <DollarSign className="w-6 h-6 text-blue-400" />
+                  <h3 className="text-xl font-bold text-blue-400">Current Margin</h3>
                 </div>
-                <p className="text-3xl font-bold text-blue-600">{analysis.currentMargin.toFixed(1)}%</p>
+                <p className="text-3xl font-bold text-blue-400">{analysis.currentMargin.toFixed(1)}%</p>
               </motion.div>
 
               <motion.div
-                className="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg"
+                className="bg-green-900/20 p-6 rounded-lg"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2 }}
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <Target className="w-6 h-6 text-green-600" />
-                  <h3 className="text-xl font-bold text-green-600">Target Margin</h3>
+                  <Target className="w-6 h-6 text-green-400" />
+                  <h3 className="text-xl font-bold text-green-400">Target Margin</h3>
                 </div>
-                <p className="text-3xl font-bold text-green-600">{analysis.targetMargin.toFixed(1)}%</p>
+                <p className="text-3xl font-bold text-green-400">{analysis.targetMargin.toFixed(1)}%</p>
               </motion.div>
             </div>
 
@@ -161,14 +165,14 @@ export default function ProfitMarginOptimizer() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {analysis.priceIncrease > 0 && (
                 <motion.div
-                  className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg"
+                  className="bg-yellow-900/20 p-4 rounded-lg"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <h4 className="font-semibold text-yellow-600 mb-2">Price Increase</h4>
-                  <p className="text-2xl font-bold text-yellow-600">+{analysis.priceIncrease.toFixed(1)}%</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <h4 className="font-semibold text-yellow-400 mb-2">Price Increase</h4>
+                  <p className="text-2xl font-bold text-yellow-400">+{analysis.priceIncrease.toFixed(1)}%</p>
+                  <p className="text-sm text-slate-400">
                     Potential volume impact: -{analysis.volumeImpact.toFixed(1)}%
                   </p>
                 </motion.div>
@@ -176,14 +180,14 @@ export default function ProfitMarginOptimizer() {
 
               {analysis.costReduction > 0 && (
                 <motion.div
-                  className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg"
+                  className="bg-purple-900/20 p-4 rounded-lg"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.4 }}
                 >
-                  <h4 className="font-semibold text-purple-600 mb-2">Cost Reduction</h4>
-                  <p className="text-2xl font-bold text-purple-600">-{analysis.costReduction.toFixed(1)}%</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <h4 className="font-semibold text-purple-400 mb-2">Cost Reduction</h4>
+                  <p className="text-2xl font-bold text-purple-400">-{analysis.costReduction.toFixed(1)}%</p>
+                  <p className="text-sm text-slate-400">
                     No volume impact
                   </p>
                 </motion.div>
@@ -192,24 +196,24 @@ export default function ProfitMarginOptimizer() {
 
             {/* Recommendations */}
             <motion.div
-              className="bg-gray-50 dark:bg-slate-700 p-6 rounded-lg"
+              className="bg-slate-700/50 p-6 rounded-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-xl font-bold text-white mb-4">
                 Recommendations
               </h3>
               <ul className="space-y-2">
                 {analysis.recommendations.map((rec, index) => (
                   <motion.li
                     key={index}
-                    className="flex items-start gap-2 text-gray-700 dark:text-gray-300"
+                    className="flex items-start gap-2 text-slate-300"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.6 + index * 0.1 }}
                   >
-                    <span className="text-green-600 mt-1">•</span>
+                    <span className="text-green-400 mt-1">•</span>
                     {rec}
                   </motion.li>
                 ))}

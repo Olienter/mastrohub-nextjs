@@ -40,7 +40,7 @@ export default function LoginForm() {
       className="max-w-md mx-auto"
     >
       <div className="bg-neutral-800/40 backdrop-blur border border-white/10 rounded-2xl p-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+        <h2 className="text-2xl font-bold text-white mb-6 text-center">
           {isLogin ? 'Welcome Back' : 'Create Account'}
         </h2>
         
@@ -52,24 +52,24 @@ export default function LoginForm() {
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-gray-700 text-sm mb-2">Email</label>
+            <label className="block text-slate-300 text-sm mb-2">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 bg-neutral-700/50 border border-white/20 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors"
+              className="w-full px-4 py-3 bg-neutral-700/50 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-green-400 transition-colors"
               placeholder="Enter your email"
               required
             />
           </div>
           
           <div>
-            <label className="block text-gray-700 text-sm mb-2">Password</label>
+            <label className="block text-slate-300 text-sm mb-2">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 bg-neutral-700/50 border border-white/20 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-green-400 transition-colors"
+              className="w-full px-4 py-3 bg-neutral-700/50 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-green-400 transition-colors"
               placeholder="Enter your password"
               required
             />
@@ -78,7 +78,7 @@ export default function LoginForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-green-500 text-gray-900 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors disabled:opacity-50"
+            className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors disabled:opacity-50"
           >
             {isLoading ? 'Loading...' : (isLogin ? 'Sign In' : 'Create Account')}
           </button>

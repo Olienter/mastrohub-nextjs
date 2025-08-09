@@ -192,7 +192,7 @@ export default function ArticleReactions({
       className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
         userReactions[type]
           ? color
-          : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+          : 'text-slate-400 hover:text-slate-300'
       }`}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
@@ -203,35 +203,35 @@ export default function ArticleReactions({
   );
 
   return (
-    <div className={`flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 ${className}`}>
+    <div className={`flex items-center justify-between p-4 bg-slate-800/80 rounded-lg border border-slate-700/50 ${className}`}>
       <div className="flex items-center space-x-4">
         <ReactionButton
           type="like"
           icon={Heart}
           label="Like"
-          color="text-blue-600 dark:text-blue-400"
+          color="text-blue-400"
         />
         
         <ReactionButton
           type="love"
           icon={Heart}
           label="Love"
-          color="text-red-600 dark:text-red-400"
+          color="text-red-400"
         />
 
         <ReactionButton
           type="bookmark"
           icon={Bookmark}
           label="Bookmark"
-          color="text-yellow-600 dark:text-yellow-400"
+          color="text-yellow-400"
         />
 
-        <div className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-400">
+        <div className="flex items-center space-x-2 px-4 py-2 text-slate-400">
           <MessageCircle size={18} />
           <span className="text-sm font-medium">{stats.comments}</span>
         </div>
 
-        <div className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-400">
+        <div className="flex items-center space-x-2 px-4 py-2 text-slate-400">
           <Eye size={18} />
           <span className="text-sm font-medium">{stats.views}</span>
         </div>
@@ -239,7 +239,7 @@ export default function ArticleReactions({
 
       <motion.button
         onClick={handleShare}
-        className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 rounded-lg transition-colors"
+        className="flex items-center space-x-2 px-4 py-2 text-slate-400 hover:text-slate-300 rounded-lg transition-colors"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >

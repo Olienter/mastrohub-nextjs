@@ -193,11 +193,11 @@ export default function CommentSection({ articleId, className = '' }: CommentSec
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`${isReply ? 'ml-8 border-l-2 border-gray-200 dark:border-gray-700 pl-4' : ''}`}
+      className={`${isReply ? 'ml-8 border-l-2 border-slate-600 pl-4' : ''}`}
     >
       <div className="flex space-x-3 mb-4">
         <div className="flex-shrink-0">
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-gray-900 text-sm font-bold">
+          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
             {comment.author.avatar_url ? (
               <img
                 src={comment.author.avatar_url}
@@ -212,17 +212,17 @@ export default function CommentSection({ articleId, className = '' }: CommentSec
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center space-x-2 mb-1">
-            <span className="text-sm font-medium text-gray-900">
+            <span className="text-sm font-medium text-white">
               {comment.author.full_name}
             </span>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-slate-400">
               @{comment.author.username}
             </span>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-slate-400">
               {formatDate(comment.created_at)}
             </span>
             {comment.is_edited && (
-              <span className="text-xs text-gray-500">(edited)</span>
+              <span className="text-xs text-slate-400">(edited)</span>
             )}
           </div>
 
@@ -231,13 +231,13 @@ export default function CommentSection({ articleId, className = '' }: CommentSec
               <textarea
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 resize-none"
+                className="w-full px-3 py-2 border border-slate-600 rounded-lg bg-slate-700 text-white resize-none"
                 rows={3}
               />
               <div className="flex space-x-2">
                 <button
                   onClick={() => handleEditComment(comment.id)}
-                  className="px-3 py-1 bg-blue-600 text-gray-900 text-sm rounded hover:bg-blue-700"
+                  className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
                 >
                   Save
                 </button>
@@ -246,14 +246,14 @@ export default function CommentSection({ articleId, className = '' }: CommentSec
                     setEditingComment(null);
                     setEditContent('');
                   }}
-                  className="px-3 py-1 bg-gray-500 text-gray-900 text-sm rounded hover:bg-gray-600"
+                  className="px-3 py-1 bg-slate-600 text-white text-sm rounded hover:bg-slate-700"
                 >
                   Cancel
                 </button>
               </div>
             </div>
           ) : (
-            <p className="text-sm text-gray-700 mb-2">
+            <p className="text-sm text-slate-300 mb-2">
               {comment.content}
             </p>
           )}
@@ -263,8 +263,8 @@ export default function CommentSection({ articleId, className = '' }: CommentSec
               onClick={() => handleReaction(comment.id, 'like')}
               className={`flex items-center space-x-1 text-xs ${
                 comment.user_reaction === 'like'
-                  ? 'text-blue-600 dark:text-blue-400'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400'
+                  ? 'text-blue-400'
+                  : 'text-slate-400 hover:text-blue-400'
               }`}
             >
               <Heart size={14} />
@@ -275,8 +275,8 @@ export default function CommentSection({ articleId, className = '' }: CommentSec
               onClick={() => handleReaction(comment.id, 'love')}
               className={`flex items-center space-x-1 text-xs ${
                 comment.user_reaction === 'love'
-                  ? 'text-red-600 dark:text-red-400'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400'
+                  ? 'text-red-400'
+                  : 'text-slate-400 hover:text-red-400'
               }`}
             >
               <Heart size={14} className="fill-current" />
@@ -286,7 +286,7 @@ export default function CommentSection({ articleId, className = '' }: CommentSec
             {!isReply && (
               <button
                 onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
-                className="flex items-center space-x-1 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                className="flex items-center space-x-1 text-xs text-slate-400 hover:text-slate-300"
               >
                 <Reply size={14} />
                 <span>Reply</span>
@@ -300,15 +300,17 @@ export default function CommentSection({ articleId, className = '' }: CommentSec
                     setEditingComment(comment.id);
                     setEditContent(comment.content);
                   }}
-                  className="text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                  className="flex items-center space-x-1 text-xs text-slate-400 hover:text-slate-300"
                 >
                   <Edit3 size={14} />
+                  <span>Edit</span>
                 </button>
                 <button
                   onClick={() => handleDeleteComment(comment.id)}
-                  className="text-xs text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                  className="flex items-center space-x-1 text-xs text-slate-400 hover:text-red-400"
                 >
                   <Trash2 size={14} />
+                  <span>Delete</span>
                 </button>
               </div>
             )}
@@ -327,13 +329,13 @@ export default function CommentSection({ articleId, className = '' }: CommentSec
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   placeholder="Write a reply..."
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 resize-none"
+                  className="flex-1 px-3 py-2 border border-slate-600 rounded-lg bg-slate-700 text-white resize-none"
                   rows={2}
                 />
                 <button
                   onClick={handleSubmitComment}
                   disabled={isLoading || !newComment.trim()}
-                  className="px-3 py-2 bg-blue-600 text-gray-900 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                  className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
                 >
                   <Send size={16} />
                 </button>
@@ -357,18 +359,18 @@ export default function CommentSection({ articleId, className = '' }: CommentSec
   return (
     <div className={`space-y-6 ${className}`}>
       <div className="flex items-center space-x-2">
-        <MessageCircle className="text-gray-600" size={20} />
-        <h3 className="text-lg font-semibold text-gray-900">
+        <MessageCircle className="text-slate-400" size={20} />
+        <h3 className="text-lg font-semibold text-white">
           Comments ({comments.length})
         </h3>
       </div>
 
       {/* New comment form */}
       {user && (
-        <div className="bg-white rounded-lg p-4 border border-gray-200">
+        <div className="bg-slate-800/80 rounded-lg p-4 border border-slate-700/50">
           <div className="flex space-x-3">
             <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-gray-900 text-sm font-bold">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
                 {user.user_metadata?.avatar_url ? (
                   <img
                     src={user.user_metadata.avatar_url}
@@ -385,14 +387,14 @@ export default function CommentSection({ articleId, className = '' }: CommentSec
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Write a comment..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 resize-none"
+                className="w-full px-3 py-2 border border-slate-600 rounded-lg bg-slate-700 text-white resize-none"
                 rows={3}
               />
               <div className="flex justify-end mt-2">
                 <button
                   onClick={handleSubmitComment}
                   disabled={isLoading || !newComment.trim()}
-                  className="px-4 py-2 bg-blue-600 text-gray-900 rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center space-x-2"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center space-x-2"
                 >
                   <Send size={16} />
                   <span>Post Comment</span>

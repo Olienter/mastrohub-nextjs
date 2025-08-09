@@ -1,14 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Development server configuration
-  devIndicators: {
-    buildActivity: true,
-    buildActivityPosition: 'bottom-right',
-  },
-  
   // Enable ESLint for better code quality
   eslint: {
-    ignoreDuringBuilds: false, // Enable ESLint during builds
+    ignoreDuringBuilds: false,
   },
   
   // Enable React Strict Mode for better development experience
@@ -58,14 +52,9 @@ const nextConfig = {
     if (dev) {
       // Faster development builds
       config.watchOptions = {
-        poll: 2000,
-        aggregateTimeout: 500,
-      }
-      
-      // Keep optimization enabled for better debugging
-      config.optimization = {
-        ...config.optimization,
-        minimize: false,
+        poll: false,
+        aggregateTimeout: 300,
+        ignored: ['**/node_modules', '**/.next'],
       }
       
       // Better source maps for debugging

@@ -333,9 +333,9 @@ export default function TrainingEducation() {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-12">
-            <AlertCircleIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <h2 className="text-xl font-semibold text-gray-600 mb-2">No Workspace Selected</h2>
-            <p className="text-gray-500">Please select a workspace to view training data.</p>
+            <AlertCircleIcon className="mx-auto h-12 w-12 text-slate-400 mb-4" />
+            <h2 className="text-xl font-semibold text-slate-300 mb-2">No Workspace Selected</h2>
+            <p className="text-slate-400">Please select a workspace to view training data.</p>
           </div>
         </div>
       </div>
@@ -345,18 +345,18 @@ export default function TrainingEducation() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-slate-800/80 shadow-sm border-b border-slate-700/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <Link href="/restaurant-curator" className="flex items-center text-gray-600 hover:text-gray-900">
+              <Link href="/restaurant-curator" className="flex items-center text-slate-300 hover:text-white">
                 <ArrowLeft className="h-5 w-5 mr-2" />
                 Back to Restaurant Curator
               </Link>
-              <div className="h-6 w-px bg-gray-300" />
+              <div className="h-6 w-px bg-slate-600" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Training & Education</h1>
-                <p className="text-sm text-gray-600">{currentWorkspace.name}</p>
+                <h1 className="text-2xl font-bold text-white">Training & Education</h1>
+                <p className="text-sm text-slate-300">{currentWorkspace.name}</p>
               </div>
             </div>
             
@@ -384,9 +384,9 @@ export default function TrainingEducation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Loading State */}
         {loading && (
-          <div className="bg-white rounded-lg shadow-sm border p-12 text-center">
-            <RefreshCwIcon className="mx-auto h-8 w-8 text-gray-400 animate-spin mb-4" />
-            <p className="text-gray-600">Loading training data...</p>
+          <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-12 text-center">
+            <RefreshCwIcon className="mx-auto h-8 w-8 text-slate-400 animate-spin mb-4" />
+            <p className="text-slate-300">Loading training data...</p>
           </div>
         )}
 
@@ -408,56 +408,56 @@ export default function TrainingEducation() {
           <div className="space-y-6">
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <BookOpenIcon className="h-8 w-8 text-blue-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Total Courses</p>
-                    <p className="text-2xl font-semibold text-gray-900">
+                    <p className="text-sm font-medium text-slate-400">Total Courses</p>
+                    <p className="text-2xl font-semibold text-white">
                       {trainingData.courses.length}
                     </p>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <GraduationCap className="h-8 w-8 text-green-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Completed Courses</p>
-                    <p className="text-2xl font-semibold text-gray-900">
+                    <p className="text-sm font-medium text-slate-400">Completed Courses</p>
+                    <p className="text-2xl font-semibold text-white">
                       {trainingData.progress.completed_courses}
                     </p>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <Award className="h-8 w-8 text-purple-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Certificates Earned</p>
-                    <p className="text-2xl font-semibold text-gray-900">
+                    <p className="text-sm font-medium text-slate-400">Certificates Earned</p>
+                    <p className="text-2xl font-semibold text-white">
                       {trainingData.progress.certificates_earned}
                     </p>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <TrendingUpIcon className="h-8 w-8 text-orange-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Overall Progress</p>
-                    <p className="text-2xl font-semibold text-gray-900">
+                    <p className="text-sm font-medium text-slate-400">Overall Progress</p>
+                    <p className="text-2xl font-semibold text-white">
                       {Math.round(trainingData.progress.overall_progress * 100)}%
                     </p>
                   </div>
@@ -466,8 +466,8 @@ export default function TrainingEducation() {
             </div>
 
             {/* Tabs */}
-            <div className="bg-white rounded-lg shadow-sm border">
-              <div className="border-b border-gray-200">
+            <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50">
+              <div className="border-b border-slate-700/50">
                 <nav className="-mb-px flex space-x-8 px-6">
                   {[
                     { id: 'overview', name: 'Overview', icon: BarChart3Icon },
@@ -482,7 +482,7 @@ export default function TrainingEducation() {
                       className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 ${
                         activeTab === tab.id
                           ? 'border-blue-500 text-blue-600'
-                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                          : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-600'
                       }`}
                     >
                       <tab.icon className="h-4 w-4" />
@@ -497,54 +497,54 @@ export default function TrainingEducation() {
             {activeTab === 'overview' && (
               <div className="space-y-6">
                 {/* Current Course Progress */}
-                <div className="bg-white rounded-lg shadow-sm border p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Current Course</h3>
+                <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
+                  <h3 className="text-lg font-semibold text-white mb-4">Current Course</h3>
                   {trainingData.progress.current_course ? (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <h4 className="text-md font-medium text-gray-900">
+                        <h4 className="text-md font-medium text-white">
                           {trainingData.progress.current_course.title}
                         </h4>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-slate-400">
                           Lesson {trainingData.progress.current_course.current_lesson} of {trainingData.progress.current_course.total_lessons}
                         </span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-slate-600/50 rounded-full h-2">
                         <div 
                           className="bg-blue-600 h-2 rounded-full transition-all duration-300"
                           style={{ width: `${trainingData.progress.current_course.progress * 100}%` }}
                         ></div>
                       </div>
-                      <div className="flex items-center justify-between text-sm text-gray-500">
+                      <div className="flex items-center justify-between text-sm text-slate-400">
                         <span>{Math.round(trainingData.progress.current_course.progress * 100)}% Complete</span>
                         <span>Est. completion: {trainingData.progress.current_course.estimated_completion}</span>
                       </div>
                     </div>
                   ) : (
-                    <p className="text-gray-500">No active course</p>
+                    <p className="text-slate-400">No active course</p>
                   )}
                 </div>
 
                 {/* Recent Activities */}
-                <div className="bg-white rounded-lg shadow-sm border p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activities</h3>
+                <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
+                  <h3 className="text-lg font-semibold text-white mb-4">Recent Activities</h3>
                   <div className="space-y-3">
                     {trainingData.progress.recent_activities.slice(0, 5).map((activity, index) => (
-                      <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                      <div key={index} className="flex items-center space-x-3 p-3 bg-slate-700/50 rounded-lg">
                         <div className="flex-shrink-0">
                           {activity.type === 'lesson_completed' && <CheckCircleIcon className="h-5 w-5 text-green-500" />}
                           {activity.type === 'quiz_passed' && <Award className="h-5 w-5 text-blue-500" />}
                           {activity.type === 'certificate_earned' && <Certificate className="h-5 w-5 text-purple-500" />}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900">
+                          <p className="text-sm font-medium text-white">
                             {activity.type === 'lesson_completed' && `${activity.lesson_title} completed`}
                             {activity.type === 'quiz_passed' && `${activity.quiz_title} passed`}
                             {activity.type === 'certificate_earned' && `Certificate earned for ${activity.course_title}`}
                           </p>
-                          <p className="text-sm text-gray-500">{activity.course_title}</p>
+                          <p className="text-sm text-slate-400">{activity.course_title}</p>
                         </div>
-                        <div className="flex-shrink-0 text-sm text-gray-500">
+                        <div className="flex-shrink-0 text-sm text-slate-400">
                           {activity.score && `${activity.score}%`}
                         </div>
                       </div>
@@ -553,15 +553,15 @@ export default function TrainingEducation() {
                 </div>
 
                 {/* Achievements */}
-                <div className="bg-white rounded-lg shadow-sm border p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Achievements</h3>
+                <div className="bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-6">
+                  <h3 className="text-lg font-semibold text-white mb-4">Achievements</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {trainingData.progress.achievements.map((achievement) => (
                       <div key={achievement.id} className="flex items-center space-x-3 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border border-yellow-200">
                         <div className="flex-shrink-0 text-2xl">{achievement.icon}</div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900">{achievement.title}</p>
-                          <p className="text-sm text-gray-500">{achievement.description}</p>
+                          <p className="text-sm font-medium text-white">{achievement.title}</p>
+                          <p className="text-sm text-slate-400">{achievement.description}</p>
                         </div>
                       </div>
                     ))}

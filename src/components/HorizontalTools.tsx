@@ -116,7 +116,7 @@ const HorizontalTools: React.FC<HorizontalToolsProps> = ({ onToolClick }) => {
     <div className="w-full">
       {/* Section Header */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
           Our Tools (Free)
         </h2>
         <p className="text-lg text-slate-300 max-w-2xl mx-auto">
@@ -153,7 +153,7 @@ const HorizontalTools: React.FC<HorizontalToolsProps> = ({ onToolClick }) => {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900">{tool.title}</h3>
+                  <h3 className="text-xl font-semibold text-white">{tool.title}</h3>
                   <p className="text-sm text-green-600 font-medium">{tool.stats}</p>
                 </div>
               </div>
@@ -166,7 +166,7 @@ const HorizontalTools: React.FC<HorizontalToolsProps> = ({ onToolClick }) => {
 
             {/* Features List */}
             <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-700 mb-3">Key features:</h4>
+              <h4 className="text-sm font-semibold text-slate-300 mb-3">Key features:</h4>
               <ul className="space-y-2">
                 {tool.features.map((feature, index) => (
                   <li key={index} className="flex items-center gap-2 text-sm text-slate-300">
@@ -203,7 +203,7 @@ const HorizontalTools: React.FC<HorizontalToolsProps> = ({ onToolClick }) => {
       {/* Bottom CTA */}
       <div className="text-center mt-12">
         <div className="bg-blue-50 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <h3 className="text-2xl font-bold text-white mb-4">
             All tools are free
           </h3>
           <p className="text-slate-300 mb-6 max-w-2xl mx-auto">

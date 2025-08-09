@@ -106,13 +106,13 @@ export default function APIGatewayPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 p-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
+            <div className="h-8 bg-slate-700 rounded w-1/4 mb-6"></div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[1, 2, 3].map(i => (
-                <div key={i} className="h-32 bg-gray-200 rounded"></div>
+                <div key={i} className="h-32 bg-slate-700 rounded"></div>
               ))}
             </div>
           </div>
@@ -123,12 +123,12 @@ export default function APIGatewayPage() {
 
   if (!gatewayStatus) {
     return (
-      <div className="min-h-screen bg-gray-50 p-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <XCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Gateway Unavailable</h2>
-            <p className="text-gray-600">Failed to load API Gateway status</p>
+            <h2 className="text-xl font-semibold text-white mb-2">Gateway Unavailable</h2>
+            <p className="text-slate-300">Failed to load API Gateway status</p>
           </div>
         </div>
       </div>
@@ -140,28 +140,28 @@ export default function APIGatewayPage() {
   const activeWebhooks = Object.keys(gatewayStatus.webhooks).length;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+              <h1 className="text-3xl font-bold text-white flex items-center gap-3">
                 <Server className="h-8 w-8 text-blue-600" />
                 API Gateway
               </h1>
-              <p className="text-gray-600 mt-2">
+              <p className="text-slate-300 mt-2">
                 Manage integrations, webhooks, and API configurations
               </p>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <div className={`w-3 h-3 rounded-full ${gatewayStatus.status === 'active' ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                <span className="text-sm text-gray-600 capitalize">{gatewayStatus.status}</span>
+                <span className="text-sm text-slate-300 capitalize">{gatewayStatus.status}</span>
               </div>
               <button
                 onClick={fetchGatewayStatus}
-                className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="flex items-center gap-2 px-4 py-2 bg-slate-700/50 border border-slate-600/50 rounded-lg hover:bg-slate-700/70"
               >
                 <RefreshCw className="h-4 w-4" />
                 Refresh
@@ -172,41 +172,41 @@ export default function APIGatewayPage() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg p-6 shadow-sm">
+          <div className="bg-slate-800/80 rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Integrations</p>
-                <p className="text-2xl font-bold text-gray-900">{enabledIntegrations}/{totalIntegrations}</p>
+                <p className="text-sm font-medium text-slate-300">Integrations</p>
+                <p className="text-2xl font-bold text-white">{enabledIntegrations}/{totalIntegrations}</p>
               </div>
               <Zap className="h-8 w-8 text-blue-600" />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-6 shadow-sm">
+          <div className="bg-slate-800/80 rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Webhooks</p>
-                <p className="text-2xl font-bold text-gray-900">{activeWebhooks}</p>
+                <p className="text-sm font-medium text-slate-300">Webhooks</p>
+                <p className="text-2xl font-bold text-white">{activeWebhooks}</p>
               </div>
               <Webhook className="h-8 w-8 text-green-600" />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-6 shadow-sm">
+          <div className="bg-slate-800/80 rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Rate Limits</p>
-                <p className="text-2xl font-bold text-gray-900">3</p>
+                <p className="text-sm font-medium text-slate-300">Rate Limits</p>
+                <p className="text-2xl font-bold text-white">3</p>
               </div>
               <Shield className="h-8 w-8 text-orange-600" />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-6 shadow-sm">
+          <div className="bg-slate-800/80 rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Version</p>
-                <p className="text-2xl font-bold text-gray-900">{gatewayStatus.version}</p>
+                <p className="text-sm font-medium text-slate-300">Version</p>
+                <p className="text-2xl font-bold text-white">{gatewayStatus.version}</p>
               </div>
               <Settings className="h-8 w-8 text-purple-600" />
             </div>
@@ -214,7 +214,7 @@ export default function APIGatewayPage() {
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-lg shadow-sm mb-6">
+        <div className="bg-slate-800/80 rounded-lg shadow-sm mb-6">
           <div className="border-b border-gray-200">
             <nav className="flex space-x-8 px-6">
               {[
@@ -229,7 +229,7 @@ export default function APIGatewayPage() {
                   className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm ${
                     activeTab === tab.id
                       ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-600'
                   }`}
                 >
                   <tab.icon className="h-4 w-4" />
@@ -245,10 +245,10 @@ export default function APIGatewayPage() {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Integration Status</h3>
+                    <h3 className="text-lg font-semibold text-white mb-4">Integration Status</h3>
                     <div className="space-y-3">
                       {Object.entries(gatewayStatus.integrations).map(([key, integration]) => (
-                        <div key={key} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div key={key} className="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
                           <div className="flex items-center gap-3">
                             {integration.enabled ? (
                               <CheckCircle className="h-5 w-5 text-green-500" />
@@ -270,15 +270,15 @@ export default function APIGatewayPage() {
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Webhook Status</h3>
+                    <h3 className="text-lg font-semibold text-white mb-4">Webhook Status</h3>
                     <div className="space-y-3">
                       {Object.entries(gatewayStatus.webhooks).map(([key, webhook]) => (
-                        <div key={key} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div key={key} className="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
                           <div className="flex items-center gap-3">
                             <CheckCircle className="h-5 w-5 text-green-500" />
                             <div>
                               <span className="font-medium">{key}</span>
-                              <p className="text-xs text-gray-500">{webhook.events.length} events</p>
+                              <p className="text-xs text-slate-400">{webhook.events.length} events</p>
                             </div>
                           </div>
                           <button
@@ -297,7 +297,7 @@ export default function APIGatewayPage() {
                 {/* Test Results */}
                 {Object.keys(testResults).length > 0 && (
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Test Results</h3>
+                    <h3 className="text-lg font-semibold text-white mb-4">Test Results</h3>
                     <div className="space-y-2">
                       {Object.entries(testResults).map(([key, result]) => (
                         <div key={key} className={`p-3 rounded-lg ${
@@ -336,8 +336,8 @@ export default function APIGatewayPage() {
                             <XCircle className="h-6 w-6 text-red-500" />
                           )}
                           <div>
-                            <h3 className="text-lg font-semibold">{integration.name}</h3>
-                            <p className="text-sm text-gray-500">API Integration</p>
+                            <h3 className="text-lg font-semibold text-white">{integration.name}</h3>
+                            <p className="text-sm text-slate-400">API Integration</p>
                           </div>
                         </div>
                         <span className={`px-2 py-1 text-xs rounded-full ${
@@ -351,15 +351,15 @@ export default function APIGatewayPage() {
 
                       <div className="space-y-3">
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-600">Status:</span>
-                          <span className={integration.enabled ? 'text-green-600' : 'text-red-600'}>
+                          <span className="text-slate-300">Status:</span>
+                          <span className="text-slate-300">
                             {integration.enabled ? 'Connected' : 'Not configured'}
                           </span>
                         </div>
 
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-600">API Key:</span>
-                          <span className={integration.enabled ? 'text-green-600' : 'text-red-600'}>
+                          <span className="text-slate-300">API Key:</span>
+                          <span className="text-slate-300">
                             {integration.enabled ? 'Configured' : 'Missing'}
                           </span>
                         </div>
@@ -373,7 +373,7 @@ export default function APIGatewayPage() {
                               <TestTube className="h-4 w-4" />
                               Test Connection
                             </button>
-                            <button className="flex items-center gap-1 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                            <button className="flex items-center gap-1 px-3 py-2 border border-slate-600/50 rounded-lg hover:bg-slate-700/50">
                               <ExternalLink className="h-4 w-4" />
                               Docs
                             </button>
@@ -390,7 +390,7 @@ export default function APIGatewayPage() {
             {activeTab === 'webhooks' && (
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold text-gray-900">Active Webhooks</h3>
+                  <h3 className="text-lg font-semibold text-white">Active Webhooks</h3>
                   <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                     Add Webhook
                   </button>
@@ -401,8 +401,8 @@ export default function APIGatewayPage() {
                     <div key={key} className="border border-gray-200 rounded-lg p-6">
                       <div className="flex items-center justify-between mb-4">
                         <div>
-                          <h4 className="text-lg font-semibold">{key}</h4>
-                          <p className="text-sm text-gray-500">{webhook.url}</p>
+                          <h4 className="text-lg font-semibold text-white">{key}</h4>
+                          <p className="text-sm text-slate-400">{webhook.url}</p>
                         </div>
                         <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
                           Active
@@ -411,10 +411,10 @@ export default function APIGatewayPage() {
 
                       <div className="space-y-3">
                         <div>
-                          <span className="text-sm font-medium text-gray-600">Events:</span>
+                          <span className="text-sm font-medium text-slate-300">Events:</span>
                           <div className="flex flex-wrap gap-1 mt-1">
                             {webhook.events.map(event => (
-                              <span key={event} className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded">
+                              <span key={event} className="px-2 py-1 text-xs bg-slate-600/50 text-slate-200 rounded">
                                 {event}
                               </span>
                             ))}
@@ -429,7 +429,7 @@ export default function APIGatewayPage() {
                             <TestTube className="h-4 w-4" />
                             Test Webhook
                           </button>
-                          <button className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                          <button className="flex items-center gap-2 px-3 py-2 border border-slate-600/50 rounded-lg hover:bg-slate-700/50">
                             <Copy className="h-4 w-4" />
                             Copy URL
                           </button>
@@ -448,27 +448,27 @@ export default function APIGatewayPage() {
                   {Object.entries(gatewayStatus.rateLimits).map(([key, config]) => (
                     <div key={key} className="border border-gray-200 rounded-lg p-6">
                       <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-semibold capitalize">{key}</h3>
+                        <h3 className="text-lg font-semibold capitalize text-white">{key}</h3>
                         <Shield className="h-6 w-6 text-orange-600" />
                       </div>
 
                       <div className="space-y-3">
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Window:</span>
+                          <span className="text-slate-300">Window:</span>
                           <span>{config.windowMs / 1000}s</span>
                         </div>
 
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Max Requests:</span>
+                          <span className="text-slate-300">Max Requests:</span>
                           <span>{config.maxRequests}</span>
                         </div>
 
                         <div className="pt-3 border-t border-gray-200">
                           <div className="flex items-center gap-2">
-                            <div className="flex-1 bg-gray-200 rounded-full h-2">
+                            <div className="flex-1 bg-slate-600/50 rounded-full h-2">
                               <div className="bg-orange-500 h-2 rounded-full" style={{ width: '75%' }}></div>
                             </div>
-                            <span className="text-sm text-gray-600">75%</span>
+                            <span className="text-sm text-slate-300">75%</span>
                           </div>
                         </div>
                       </div>

@@ -15,10 +15,10 @@ export default function BookmarksPage() {
         >
           {/* Header */}
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-white dark:text-white mb-4">
               My Bookmarks
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
+            <p className="text-lg text-slate-300 dark:text-slate-300">
               Your saved articles and favorite content
             </p>
           </div>

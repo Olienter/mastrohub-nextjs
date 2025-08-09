@@ -172,37 +172,37 @@ export default function MDXEditor({
             )}
 
             {isPreview ? (
-              <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              <div className="bg-slate-800/80 rounded-lg shadow-lg p-6">
+                <h2 className="text-2xl font-bold text-white mb-4">
                   {frontMatter.title || 'Untitled Article'}
                 </h2>
                 <div className="prose dark:prose-invert max-w-none">
-                  <pre className="whitespace-pre-wrap text-gray-700 dark:text-gray-300">
+                  <pre className="whitespace-pre-wrap text-slate-300">
                     {content}
                   </pre>
                 </div>
               </div>
             ) : (
-              <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg">
-                <div className="border-b border-gray-200 dark:border-slate-700 p-4">
+              <div className="bg-slate-800/80 rounded-lg shadow-lg">
+                <div className="border-b border-slate-700 p-4">
                   <div className="flex items-center space-x-2">
-                    <button className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded">
+                    <button className="p-2 hover:bg-slate-700 rounded">
                       <Bold size={16} />
                     </button>
-                    <button className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded">
+                    <button className="p-2 hover:bg-slate-700 rounded">
                       <Italic size={16} />
                     </button>
-                    <button className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded">
+                    <button className="p-2 hover:bg-slate-700 rounded">
                       <List size={16} />
                     </button>
-                    <button className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded">
+                    <button className="p-2 hover:bg-slate-700 rounded">
                       <Quote size={16} />
                     </button>
-                    <button className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded">
+                    <button className="p-2 hover:bg-slate-700 rounded">
                       <Code size={16} />
                     </button>
                     <div className="flex-1" />
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                    <span className="text-sm text-slate-400">
                       {wordCount} words
                     </span>
                   </div>
@@ -210,7 +210,7 @@ export default function MDXEditor({
                 <textarea
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  className="w-full h-96 p-4 border-0 focus:ring-0 resize-none bg-transparent text-gray-900 dark:text-white"
+                  className="w-full h-96 p-4 border-0 focus:ring-0 resize-none bg-transparent text-white"
                   placeholder="Start writing your article..."
                 />
               </div>
@@ -219,46 +219,46 @@ export default function MDXEditor({
 
           {/* Front Matter Panel */}
           <div className="space-y-6">
-            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="bg-slate-800/80 rounded-lg shadow-lg p-6">
+              <h3 className="text-lg font-semibold text-white mb-4">
                 Article Settings
               </h3>
               
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
                     Title *
                   </label>
                   <input
                     type="text"
                     value={frontMatter.title || ''}
                     onChange={(e) => updateFrontMatter('title', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-700 text-white"
                     placeholder="Article title"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
                     Excerpt *
                   </label>
                   <textarea
                     value={frontMatter.excerpt || ''}
                     onChange={(e) => updateFrontMatter('excerpt', e.target.value)}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-700 text-white"
                     placeholder="Brief description of the article"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
                     Category *
                   </label>
                   <select
                     value={frontMatter.category || ''}
                     onChange={(e) => updateFrontMatter('category', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-700 text-white"
                   >
                     <option value="">Select category</option>
                     <option value="Menu Engineering">Menu Engineering</option>
@@ -273,20 +273,20 @@ export default function MDXEditor({
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
                     Featured Image URL *
                   </label>
                   <input
                     type="url"
                     value={frontMatter.image || ''}
                     onChange={(e) => updateFrontMatter('image', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-700 text-white"
                     placeholder="https://images.unsplash.com/..."
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
                     Tags *
                   </label>
                   <div className="space-y-2">
@@ -301,7 +301,7 @@ export default function MDXEditor({
                             e.currentTarget.value = '';
                           }
                         }}
-                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="flex-1 px-3 py-2 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-700 text-white"
                       />
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -338,13 +338,13 @@ export default function MDXEditor({
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
                     Status
                   </label>
                   <select
                     value={frontMatter.status || 'draft'}
                     onChange={(e) => updateFrontMatter('status', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-700 text-white"
                   >
                     <option value="draft">Draft</option>
                     <option value="pending">Pending Review</option>

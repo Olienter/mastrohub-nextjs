@@ -26,16 +26,16 @@ export default function UserRoleInfo({ userRole, className = '' }: UserRoleInfoP
   ];
 
   return (
-    <div className={`bg-white rounded-lg shadow-sm border border-gray-200 p-4 ${className}`}>
+    <div className={`bg-slate-800/80 rounded-lg shadow-sm border border-slate-700/50 p-4 ${className}`}>
       <div className="flex items-center mb-3">
         <Shield className="w-5 h-5 text-blue-600 mr-2" />
-        <h3 className="text-sm font-semibold text-gray-900">Your Role: {role.name}</h3>
+        <h3 className="text-sm font-semibold text-white">Your Role: {role.name}</h3>
       </div>
       
-      <p className="text-xs text-gray-600 mb-3">{role.description}</p>
+      <p className="text-xs text-slate-300 mb-3">{role.description}</p>
       
       <div className="space-y-2">
-        <h4 className="text-xs font-medium text-gray-700 mb-2">Accessible Features:</h4>
+        <h4 className="text-xs font-medium text-slate-300 mb-2">Accessible Features:</h4>
         <div className="grid grid-cols-1 gap-1">
           {allFeatures.map((feature) => {
             const hasAccess = accessibleFeatures.includes(feature.id);
@@ -45,16 +45,16 @@ export default function UserRoleInfo({ userRole, className = '' }: UserRoleInfoP
                   {hasAccess ? (
                     <CheckCircle className="w-3 h-3 text-green-500 mr-2" />
                   ) : (
-                    <XCircle className="w-3 h-3 text-gray-300 mr-2" />
+                    <XCircle className="w-3 h-3 text-slate-400 mr-2" />
                   )}
-                  <span className={hasAccess ? 'text-gray-900' : 'text-gray-400'}>
+                  <span className={hasAccess ? 'text-white' : 'text-slate-400'}>
                     {feature.name}
                   </span>
                 </div>
                 <span className={`text-xs px-2 py-1 rounded-full ${
                   hasAccess 
                     ? 'bg-green-100 text-green-700' 
-                    : 'bg-gray-100 text-gray-500'
+                    : 'bg-slate-700/50 text-slate-400'
                 }`}>
                   {hasAccess ? 'Access' : 'No Access'}
                 </span>

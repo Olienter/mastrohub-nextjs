@@ -8,14 +8,14 @@ const createMenuSchema = z.object({
   name: z.string().min(1, 'Menu name is required').max(100),
   description: z.string().optional(),
   is_active: z.boolean().default(true),
-  settings: z.record(z.any()).optional(),
+  settings: z.record(z.string(), z.any()).optional(),
 })
 
 const updateMenuSchema = z.object({
   name: z.string().min(1).max(100).optional(),
   description: z.string().optional(),
   is_active: z.boolean().optional(),
-  settings: z.record(z.any()).optional(),
+  settings: z.record(z.string(), z.any()).optional(),
 })
 
 const menuQuerySchema = z.object({

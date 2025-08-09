@@ -242,10 +242,10 @@ export default function EnterprisePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
         <div className="text-center">
           <RefreshCw className="animate-spin h-8 w-8 text-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600">Loading enterprise data...</p>
+          <p className="text-slate-300">Loading enterprise data...</p>
         </div>
       </div>
     );
@@ -253,10 +253,10 @@ export default function EnterprisePage() {
 
   if (!enterpriseData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
         <div className="text-center">
           <AlertTriangle className="h-8 w-8 text-red-600 mx-auto mb-4" />
-          <p className="text-gray-600">Failed to load enterprise data</p>
+          <p className="text-slate-300">Failed to load enterprise data</p>
         </div>
       </div>
     );
@@ -265,58 +265,58 @@ export default function EnterprisePage() {
   const { tenant, analytics, available_plans, features } = enterpriseData;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Enterprise Management</h1>
-        <p className="text-gray-600">Advanced features for enterprise customers</p>
+        <h1 className="text-3xl font-bold text-white mb-2">Enterprise Management</h1>
+        <p className="text-slate-300">Advanced features for enterprise customers</p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-slate-800/80 rounded-lg shadow p-6">
           <div className="flex items-center">
             <Building2 className="h-8 w-8 text-blue-600" />
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Tenant</p>
-              <p className="text-2xl font-bold text-gray-900">{tenant.name}</p>
+              <p className="text-sm font-medium text-slate-400">Tenant</p>
+              <p className="text-2xl font-bold text-white">{tenant.name}</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-slate-800/80 rounded-lg shadow p-6">
           <div className="flex items-center">
             <BarChart3 className="h-8 w-8 text-green-600" />
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Revenue</p>
-              <p className="text-2xl font-bold text-gray-900">€{analytics.metrics.revenue.toLocaleString()}</p>
+              <p className="text-sm font-medium text-slate-400">Revenue</p>
+              <p className="text-2xl font-bold text-white">€{analytics.metrics.revenue.toLocaleString()}</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-slate-800/80 rounded-lg shadow p-6">
           <div className="flex items-center">
             <Users className="h-8 w-8 text-purple-600" />
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Customers</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.metrics.customers}</p>
+              <p className="text-sm font-medium text-slate-400">Customers</p>
+              <p className="text-2xl font-bold text-white">{analytics.metrics.customers}</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-slate-800/80 rounded-lg shadow p-6">
           <div className="flex items-center">
             <Shield className="h-8 w-8 text-orange-600" />
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Plan</p>
-              <p className="text-2xl font-bold text-gray-900 capitalize">{tenant.plan}</p>
+              <p className="text-sm font-medium text-slate-400">Plan</p>
+              <p className="text-2xl font-bold text-white capitalize">{tenant.plan}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="bg-white rounded-lg shadow mb-8">
+      <div className="bg-slate-800/80 rounded-lg shadow mb-8">
         <div className="border-b border-gray-200">
           <nav className="flex space-x-8 px-6">
             {[
@@ -336,7 +336,7 @@ export default function EnterprisePage() {
                   className={`flex items-center py-4 px-1 border-b-2 font-medium text-sm ${
                     activeTab === tab.id
                       ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-600/50'
                   }`}
                 >
                   <Icon className="h-5 w-5 mr-2" />
@@ -356,19 +356,19 @@ export default function EnterprisePage() {
                   <h3 className="text-lg font-semibold mb-4">Tenant Information</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Name:</span>
+                      <span className="text-slate-300">Name:</span>
                       <span className="font-medium">{tenant.name}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Domain:</span>
+                      <span className="text-slate-300">Domain:</span>
                       <span className="font-medium">{tenant.domain}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Plan:</span>
+                      <span className="text-slate-300">Plan:</span>
                       <span className="font-medium capitalize">{tenant.plan}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Status:</span>
+                      <span className="text-slate-300">Status:</span>
                       <span className={`font-medium ${
                         tenant.status === 'active' ? 'text-green-600' : 'text-red-600'
                       }`}>
@@ -382,19 +382,19 @@ export default function EnterprisePage() {
                   <h3 className="text-lg font-semibold mb-4">Key Metrics</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Revenue Growth:</span>
+                      <span className="text-slate-300">Revenue Growth:</span>
                       <span className="font-medium text-green-600">+{analytics.trends.revenue_growth}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Customer Growth:</span>
+                      <span className="text-slate-300">Customer Growth:</span>
                       <span className="font-medium text-green-600">+{analytics.trends.customer_growth}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Order Growth:</span>
+                      <span className="text-slate-300">Order Growth:</span>
                       <span className="font-medium text-green-600">+{analytics.trends.order_growth}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">AI Usage:</span>
+                      <span className="text-slate-300">AI Usage:</span>
                       <span className="font-medium">{analytics.metrics.ai_usage} requests</span>
                     </div>
                   </div>
@@ -425,7 +425,7 @@ export default function EnterprisePage() {
                   <h3 className="text-lg font-semibold mb-4">Branding Settings</h3>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-slate-300 mb-2">
                         Primary Color
                       </label>
                       <div className="flex items-center space-x-2">
@@ -433,11 +433,11 @@ export default function EnterprisePage() {
                           className="w-8 h-8 rounded border"
                           style={{ backgroundColor: tenant.settings.branding.primary_color }}
                         />
-                        <span className="text-sm text-gray-600">{tenant.settings.branding.primary_color}</span>
+                        <span className="text-sm text-slate-400">{tenant.settings.branding.primary_color}</span>
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-slate-300 mb-2">
                         Secondary Color
                       </label>
                       <div className="flex items-center space-x-2">
@@ -445,15 +445,15 @@ export default function EnterprisePage() {
                           className="w-8 h-8 rounded border"
                           style={{ backgroundColor: tenant.settings.branding.secondary_color }}
                         />
-                        <span className="text-sm text-gray-600">{tenant.settings.branding.secondary_color}</span>
+                        <span className="text-sm text-slate-400">{tenant.settings.branding.secondary_color}</span>
                       </div>
                     </div>
                     {tenant.settings.branding.custom_domain && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
                           Custom Domain
                         </label>
-                        <span className="text-sm text-gray-600">{tenant.settings.branding.custom_domain}</span>
+                        <span className="text-sm text-slate-400">{tenant.settings.branding.custom_domain}</span>
                       </div>
                     )}
                   </div>
@@ -464,11 +464,11 @@ export default function EnterprisePage() {
                   <div className="space-y-3">
                     {Object.entries(tenant.settings.features).map(([feature, enabled]) => (
                       <div key={feature} className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600 capitalize">
+                        <span className="text-sm text-slate-400 capitalize">
                           {feature.replace(/_/g, ' ')}
                         </span>
                         <span className={`px-2 py-1 text-xs rounded-full ${
-                          enabled ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                          enabled ? 'bg-green-100 text-green-800' : 'bg-slate-700/50 text-slate-200'
                         }`}>
                           {enabled ? 'Enabled' : 'Disabled'}
                         </span>
@@ -482,11 +482,11 @@ export default function EnterprisePage() {
                 <h3 className="text-lg font-semibold mb-4">Usage Limits</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {Object.entries(tenant.limits).map(([limit, value]) => (
-                    <div key={limit} className="bg-gray-50 rounded-lg p-4">
-                      <div className="text-sm font-medium text-gray-600 capitalize">
+                    <div key={limit} className="bg-slate-700/50 rounded-lg p-4">
+                      <div className="text-sm font-medium text-slate-400 capitalize">
                         {limit.replace(/_/g, ' ')}
                       </div>
-                      <div className="text-2xl font-bold text-gray-900">
+                      <div className="text-2xl font-bold text-white">
                         {value === -1 ? 'Unlimited' : value.toLocaleString()}
                       </div>
                     </div>
@@ -531,7 +531,7 @@ export default function EnterprisePage() {
                 </div>
               )}
 
-              <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+              <div className="bg-slate-800/80 border border-slate-700/50 rounded-lg overflow-hidden">
                 <div className="px-6 py-4 border-b border-gray-200">
                   <h4 className="text-lg font-medium">Recent Activity</h4>
                 </div>
@@ -543,21 +543,21 @@ export default function EnterprisePage() {
                           <div>
                             <div className="flex items-center space-x-2">
                               <span className="font-medium">{log.action}</span>
-                              <span className="text-sm text-gray-500">on</span>
+                              <span className="text-sm text-slate-400">on</span>
                               <span className="text-sm font-medium">{log.resource}</span>
                             </div>
-                            <div className="text-sm text-gray-500 mt-1">
+                            <div className="text-sm text-slate-400 mt-1">
                               {new Date(log.timestamp).toLocaleString()}
                             </div>
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-slate-400">
                             {log.ip_address}
                           </div>
                         </div>
                       </div>
                     ))
                   ) : (
-                    <div className="px-6 py-8 text-center text-gray-500">
+                    <div className="px-6 py-8 text-center text-slate-400">
                       No audit logs available
                     </div>
                   )}
@@ -576,7 +576,7 @@ export default function EnterprisePage() {
                     <button
                       key={reportType}
                       onClick={() => generateComplianceReport(reportType)}
-                      className="bg-gray-600 text-white px-3 py-1 rounded text-sm hover:bg-gray-700 transition-colors"
+                      className="bg-slate-600 text-white px-3 py-1 rounded text-sm hover:bg-slate-700 transition-colors"
                     >
                       {reportType.replace(/_/g, ' ').toUpperCase()}
                     </button>
@@ -607,37 +607,37 @@ export default function EnterprisePage() {
               )}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-slate-800/80 border border-slate-700/50 rounded-lg p-6">
                   <h4 className="text-lg font-semibold mb-4">GDPR Compliance</h4>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Data Subjects:</span>
+                      <span className="text-slate-300">Data Subjects:</span>
                       <span className="font-medium">1,250</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Data Breaches:</span>
+                      <span className="text-slate-300">Data Breaches:</span>
                       <span className="font-medium text-green-600">0</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Active Consents:</span>
+                      <span className="text-slate-300">Active Consents:</span>
                       <span className="font-medium">1,200</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-slate-800/80 border border-slate-700/50 rounded-lg p-6">
                   <h4 className="text-lg font-semibold mb-4">Security Status</h4>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Security Incidents:</span>
+                      <span className="text-slate-300">Security Incidents:</span>
                       <span className="font-medium text-green-600">0</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Failed Logins:</span>
+                      <span className="text-slate-300">Failed Logins:</span>
                       <span className="font-medium">15</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Encryption:</span>
+                      <span className="text-slate-300">Encryption:</span>
                       <span className="font-medium text-green-600">Enabled</span>
                     </div>
                   </div>
@@ -650,55 +650,55 @@ export default function EnterprisePage() {
           {activeTab === 'analytics' && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-slate-800/80 border border-slate-700/50 rounded-lg p-6">
                   <h4 className="text-lg font-semibold mb-4">Revenue Analytics</h4>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Total Revenue:</span>
+                      <span className="text-slate-300">Total Revenue:</span>
                       <span className="font-medium">€{analytics.metrics.revenue.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Growth:</span>
+                      <span className="text-slate-300">Growth:</span>
                       <span className="font-medium text-green-600">+{analytics.trends.revenue_growth}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Orders:</span>
+                      <span className="text-slate-300">Orders:</span>
                       <span className="font-medium">{analytics.metrics.orders}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-slate-800/80 border border-slate-700/50 rounded-lg p-6">
                   <h4 className="text-lg font-semibold mb-4">Customer Analytics</h4>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Total Customers:</span>
+                      <span className="text-slate-300">Total Customers:</span>
                       <span className="font-medium">{analytics.metrics.customers}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Growth:</span>
+                      <span className="text-slate-300">Growth:</span>
                       <span className="font-medium text-green-600">+{analytics.trends.customer_growth}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Retention Rate:</span>
+                      <span className="text-slate-300">Retention Rate:</span>
                       <span className="font-medium">85%</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-slate-800/80 border border-slate-700/50 rounded-lg p-6">
                   <h4 className="text-lg font-semibold mb-4">System Usage</h4>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">AI Requests:</span>
+                      <span className="text-slate-300">AI Requests:</span>
                       <span className="font-medium">{analytics.metrics.ai_usage}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">API Calls:</span>
+                      <span className="text-slate-300">API Calls:</span>
                       <span className="font-medium">{analytics.metrics.api_calls}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Storage Used:</span>
+                      <span className="text-slate-300">Storage Used:</span>
                       <span className="font-medium">{analytics.metrics.storage_used} GB</span>
                     </div>
                   </div>
@@ -713,16 +713,16 @@ export default function EnterprisePage() {
               <h3 className="text-lg font-semibold">Subscription Plans</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {available_plans.map((plan) => (
-                  <div key={plan.id} className="bg-white border border-gray-200 rounded-lg p-6">
+                  <div key={plan.id} className="bg-slate-800/80 border border-slate-700/50 rounded-lg p-6">
                     <div className="text-center">
                       <h4 className="text-xl font-semibold mb-2">{plan.name}</h4>
                       <div className="mb-4">
                         <span className="text-3xl font-bold">€{plan.price_monthly}</span>
-                        <span className="text-gray-600">/month</span>
+                        <span className="text-slate-400">/month</span>
                       </div>
                       <div className="mb-6">
-                        <span className="text-lg text-gray-600">€{plan.price_yearly}</span>
-                        <span className="text-gray-600">/year</span>
+                        <span className="text-lg text-slate-400">€{plan.price_yearly}</span>
+                        <span className="text-slate-400">/year</span>
                       </div>
                     </div>
                     <ul className="space-y-2 mb-6">
@@ -756,18 +756,18 @@ export default function EnterprisePage() {
               </div>
 
               {actionResults.get_white_label_config && actionResults.get_white_label_config.success && (
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-slate-800/80 border border-slate-700/50 rounded-lg p-6">
                   <h4 className="text-lg font-semibold mb-4">Generated Configuration</h4>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">CSS Variables</label>
-                      <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto">
+                      <label className="block text-sm font-medium text-slate-300 mb-2">CSS Variables</label>
+                      <pre className="bg-slate-700/50 p-4 rounded text-sm overflow-x-auto">
                         {actionResults.get_white_label_config.data.config.css}
                       </pre>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Branding Settings</label>
-                      <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto">
+                      <label className="block text-sm font-medium text-slate-300 mb-2">Branding Settings</label>
+                      <pre className="bg-slate-700/50 p-4 rounded text-sm overflow-x-auto">
                         {JSON.stringify(actionResults.get_white_label_config.data.config.branding, null, 2)}
                       </pre>
                     </div>
@@ -776,11 +776,11 @@ export default function EnterprisePage() {
               )}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-slate-800/80 border border-slate-700/50 rounded-lg p-6">
                   <h4 className="text-lg font-semibold mb-4">Branding Preview</h4>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Logo</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-2">Logo</label>
                       {tenant.settings.branding.logo_url ? (
                         <img 
                           src={tenant.settings.branding.logo_url} 
@@ -788,13 +788,13 @@ export default function EnterprisePage() {
                           className="h-12 object-contain"
                         />
                       ) : (
-                        <div className="h-12 bg-gray-100 rounded flex items-center justify-center text-gray-500">
+                        <div className="h-12 bg-slate-700/50 rounded flex items-center justify-center text-slate-400">
                           No logo uploaded
                         </div>
                       )}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Colors</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-2">Colors</label>
                       <div className="flex space-x-2">
                         <div 
                           className="w-8 h-8 rounded border"
@@ -811,17 +811,17 @@ export default function EnterprisePage() {
                   </div>
                 </div>
 
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-slate-800/80 border border-slate-700/50 rounded-lg p-6">
                   <h4 className="text-lg font-semibold mb-4">Custom Domain</h4>
                   <div className="space-y-4">
                     {tenant.settings.branding.custom_domain ? (
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Domain</label>
-                        <span className="text-sm text-gray-600">{tenant.settings.branding.custom_domain}</span>
+                        <label className="block text-sm font-medium text-slate-300 mb-2">Domain</label>
+                        <span className="text-sm text-slate-400">{tenant.settings.branding.custom_domain}</span>
                       </div>
                     ) : (
-                      <div className="text-center text-gray-500">
-                        <Globe className="h-12 w-12 mx-auto mb-2 text-gray-400" />
+                      <div className="text-center text-slate-400">
+                        <Globe className="h-12 w-12 mx-auto mb-2 text-slate-400" />
                         <p>No custom domain configured</p>
                       </div>
                     )}

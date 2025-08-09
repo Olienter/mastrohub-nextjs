@@ -23,7 +23,7 @@ export const MenuIcon: React.FC<IconProps> = ({ size = 'md', variant = 'default'
       case 'neon':
         return 'text-green-400 drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]';
       case 'glass':
-        return 'text-white/80 backdrop-blur-sm bg-white/10 rounded-lg p-2';
+        return 'text-slate-300 backdrop-blur-sm bg-slate-700/50 rounded-lg p-2';
       case 'holographic':
         return 'text-transparent bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text';
       default:
@@ -58,7 +58,7 @@ export const AnalyticsIcon: React.FC<IconProps> = ({ size = 'md', variant = 'def
       case 'neon':
         return 'text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]';
       case 'glass':
-        return 'text-white/80 backdrop-blur-sm bg-white/10 rounded-lg p-2';
+        return 'text-slate-300 backdrop-blur-sm bg-slate-700/50 rounded-lg p-2';
       case 'holographic':
         return 'text-transparent bg-gradient-to-r from-blue-400 via-cyan-400 to-green-400 bg-clip-text';
       default:
@@ -93,7 +93,7 @@ export const AIIcon: React.FC<IconProps> = ({ size = 'md', variant = 'default', 
       case 'neon':
         return 'text-purple-400 drop-shadow-[0_0_10px_rgba(147,51,234,0.5)]';
       case 'glass':
-        return 'text-white/80 backdrop-blur-sm bg-white/10 rounded-lg p-2';
+        return 'text-slate-300 backdrop-blur-sm bg-slate-700/50 rounded-lg p-2';
       case 'holographic':
         return 'text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text';
       default:
@@ -128,7 +128,7 @@ export const MarketingIcon: React.FC<IconProps> = ({ size = 'md', variant = 'def
       case 'neon':
         return 'text-orange-400 drop-shadow-[0_0_10px_rgba(251,146,60,0.5)]';
       case 'glass':
-        return 'text-white/80 backdrop-blur-sm bg-white/10 rounded-lg p-2';
+        return 'text-slate-300 backdrop-blur-sm bg-slate-700/50 rounded-lg p-2';
       case 'holographic':
         return 'text-transparent bg-gradient-to-r from-orange-400 via-yellow-400 to-green-400 bg-clip-text';
       default:
@@ -163,7 +163,7 @@ export const RestaurantIcon: React.FC<IconProps> = ({ size = 'md', variant = 'de
       case 'neon':
         return 'text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]';
       case 'glass':
-        return 'text-white/80 backdrop-blur-sm bg-white/10 rounded-lg p-2';
+        return 'text-slate-300 backdrop-blur-sm bg-slate-700/50 rounded-lg p-2';
       case 'holographic':
         return 'text-transparent bg-gradient-to-r from-red-400 via-pink-400 to-purple-400 bg-clip-text';
       default:
@@ -198,7 +198,7 @@ export const ForecastIcon: React.FC<IconProps> = ({ size = 'md', variant = 'defa
       case 'neon':
         return 'text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]';
       case 'glass':
-        return 'text-white/80 backdrop-blur-sm bg-white/10 rounded-lg p-2';
+        return 'text-slate-300 backdrop-blur-sm bg-slate-700/50 rounded-lg p-2';
       case 'holographic':
         return 'text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text';
       default:

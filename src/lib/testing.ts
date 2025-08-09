@@ -228,13 +228,14 @@ export const createUnitTestSuite = (): TestSuite => ({
         const { PerformanceManager } = await import('./performance');
         const performance = PerformanceManager.getInstance();
         
-        performance.measure('test-metric', () => {
-          // Simulate work
-          let sum = 0;
-          for (let i = 0; i < 1000; i++) {
-            sum += i;
-          }
-        });
+        const startTime = performance.now();
+        // Simulate work
+        let sum = 0;
+        for (let i = 0; i < 1000; i++) {
+          sum += i;
+        }
+        const endTime = performance.now();
+        performance.recordMetric('test-metric', endTime - startTime);
         
         const metrics = performance.getMetrics();
         const testMetric = metrics.find(m => m.name === 'test-metric');
@@ -250,7 +251,7 @@ export const createUnitTestSuite = (): TestSuite => ({
       name: 'AI Agent - Response Generation',
       run: async () => {
         const { AIAgent } = await import('./ai-agent');
-        const agent = new AIAgent({}, {});
+        const agent = new AIAgent({ menuItems: [] }, { menuItems: [], restaurantName: 'Test Restaurant', cuisine: 'Test', location: 'Test', address: 'Test', phone: 'Test', email: 'Test', website: 'Test', hours: {}, rating: 0, priceRange: 'Test', description: 'Test' });
         
         const response = await agent.askSmartQuestion(1);
         

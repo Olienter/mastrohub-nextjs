@@ -103,24 +103,24 @@ export default function Comments({ articleId, comments: initialComments }: Comme
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6">
-      <h3 className="text-xl font-bold text-gray-900 mb-4">
+    <div className="bg-slate-800/80 rounded-xl shadow-lg p-6">
+      <h3 className="text-xl font-bold text-white mb-4">
         Comments ({localComments.length})
       </h3>
 
       <form onSubmit={handleSubmitComment} className="mb-4">
         <div className="flex items-center gap-2 mb-2">
-          <User className="w-6 h-6 text-gray-500" />
+          <User className="w-6 h-6 text-slate-400" />
           <input
             type="text"
             placeholder="Add a comment..."
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            className="flex-1 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 p-2 rounded-lg border border-slate-600 bg-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 text-gray-900 rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             Post
           </button>
@@ -142,12 +142,12 @@ export default function Comments({ articleId, comments: initialComments }: Comme
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="font-semibold text-gray-900">{comment.author}</span>
-                  <span className="text-xs text-gray-500">{comment.authorTitle}</span>
-                  <span className="text-xs text-gray-500">{comment.timestamp}</span>
+                  <span className="font-semibold text-white">{comment.author}</span>
+                  <span className="text-xs text-slate-400">{comment.authorTitle}</span>
+                  <span className="text-xs text-slate-400">{comment.timestamp}</span>
                 </div>
-                <p className="text-gray-800 text-sm">{comment.content}</p>
-                <div className="flex items-center gap-2 mt-2 text-gray-600 text-xs">
+                <p className="text-slate-300 text-sm">{comment.content}</p>
+                <div className="flex items-center gap-2 mt-2 text-slate-400 text-xs">
                   <button onClick={() => handleLikeComment(comment.id)}>
                     <Heart className={`w-4 h-4 ${comment.isLiked ? 'fill-red-500' : ''}`} />
                     {comment.likes}
@@ -172,24 +172,24 @@ export default function Comments({ articleId, comments: initialComments }: Comme
             {isReplying && replyToCommentId === comment.id && (
               <form onSubmit={handleSubmitReply} className="ml-14 mt-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <User className="w-6 h-6 text-gray-500" />
+                  <User className="w-6 h-6 text-slate-400" />
                   <input
                     type="text"
                     placeholder="Reply to this comment..."
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
-                    className="flex-1 p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="flex-1 p-2 rounded-lg border border-slate-600 bg-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-600 text-gray-900 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     Reply
                   </button>
                   <button
                     type="button"
                     onClick={handleCancelReply}
-                    className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                    className="px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors"
                   >
                     Cancel
                   </button>

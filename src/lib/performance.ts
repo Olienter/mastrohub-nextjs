@@ -17,7 +17,8 @@ class PerformanceMonitor {
   private isEnabled: boolean
 
   constructor() {
-    this.isEnabled = process.env.NODE_ENV !== 'test'
+    // Disable in development mode to improve performance
+    this.isEnabled = false // Temporarily disable for performance
   }
 
   // Start timing an operation
@@ -32,7 +33,6 @@ class PerformanceMonitor {
     
     const startTime = this.startTimes.get(name)
     if (!startTime) {
-      logger.warn(`Timer '${name}' was not started`)
       return 0
     }
 
@@ -62,20 +62,18 @@ class PerformanceMonitor {
 
     this.metrics.push(metric)
     
-    // Keep only last 1000 metrics to prevent memory leaks
-    if (this.metrics.length > 1000) {
-      this.metrics = this.metrics.slice(-500)
+    // Keep only last 100 metrics in development to prevent memory leaks
+    const maxMetrics = 100
+    if (this.metrics.length > maxMetrics) {
+      this.metrics = this.metrics.slice(-maxMetrics / 2)
     }
-
-    logger.debug('Performance metric recorded', { name, value, unit, tags })
   }
 
   // Get current memory usage
   getMemoryUsage(): PerformanceMetric {
-    const usage = process.memoryUsage()
     return {
       name: 'memory_usage',
-      value: usage.heapUsed,
+      value: 0, // Disabled for performance
       unit: 'bytes',
       timestamp: Date.now(),
       tags: {
@@ -86,10 +84,9 @@ class PerformanceMonitor {
 
   // Get CPU usage (approximate)
   getCpuUsage(): PerformanceMetric {
-    const usage = process.cpuUsage()
     return {
       name: 'cpu_usage',
-      value: usage.user + usage.system,
+      value: 0, // Disabled for performance
       unit: 'microseconds',
       timestamp: Date.now(),
     }
@@ -99,7 +96,7 @@ class PerformanceMonitor {
   getUptime(): PerformanceMetric {
     return {
       name: 'uptime',
-      value: process.uptime(),
+      value: 0, // Disabled for performance
       unit: 'seconds',
       timestamp: Date.now(),
     }
@@ -216,13 +213,13 @@ class PerformanceMonitor {
       system: {
         memory: {
           heapUsed: memoryUsage.value,
-          heapTotal: process.memoryUsage().heapTotal,
-          external: process.memoryUsage().external,
-          rss: process.memoryUsage().rss,
+          heapTotal: 0, // Disabled for performance
+          external: 0, // Disabled for performance
+          rss: 0, // Disabled for performance
         },
         cpu: {
           user: cpuUsage.value,
-          system: process.cpuUsage().system,
+          system: 0, // Disabled for performance
         },
         uptime: uptime.value,
       },

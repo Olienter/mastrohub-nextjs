@@ -99,7 +99,7 @@ export default function AIInsights() {
       case 'recommendation':
         return 'text-purple-600 bg-purple-100 dark:bg-purple-900/20';
       default:
-        return 'text-gray-600 bg-gray-100 dark:bg-gray-900/20';
+        return 'text-slate-300 bg-slate-700/50 dark:bg-slate-900/20';
     }
   };
 
@@ -112,16 +112,16 @@ export default function AIInsights() {
       case 'low':
         return 'text-green-600 bg-green-100 dark:bg-green-900/20';
       default:
-        return 'text-gray-600 bg-gray-100 dark:bg-gray-900/20';
+        return 'text-slate-300 bg-slate-700/50 dark:bg-slate-900/20';
     }
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6">
+    <div className="bg-slate-800/80 rounded-xl shadow-lg p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Brain className="w-6 h-6 text-purple-600" />
-          <h3 className="text-xl font-bold text-gray-900">
+          <h3 className="text-xl font-bold text-white">
             AI-Powered Insights
           </h3>
         </div>
@@ -129,7 +129,7 @@ export default function AIInsights() {
         <motion.button
           onClick={analyzeInsights}
           disabled={isAnalyzing}
-          className="px-4 py-2 bg-purple-600 text-gray-900 rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-slate-400 disabled:cursor-not-allowed transition-colors"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -167,7 +167,7 @@ export default function AIInsights() {
               
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <h4 className="font-semibold text-gray-900">
+                  <h4 className="font-semibold text-white">
                     {insight.title}
                   </h4>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${getImpactColor(insight.impact)}`}>
@@ -175,7 +175,7 @@ export default function AIInsights() {
                   </span>
                 </div>
                 
-                <p className="text-gray-600 text-sm mb-3">
+                <p className="text-slate-300 text-sm mb-3">
                   {insight.description}
                 </p>
                 
@@ -192,10 +192,10 @@ export default function AIInsights() {
               </div>
               
               <div className="text-right">
-                <div className="text-sm text-gray-500 mb-1">
+                <div className="text-sm text-slate-400 mb-1">
                   Confidence
                 </div>
-                <div className="text-lg font-bold text-gray-900">
+                <div className="text-lg font-bold text-white">
                   {insight.confidence}%
                 </div>
               </div>
@@ -213,10 +213,10 @@ export default function AIInsights() {
             animate={{ scale: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-2xl font-bold text-white">
               {insights.length}
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-slate-300">
               Active Insights
             </p>
           </motion.div>
@@ -227,10 +227,10 @@ export default function AIInsights() {
             animate={{ scale: 1 }}
             transition={{ delay: 0.6 }}
           >
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-2xl font-bold text-white">
               {insights.filter(i => i.impact === 'high').length}
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-slate-300">
               High Impact
             </p>
           </motion.div>
@@ -241,10 +241,10 @@ export default function AIInsights() {
             animate={{ scale: 1 }}
             transition={{ delay: 0.7 }}
           >
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-2xl font-bold text-white">
               {Math.round(insights.reduce((acc, i) => acc + i.confidence, 0) / insights.length)}%
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-slate-300">
               Avg Confidence
             </p>
           </motion.div>

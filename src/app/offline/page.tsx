@@ -87,7 +87,7 @@ export default function OfflinePage() {
 
   if (isOnline) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,8 +96,8 @@ export default function OfflinePage() {
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <RefreshCw className="w-8 h-8 text-green-600" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Back Online!</h1>
-          <p className="text-gray-600 mb-6">You're connected to the internet again.</p>
+          <h1 className="text-2xl font-bold text-white mb-2">Back Online!</h1>
+          <p className="text-slate-300 mb-6">You're connected to the internet again.</p>
           <button
             onClick={handleRefresh}
             className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
@@ -110,7 +110,7 @@ export default function OfflinePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <motion.div
@@ -121,12 +121,12 @@ export default function OfflinePage() {
           <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <WifiOff className="w-10 h-10 text-yellow-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">You're Offline</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-3xl font-bold text-white mb-4">You're Offline</h1>
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto">
             Don't worry! MastroHub works offline too. You can still access cached data and use many features.
           </p>
           {lastOnline && (
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-slate-400 mt-2">
               Last online: {lastOnline.toLocaleString()}
             </p>
           )}
@@ -139,7 +139,7 @@ export default function OfflinePage() {
           transition={{ delay: 0.2 }}
           className="mb-12"
         >
-          <h2 className="text-xl font-semibold text-gray-900 mb-6 text-center">
+          <h2 className="text-xl font-semibold text-white mb-6 text-center">
             Available Offline Features
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -149,7 +149,7 @@ export default function OfflinePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index }}
-                className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+                className="bg-slate-800/80 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
               >
                 <Link href={feature.href} className="block">
                   <div className="flex items-center space-x-4">
@@ -157,8 +157,8 @@ export default function OfflinePage() {
                       {feature.icon}
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900 mb-1">{feature.title}</h3>
-                      <p className="text-sm text-gray-600">{feature.description}</p>
+                      <h3 className="font-semibold text-white mb-1">{feature.title}</h3>
+                      <p className="text-sm text-slate-300">{feature.description}</p>
                     </div>
                   </div>
                 </Link>
@@ -208,7 +208,7 @@ export default function OfflinePage() {
             <WifiOff className="w-4 h-4" />
             <span className="text-sm font-medium">No Internet Connection</span>
           </div>
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-sm text-slate-400 mt-2">
             Check your network connection and try refreshing the page
           </p>
         </motion.div>

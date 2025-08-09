@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -36,7 +37,7 @@ module.exports = {
         border: 'var(--border)',
         input: 'var(--input)',
         ring: 'var(--ring)',
-        // Existing custom colors
+        // Custom colors
         'mint': {
           50: '#f0fdf4',
           100: '#dcfce7',
@@ -98,20 +99,16 @@ module.exports = {
       },
       keyframes: {
         'ken-burns': {
-          '0%, 100%': {
-            transform: 'scale(1) rotate(0deg)',
-          },
-          '50%': {
-            transform: 'scale(1.1) rotate(1deg)',
-          },
+          '0%, 100%': { transform: 'scale(1) translate(0, 0)' },
+          '50%': { transform: 'scale(1.1) translate(-2%, -2%)' },
         },
         'bokeh-float': {
-          '0%, 100%': { transform: 'translateY(0px) scale(1)', opacity: '0.3' },
-          '50%': { transform: 'translateY(-20px) scale(1.1)', opacity: '1' },
+          '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+          '50%': { transform: 'translateY(-20px) rotate(180deg)' },
         },
         'parallax': {
-          '0%, 100%': { transform: 'translateX(0px) translateY(0px)' },
-          '50%': { transform: 'translateX(-10px) translateY(-5px)' },
+          '0%': { transform: 'translateY(0px)' },
+          '100%': { transform: 'translateY(-100px)' },
         },
         'noise': {
           '0%, 100%': { transform: 'translate(0, 0)' },
@@ -127,10 +124,12 @@ module.exports = {
         },
         'scroll-timeline': {
           '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
         },
       },
     },
   },
   plugins: [],
 }
+
+export default config

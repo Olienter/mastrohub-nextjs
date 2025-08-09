@@ -57,20 +57,20 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 dark:bg-slate-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-md w-full space-y-8"
       >
         <div className="text-center">
-          <Link href="/" className="text-3xl font-bold text-gray-900 dark:text-white">
+          <Link href="/" className="text-3xl font-bold text-white dark:text-white">
             Mastro<span className="text-blue-600">Hub</span>
           </Link>
-          <h2 className="mt-6 text-2xl font-bold text-gray-900 dark:text-white">
+          <h2 className="mt-6 text-2xl font-bold text-white dark:text-white">
             Create your account
           </h2>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-sm text-slate-300 dark:text-slate-400">
             Join thousands of restaurant professionals
           </p>
         </div>
@@ -89,12 +89,12 @@ export default function RegisterPage() {
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="fullName" className="block text-sm font-medium text-slate-300 dark:text-slate-300">
                   Full Name
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-gray-400" />
+                    <User className="h-5 w-5 text-slate-400" />
                   </div>
                   <input
                     id="fullName"
@@ -111,7 +111,7 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="username" className="block text-sm font-medium text-slate-300 dark:text-slate-300">
                   Username
                 </label>
                 <div className="mt-1">
@@ -131,12 +131,12 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label htmlFor="email" className="block text-sm font-medium text-slate-300 dark:text-slate-300">
                 Email address
               </label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
+                  <Mail className="h-5 w-5 text-slate-400" />
                 </div>
                 <input
                   id="email"
@@ -153,12 +153,12 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label htmlFor="password" className="block text-sm font-medium text-slate-300 dark:text-slate-300">
                 Password
               </label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+                  <Lock className="h-5 w-5 text-slate-400" />
                 </div>
                 <input
                   id="password"
@@ -177,21 +177,21 @@ export default function RegisterPage() {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400" />
+                    <EyeOff className="h-5 w-5 text-slate-400" />
                   ) : (
-                    <Eye className="h-5 w-5 text-gray-400" />
+                    <Eye className="h-5 w-5 text-slate-400" />
                   )}
                 </button>
               </div>
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-300 dark:text-slate-300">
                 Confirm Password
               </label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+                  <Lock className="h-5 w-5 text-slate-400" />
                 </div>
                 <input
                   id="confirmPassword"
@@ -210,9 +210,9 @@ export default function RegisterPage() {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400" />
+                    <EyeOff className="h-5 w-5 text-slate-400" />
                   ) : (
-                    <Eye className="h-5 w-5 text-gray-400" />
+                    <Eye className="h-5 w-5 text-slate-400" />
                   )}
                 </button>
               </div>
@@ -242,7 +242,7 @@ export default function RegisterPage() {
           </div>
 
           <div className="text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-slate-300 dark:text-slate-400">
               Already have an account?{' '}
               <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
                 Sign in

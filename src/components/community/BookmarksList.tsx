@@ -127,11 +127,11 @@ export default function BookmarksList({ className = '' }: BookmarksListProps) {
   if (!user) {
     return (
       <div className={`text-center py-8 ${className}`}>
-        <Bookmark className="mx-auto text-gray-400 mb-4" size={48} />
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+        <Bookmark className="mx-auto text-slate-400 mb-4" size={48} />
+        <h3 className="text-lg font-semibold text-white mb-2">
           Sign in to view your bookmarks
         </h3>
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-slate-400">
           Save articles you love and access them anytime
         </p>
       </div>
@@ -143,7 +143,7 @@ export default function BookmarksList({ className = '' }: BookmarksListProps) {
       <div className={`space-y-4 ${className}`}>
         {[...Array(3)].map((_, i) => (
           <div key={i} className="animate-pulse">
-            <div className="bg-gray-200 dark:bg-gray-700 h-32 rounded-lg"></div>
+            <div className="bg-slate-700 h-32 rounded-lg"></div>
           </div>
         ))}
       </div>
@@ -155,11 +155,11 @@ export default function BookmarksList({ className = '' }: BookmarksListProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <Bookmark className="text-blue-600 dark:text-blue-400" size={24} />
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <Bookmark className="text-blue-400" size={24} />
+          <h2 className="text-2xl font-bold text-white">
             My Bookmarks
           </h2>
-          <span className="text-sm text-gray-500 dark:text-gray-400">
+          <span className="text-sm text-slate-400">
             ({bookmarks.length})
           </span>
         </div>
@@ -173,7 +173,7 @@ export default function BookmarksList({ className = '' }: BookmarksListProps) {
               className={`px-3 py-1 text-sm rounded-lg transition-colors ${
                 filter === filterType
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
               }`}
             >
               {filterType.charAt(0).toUpperCase() + filterType.slice(1)}
@@ -190,11 +190,11 @@ export default function BookmarksList({ className = '' }: BookmarksListProps) {
             animate={{ opacity: 1 }}
             className="text-center py-12"
           >
-            <Bookmark className="mx-auto text-gray-400 mb-4" size={48} />
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            <Bookmark className="mx-auto text-slate-400 mb-4" size={48} />
+            <h3 className="text-lg font-semibold text-white mb-2">
               No bookmarks yet
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-slate-400 mb-4">
               Start saving articles you love by clicking the bookmark icon
             </p>
             <Link
@@ -214,11 +214,11 @@ export default function BookmarksList({ className = '' }: BookmarksListProps) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow"
+                className="bg-slate-800/80 rounded-lg border border-slate-700/50 overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="flex">
                   {/* Image */}
-                  <div className="flex-shrink-0 w-48 h-32">
+                  <div className="flex-shrink-0 w-32 h-32">
                     <img
                       src={article.image}
                       alt={article.title}
@@ -228,51 +228,40 @@ export default function BookmarksList({ className = '' }: BookmarksListProps) {
 
                   {/* Content */}
                   <div className="flex-1 p-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded">
-                            {article.category}
-                          </span>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
-                            {formatReadTime(article.read_time)}
-                          </span>
-                        </div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs text-slate-400">
+                        {formatDate(article.published_at)}
+                      </span>
+                      <button
+                        onClick={() => handleRemoveBookmark(article.id)}
+                        className="text-slate-400 hover:text-red-400 transition-colors"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
 
-                        <Link href={`/blog/${article.id}`}>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                            {article.title}
-                          </h3>
-                        </Link>
+                    <h3 className="text-lg font-semibold text-white mb-2 hover:text-blue-400 transition-colors">
+                      <Link href={`/blog/${article.id}`}>
+                        {article.title}
+                      </Link>
+                    </h3>
 
-                        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
-                          {article.excerpt}
-                        </p>
+                    <p className="text-slate-300 text-sm mb-4 line-clamp-2">
+                      {article.excerpt}
+                    </p>
 
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
-                            <div className="flex items-center space-x-1">
-                              <User size={14} />
-                              <span>{article.author}</span>
-                            </div>
-                            <div className="flex items-center space-x-1">
-                              <Calendar size={14} />
-                              <span>{formatDate(article.published_at)}</span>
-                            </div>
-                            <div className="flex items-center space-x-1">
-                              <Eye size={14} />
-                              <span>{article.view_count} views</span>
-                            </div>
-                          </div>
-
-                          <button
-                            onClick={() => handleRemoveBookmark(article.id)}
-                            className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors"
-                            title="Remove bookmark"
-                          >
-                            <Trash2 size={16} />
-                          </button>
-                        </div>
+                    <div className="flex items-center space-x-4 text-xs text-slate-400">
+                      <div className="flex items-center space-x-1">
+                        <User size={14} />
+                        <span>{article.author}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Eye size={14} />
+                        <span>{article.view_count} views</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Calendar size={14} />
+                        <span>{formatReadTime(article.read_time)}</span>
                       </div>
                     </div>
                   </div>

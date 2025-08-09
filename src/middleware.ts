@@ -68,7 +68,7 @@ export async function middleware(request: NextRequest) {
 
   // Handle API rate limiting (basic implementation)
   if (request.nextUrl.pathname.startsWith('/api/')) {
-    const clientIp = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+    const clientIp = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
     const rateLimitKey = `rate_limit:${clientIp}`
     
     // TODO: Implement Redis-based rate limiting

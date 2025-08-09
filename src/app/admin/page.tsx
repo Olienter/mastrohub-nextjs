@@ -37,21 +37,21 @@ export default function AdminPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'published': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-      case 'draft': return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200';
+      case 'draft': return 'bg-slate-700/50 text-slate-200 dark:bg-slate-700 dark:text-slate-200';
       case 'pending': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200';
+      default: return 'bg-slate-700/50 text-slate-200 dark:bg-slate-700 dark:text-slate-200';
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 dark:bg-slate-900">
       {/* Header */}
-      <header className="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700">
+      <header className="bg-slate-800/80 dark:bg-slate-800 border-b border-slate-700/50 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Blog Admin</h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">Manage your blog articles</p>
+              <h1 className="text-3xl font-bold text-white dark:text-white">Blog Admin</h1>
+              <p className="text-slate-300 dark:text-slate-400 mt-1">Manage your blog articles</p>
             </div>
             <button
               onClick={handleCreateArticle}
@@ -65,13 +65,13 @@ export default function AdminPage() {
       </header>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700">
+      <div className="bg-slate-800/80 dark:bg-slate-800 border-b border-slate-700/50 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Search */}
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
                 <input
                   type="text"
                   placeholder="Search articles..."
@@ -84,7 +84,7 @@ export default function AdminPage() {
 
             {/* Status Filter */}
             <div className="flex items-center gap-2">
-              <Filter className="w-4 h-4 text-gray-400" />
+              <Filter className="w-4 h-4 text-slate-400" />
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value as any)}
@@ -104,54 +104,54 @@ export default function AdminPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-lg border border-gray-200 dark:border-slate-700">
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+          <div className="bg-slate-800/80 dark:bg-slate-800 p-4 rounded-lg border border-slate-700/50 dark:border-slate-700">
+            <div className="text-2xl font-bold text-white">
               {articles.length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Total Articles</div>
+            <div className="text-sm text-slate-300 dark:text-slate-400">Total Articles</div>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-lg border border-gray-200 dark:border-slate-700">
+          <div className="bg-slate-800/80 dark:bg-slate-800 p-4 rounded-lg border border-slate-700/50 dark:border-slate-700">
             <div className="text-2xl font-bold text-green-600">
               {articles.filter(a => a.status === 'published').length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Published</div>
+            <div className="text-sm text-slate-300 dark:text-slate-400">Published</div>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-lg border border-gray-200 dark:border-slate-700">
+          <div className="bg-slate-800/80 dark:bg-slate-800 p-4 rounded-lg border border-slate-700/50 dark:border-slate-700">
             <div className="text-2xl font-bold text-yellow-600">
               {articles.filter(a => a.status === 'pending').length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Pending</div>
+            <div className="text-sm text-slate-300 dark:text-slate-400">Pending</div>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-4 rounded-lg border border-gray-200 dark:border-slate-700">
-            <div className="text-2xl font-bold text-gray-600">
+          <div className="bg-slate-800/80 dark:bg-slate-800 p-4 rounded-lg border border-slate-700/50 dark:border-slate-700">
+            <div className="text-2xl font-bold text-slate-300">
               {articles.filter(a => a.status === 'draft').length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Drafts</div>
+            <div className="text-sm text-slate-300 dark:text-slate-400">Drafts</div>
           </div>
         </div>
 
         {/* Articles List */}
-        <div className="bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700 overflow-hidden">
+        <div className="bg-slate-800/80 dark:bg-slate-800 rounded-lg border border-slate-700/50 dark:border-slate-700 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 dark:bg-slate-700">
+              <thead className="bg-slate-700/50 dark:bg-slate-700">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 dark:text-slate-400 uppercase tracking-wider">
                     Article
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 dark:text-slate-400 uppercase tracking-wider">
                     Category
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 dark:text-slate-400 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 dark:text-slate-400 uppercase tracking-wider">
                     Views
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 dark:text-slate-400 uppercase tracking-wider">
                     Published
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-slate-300 dark:text-slate-400 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -162,7 +162,7 @@ export default function AdminPage() {
                     key={article.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="hover:bg-gray-50 dark:hover:bg-slate-700"
+                    className="hover:bg-slate-700/50 dark:hover:bg-slate-700"
                   >
                     <td className="px-6 py-4">
                       <div className="flex items-center">
@@ -174,13 +174,13 @@ export default function AdminPage() {
                           />
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900 dark:text-white">
+                          <div className="text-sm font-medium text-white">
                             {article.title}
                           </div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                          <div className="text-sm text-slate-300 dark:text-slate-400">
                             {article.excerpt.substring(0, 60)}...
                           </div>
-                          <div className="text-xs text-gray-400 dark:text-gray-500">
+                          <div className="text-xs text-slate-400 dark:text-slate-500">
                             by {article.author}
                           </div>
                         </div>
@@ -196,17 +196,17 @@ export default function AdminPage() {
                         {article.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">
+                    <td className="px-6 py-4 text-sm text-white">
                       {article.viewCount.toLocaleString()}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                    <td className="px-6 py-4 text-sm text-slate-300 dark:text-slate-400">
                       {new Date(article.publishedAt).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 text-right text-sm font-medium">
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => handleEditArticle(article)}
-                          className="text-blue-600 hover:text-blue-900 dark:hover:text-blue-400 p-1"
+                          className="text-slate-300 hover:text-white dark:hover:text-slate-400 p-1"
                           title="Edit article"
                         >
                           <Edit className="w-4 h-4" />
@@ -215,7 +215,7 @@ export default function AdminPage() {
                           href={`/blog/${article.slug}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-600 hover:text-gray-900 dark:hover:text-gray-400 p-1"
+                          className="text-slate-300 hover:text-white dark:hover:text-slate-400 p-1"
                           title="View article"
                         >
                           <Eye className="w-4 h-4" />
@@ -230,7 +230,7 @@ export default function AdminPage() {
 
           {filteredArticles.length === 0 && (
             <div className="text-center py-12">
-              <div className="text-gray-500 dark:text-gray-400">
+              <div className="text-slate-400 dark:text-slate-500">
                 {searchQuery || filterStatus !== 'all' ? 'No articles match your filters.' : 'No articles yet. Create your first article!'}
               </div>
             </div>

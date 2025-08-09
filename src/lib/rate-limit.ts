@@ -102,8 +102,8 @@ export async function checkRateLimit(
 
     if (currentCount >= config.maxRequests) {
       // Rate limit exceeded
-      const oldestRequest = await client.zRange(key, 0, 0, { WITHSCORES: true })
-      const resetTime = oldestRequest.length > 0 ? parseInt(oldestRequest[0].score) + config.windowMs : now + config.windowMs
+      const oldestRequest = await client.zRangeWithScores(key, 0, 0)
+      const resetTime = oldestRequest.length > 0 ? parseInt(oldestRequest[0].score.toString()) + config.windowMs : now + config.windowMs
       
       return {
         success: false,
