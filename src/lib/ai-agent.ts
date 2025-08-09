@@ -1,3 +1,32 @@
+export interface MenuItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  category_id?: string;
+  category_name?: string;
+  image_url?: string;
+  is_vegetarian?: boolean;
+  is_vegan?: boolean;
+  is_gluten_free?: boolean;
+  allergens?: string[];
+  preparation_time?: number;
+  sort_order?: number;
+  is_active?: boolean;
+  created_at?: string;
+  updated_at?: string;
+  tags?: string[];
+  manuals?: {
+    chef?: any;
+    waiter?: any;
+    marketing?: any;
+    analytics?: any;
+    supply_chain?: any;
+    financial?: any;
+    sustainability?: any;
+  };
+}
+
 export interface MenuContext {
   dishName: string
   category: 'appetizer' | 'main' | 'dessert' | 'drink'
@@ -603,10 +632,9 @@ export class AIAgent {
     
     MENU ITEMS (${this.restaurantContext.menuItems.length} items):
     ${this.restaurantContext.menuItems.map(item => `
-      - ${item.name}: €${item.price} (${item.category})
-        Profit Margin: ${item.profitMargin}%
-        Popularity: ${item.isPopular ? 'High' : 'Medium'}
-        Preparation Time: ${item.preparationTime} min
+      - ${item.name}: €${item.price} (${item.category_name || 'Uncategorized'})
+        Preparation Time: ${item.preparation_time || 15} min
+        Tags: ${item.tags?.join(', ') || 'None'}
     `).join('')}
     
     AVAILABLE TOOLS:

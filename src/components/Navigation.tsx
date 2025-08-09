@@ -8,14 +8,18 @@ import dynamic from 'next/dynamic';
 // Dynamically import heavy animations
 import { MotionDiv, MotionNav, MotionUl, MotionLi, MotionButton, MotionAnimatePresence, fadeIn, slideIn } from '@/lib/optimizedImports';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import UserMenu from '@/components/profile/UserMenu';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import NotificationBell from '@/components/notifications/NotificationBell';
+import { LanguageSwitcher, CompactLanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,8 +32,8 @@ const Navigation: React.FC = () => {
 
   // Zjednodušené navigačné položky - len tie ktoré potrebujeme
   const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'Menu Maker', href: '/menu-maker' },
+    { name: t('navigation.dashboard'), href: '/' },
+    { name: t('navigation.menuMaker'), href: '/menu-maker' },
     { name: 'QR Menu', href: '/qrmenu' },
     { name: 'Restaurant Curator', href: '/restaurant-curator' },
     { name: 'Blog', href: '/blog' }
@@ -112,19 +116,21 @@ const Navigation: React.FC = () => {
 
           {/* Auth Section - zjednodušené */}
           <div className="flex items-center gap-4">
+            <LanguageSwitcher className="hidden md:block" />
             <ThemeToggle size="sm" />
+            {user && <NotificationBell />}
             {user ? (
               <UserMenu />
             ) : (
               <>
                 <Link href="/login">
                   <button className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
-                    Sign In
+                    {t('common.signIn')}
                   </button>
                 </Link>
                 <Link href="/register">
                   <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
-                    Join
+                    {t('common.join')}
                   </button>
                 </Link>
               </>

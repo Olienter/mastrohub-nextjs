@@ -1,79 +1,58 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { AuthProvider } from '@/contexts/AuthContext'
-import { ThemeProvider } from '@/contexts/ThemeContext'
-import { WorkspaceProvider } from '@/contexts/WorkspaceContext'
-import BadgeNotificationProvider from '@/components/badges/BadgeNotificationProvider'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
+import { Providers } from '@/components/providers'
+import { LaunchManager } from '@/lib/launch'
+import { PerformanceManager } from '@/lib/performance'
+import { SecurityManager } from '@/lib/security'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'MastroHub - AI Restaurant Management Platform | Professional Tools',
-  description: 'AI-powered restaurant management tools. Increase profits by 15-30%, reduce food waste by 40%, save 10+ hours per week. Menu optimization, demand forecasting, and inventory management.',
-  keywords: 'restaurant management, AI restaurant tools, menu optimization, demand forecasting, inventory management, professional restaurant software',
+  title: 'MastroHub - Restaurant Management Platform',
+  description: 'Comprehensive restaurant management platform with AI assistant',
+  keywords: 'restaurant, management, AI, menu, analytics',
   authors: [{ name: 'MastroHub Team' }],
   creator: 'MastroHub',
   publisher: 'MastroHub',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL('https://mastrohub.com'),
-  alternates: {
-    canonical: '/',
-  },
+  robots: 'index, follow',
   openGraph: {
-    title: 'MastroHub - Transform Your Restaurant with AI',
-    description: 'AI-powered restaurant management tools that actually work. Increase profits, reduce waste, save time.',
-    url: 'https://mastrohub.com',
-    siteName: 'MastroHub',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'MastroHub - AI Restaurant Management Platform',
-      },
-    ],
-    locale: 'en_US',
+    title: 'MastroHub - Restaurant Management Platform',
+    description: 'Comprehensive restaurant management platform with AI assistant',
     type: 'website',
+    locale: 'en_US',
+    siteName: 'MastroHub'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MastroHub - AI Restaurant Management Platform',
-    description: 'AI-powered restaurant management tools. Increase profits by 15-30%, reduce food waste by 40%.',
-    images: ['/og-image.jpg'],
-    creator: '@mastrohub',
+    title: 'MastroHub - Restaurant Management Platform',
+    description: 'Comprehensive restaurant management platform with AI assistant'
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: 'your-google-verification-code',
-  },
-  category: 'technology',
-  classification: 'Restaurant Management Software',
-  other: {
-    'theme-color': '#0a192f',
-    'msapplication-TileColor': '#0a192f',
-    'apple-mobile-web-app-capable': 'yes',
-    'apple-mobile-web-app-status-bar-style': 'black-translucent',
-    'apple-mobile-web-app-title': 'MastroHub',
-    'application-name': 'MastroHub',
-    'mobile-web-app-capable': 'yes',
-  },
+  viewport: 'width=device-width, initial-scale=1',
+  themeColor: '#3b82f6',
+  manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png'
+  }
+}
+
+// Initialize launch manager and performance monitoring
+if (typeof window !== 'undefined') {
+  // Initialize performance monitoring
+  const performance = PerformanceManager.getInstance();
+  performance.init();
+  performance.optimizeImages();
+  performance.preloadCriticalResources();
+  performance.optimizeFonts();
+  performance.enableServiceWorkerCaching();
+
+  // Initialize security manager
+  const security = SecurityManager.getInstance();
+  
+  // Initialize launch manager
+  const launchManager = LaunchManager.getInstance();
+  launchManager.initialize().catch(console.error);
 }
 
 export default function RootLayout({
@@ -82,114 +61,66 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="launch-ready">
       <head>
-        {/* Google Analytics */}
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
-            `,
-          }}
-        />
+        {/* Preload critical resources */}
+        <link rel="preload" href="/api/menu" as="fetch" crossOrigin="anonymous" />
+        <link rel="preload" href="/api/categories" as="fetch" crossOrigin="anonymous" />
+        <link rel="preload" href="/api/user" as="fetch" crossOrigin="anonymous" />
         
-        {/* Service Worker Registration */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js');
-                });
-              }
-            `,
-          }}
-        />
+        {/* Preload critical fonts */}
+        <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         
-        {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              "name": "MastroHub",
-              "description": "AI-powered restaurant management platform",
-              "url": "https://mastrohub.com",
-              "applicationCategory": "BusinessApplication",
-              "operatingSystem": "Web",
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD",
-                "description": "Free forever with no limitations"
-              },
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "ratingCount": "150"
-              },
-              "author": {
-                "@type": "Organization",
-                "name": "MastroHub",
-                "url": "https://mastrohub.com"
-              }
-            })
-          }}
-        />
+        {/* Security headers */}
+        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+        <meta httpEquiv="X-Frame-Options" content="DENY" />
+        <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
+        <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+        <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
         
-        {/* Organization Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "MastroHub",
-              "url": "https://mastrohub.com",
-              "logo": "https://mastrohub.com/logo.png",
-              "description": "AI-powered restaurant management platform",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Bratislava",
-                "addressCountry": "SK"
-              },
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+421-555-123-456",
-                "contactType": "customer service",
-                "email": "hello@mastrohub.com"
-              },
-              "sameAs": [
-                "https://twitter.com/mastrohub",
-                "https://linkedin.com/company/mastrohub",
-                "https://github.com/mastrohub"
-              ]
-            })
-          }}
-        />
+        {/* PWA manifest */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#3b82f6" />
+        
+        {/* Apple touch icon */}
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        
+        {/* Skip link for accessibility */}
+        <a href="#main-content" className="skip-link sr-only">
+          Skip to main content
+        </a>
       </head>
-      <body className={inter.className}>
-        <ThemeProvider>
-          <WorkspaceProvider>
-            <AuthProvider>
-              <BadgeNotificationProvider>
-                <Navigation />
-                <main className="min-h-screen">
-                  {children}
-                </main>
-                <Footer />
-              </BadgeNotificationProvider>
-            </AuthProvider>
-          </WorkspaceProvider>
-        </ThemeProvider>
+      <body className={`${inter.className} optimized-render`}>
+        <Providers>
+          <div id="main-content" className="critical">
+            {children}
+          </div>
+        </Providers>
+        
+        {/* Performance monitoring script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Performance monitoring
+              if (typeof window !== 'undefined') {
+                // Track Core Web Vitals
+                import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+                  getCLS(console.log);
+                  getFID(console.log);
+                  getFCP(console.log);
+                  getLCP(console.log);
+                  getTTFB(console.log);
+                });
+                
+                // Track custom metrics
+                const performance = window.performance;
+                if (performance && performance.mark) {
+                  performance.mark('app-loaded');
+                }
+              }
+            `
+          }}
+        />
       </body>
     </html>
   )

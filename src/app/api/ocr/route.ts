@@ -135,7 +135,7 @@ export async function POST(request: NextRequest) {
     
     console.log('📝 Text annotations found:', textAnnotations.length);
     if (textAnnotations.length > 0) {
-      console.log('📝 First few annotations:', textAnnotations.slice(0, 3).map(t => t.description));
+      console.log('📝 First few annotations:', textAnnotations.slice(0, 3).map((t: TextAnnotation) => t.description));
     }
     
     if (textAnnotations.length === 0) {

@@ -24,11 +24,11 @@ export class MenuMakerService {
             likes: 156,
             views: 1247,
             shares: 23,
-            status: 'published',
+            status: 'published' as const,
             tags: ['pasta', 'truffle', 'italian', 'premium'],
             allergens: ['gluten', 'dairy'],
             preparation_time: 15,
-            difficulty: 'medium',
+            difficulty: 'medium' as const,
             ingredients: ['pasta', 'eggs', 'pancetta', 'parmesan', 'truffle'],
             instructions: ['Boil pasta in salted water', 'Cook pancetta until crispy', 'Mix eggs with cheese', 'Combine all ingredients'],
             cost: 8.50,
@@ -49,11 +49,11 @@ export class MenuMakerService {
             likes: 89,
             views: 892,
             shares: 15,
-            status: 'published',
+            status: 'published' as const,
             tags: ['salmon', 'grilled', 'healthy', 'seafood'],
             allergens: ['fish'],
             preparation_time: 20,
-            difficulty: 'easy',
+            difficulty: 'easy' as const,
             ingredients: ['salmon', 'herbs', 'lemon', 'olive oil'],
             instructions: ['Season salmon', 'Grill until cooked', 'Add herbs and lemon'],
             cost: 12.00,
@@ -254,29 +254,56 @@ export class MenuMakerService {
 
   // Social functions
   static async likeMenuItem(id: string): Promise<void> {
-    const { error } = await supabase
+    // Get current likes and increment
+    const { data: currentItem } = await supabase
       .from('menu_items')
-      .update({ likes: supabase.sql`likes + 1` })
-      .eq('id', id);
+      .select('likes')
+      .eq('id', id)
+      .single();
 
-    if (error) throw error;
+    if (currentItem) {
+      const { error } = await supabase
+        .from('menu_items')
+        .update({ likes: (currentItem.likes || 0) + 1 })
+        .eq('id', id);
+
+      if (error) throw error;
+    }
   }
 
   static async viewMenuItem(id: string): Promise<void> {
-    const { error } = await supabase
+    // Get current views and increment
+    const { data: currentItem } = await supabase
       .from('menu_items')
-      .update({ views: supabase.sql`views + 1` })
-      .eq('id', id);
+      .select('views')
+      .eq('id', id)
+      .single();
 
-    if (error) throw error;
+    if (currentItem) {
+      const { error } = await supabase
+        .from('menu_items')
+        .update({ views: (currentItem.views || 0) + 1 })
+        .eq('id', id);
+
+      if (error) throw error;
+    }
   }
 
   static async shareMenuItem(id: string): Promise<void> {
-    const { error } = await supabase
+    // Get current shares and increment
+    const { data: currentItem } = await supabase
       .from('menu_items')
-      .update({ shares: supabase.sql`shares + 1` })
-      .eq('id', id);
+      .select('shares')
+      .eq('id', id)
+      .single();
 
-    if (error) throw error;
+    if (currentItem) {
+      const { error } = await supabase
+        .from('menu_items')
+        .update({ shares: (currentItem.shares || 0) + 1 })
+        .eq('id', id);
+
+      if (error) throw error;
+    }
   }
 }

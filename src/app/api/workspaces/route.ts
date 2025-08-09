@@ -1,178 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-// Mock data for development
-const mockWorkspaces = [
-  {
-    id: '1',
-    user_id: 'mock-user-id',
-    name: 'Mastro Restaurant',
-    type: 'restaurant',
-    location: 'Bratislava, Slovakia',
-    status: 'active',
-    description: 'Fine dining restaurant in the heart of Bratislava',
-    address: 'Hlavná 123, 811 01 Bratislava',
-    phone: '+421 2 123 456 789',
-    email: 'info@mastro-restaurant.sk',
-    website: 'www.mastro-restaurant.sk',
-    capacity: 120,
-    cuisine: 'International',
-    rating: 4.8,
-    last_active: new Date().toISOString(),
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    workspace_metrics: [
-      {
-        metric_type: 'daily_revenue',
-        value: 2847,
-        change_percentage: 12.5,
-        trend: 'up'
-      },
-      {
-        metric_type: 'staff_productivity',
-        value: 87,
-        change_percentage: 3.2,
-        trend: 'up'
-      },
-      {
-        metric_type: 'menu_performance',
-        value: 94,
-        change_percentage: -1.8,
-        trend: 'down'
-      },
-      {
-        metric_type: 'customer_satisfaction',
-        value: 4.8,
-        change_percentage: 0.3,
-        trend: 'up'
-      }
-    ],
-    workspace_alerts: [
-      {
-        id: '1',
-        type: 'warning',
-        message: 'Low stock alert: Tomatoes (5kg remaining)',
-        priority: 'high',
-        is_read: false,
-        created_at: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
-      },
-      {
-        id: '2',
-        type: 'info',
-        message: 'Staff schedule updated for weekend',
-        priority: 'medium',
-        is_read: false,
-        created_at: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString()
-      }
-    ]
-  },
-  {
-    id: '2',
-    user_id: 'mock-user-id',
-    name: 'Mastro Café',
-    type: 'cafe',
-    location: 'Bratislava, Slovakia',
-    status: 'active',
-    description: 'Cozy café with specialty coffee and pastries',
-    address: 'Námestie SNP 45, 811 01 Bratislava',
-    phone: '+421 2 987 654 321',
-    email: 'info@mastro-cafe.sk',
-    website: 'www.mastro-cafe.sk',
-    capacity: 50,
-    cuisine: 'Café & Pastries',
-    rating: 4.6,
-    last_active: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    workspace_metrics: [
-      {
-        metric_type: 'daily_revenue',
-        value: 1250,
-        change_percentage: 8.2,
-        trend: 'up'
-      },
-      {
-        metric_type: 'staff_productivity',
-        value: 92,
-        change_percentage: 1.5,
-        trend: 'up'
-      },
-      {
-        metric_type: 'menu_performance',
-        value: 88,
-        change_percentage: 2.1,
-        trend: 'up'
-      },
-      {
-        metric_type: 'customer_satisfaction',
-        value: 4.6,
-        change_percentage: 0.1,
-        trend: 'neutral'
-      }
-    ],
-    workspace_alerts: [
-      {
-        id: '3',
-        type: 'success',
-        message: 'Marketing campaign launched successfully',
-        priority: 'low',
-        is_read: false,
-        created_at: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-      }
-    ]
-  },
-  {
-    id: '3',
-    user_id: 'mock-user-id',
-    name: 'Mastro Catering',
-    type: 'catering',
-    location: 'Bratislava, Slovakia',
-    status: 'inactive',
-    description: 'Professional catering services for events',
-    address: 'Vajnorská 78, 831 04 Bratislava',
-    phone: '+421 2 555 123 456',
-    email: 'info@mastro-catering.sk',
-    website: 'www.mastro-catering.sk',
-    capacity: 500,
-    cuisine: 'Event Catering',
-    rating: 4.9,
-    last_active: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    workspace_metrics: [
-      {
-        metric_type: 'daily_revenue',
-        value: 0,
-        change_percentage: 0,
-        trend: 'neutral'
-      },
-      {
-        metric_type: 'staff_productivity',
-        value: 0,
-        change_percentage: 0,
-        trend: 'neutral'
-      },
-      {
-        metric_type: 'menu_performance',
-        value: 0,
-        change_percentage: 0,
-        trend: 'neutral'
-      },
-      {
-        metric_type: 'customer_satisfaction',
-        value: 4.9,
-        change_percentage: 0,
-        trend: 'neutral'
-      }
-    ],
-    workspace_alerts: []
-  }
-];
+import { supabase } from '@/lib/supabase';
 
 // GET /api/workspaces - Get all workspaces for current user
 export async function GET(request: NextRequest) {
   try {
-    // Return mock data for development
-    return NextResponse.json({ workspaces: mockWorkspaces });
+    // Get current user from session
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError || !session?.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Get workspaces for current user
+    const { data: workspaces, error: workspacesError } = await supabase
+      .from('workspaces')
+      .select(`
+        *,
+        workspace_metrics(*),
+        workspace_alerts(*),
+        workspace_activities(*)
+      `)
+      .eq('user_id', session.user.id)
+      .order('created_at', { ascending: false });
+
+    if (workspacesError) {
+      console.error('Error fetching workspaces:', workspacesError);
+      return NextResponse.json({ error: 'Failed to fetch workspaces' }, { status: 500 });
+    }
+
+    return NextResponse.json({ workspaces: workspaces || [] });
   } catch (error) {
     console.error('Unexpected error:', error);
     return NextResponse.json(
@@ -185,6 +40,12 @@ export async function GET(request: NextRequest) {
 // POST /api/workspaces - Create new workspace
 export async function POST(request: NextRequest) {
   try {
+    // Get current user from session
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError || !session?.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { name, type, location, description, address, phone, email, website, capacity, cuisine } = body;
 
@@ -196,58 +57,50 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create new workspace with mock data
-    const newWorkspace = {
-      id: Date.now().toString(),
-      user_id: 'mock-user-id',
-      name,
-      type,
-      location,
-      status: 'active',
-      description,
-      address,
-      phone,
-      email,
-      website,
-      capacity: capacity ? parseInt(capacity) : 0,
-      cuisine,
-      rating: 0,
-      last_active: new Date().toISOString(),
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      workspace_metrics: [
-        {
-          metric_type: 'daily_revenue',
-          value: 0,
-          change_percentage: 0,
-          trend: 'neutral'
-        },
-        {
-          metric_type: 'staff_productivity',
-          value: 0,
-          change_percentage: 0,
-          trend: 'neutral'
-        },
-        {
-          metric_type: 'menu_performance',
-          value: 0,
-          change_percentage: 0,
-          trend: 'neutral'
-        },
-        {
-          metric_type: 'customer_satisfaction',
-          value: 0,
-          change_percentage: 0,
-          trend: 'neutral'
-        }
-      ],
-      workspace_alerts: []
-    };
+    // Create new workspace
+    const { data: workspace, error: insertError } = await supabase
+      .from('workspaces')
+      .insert({
+        user_id: session.user.id,
+        name,
+        type,
+        location,
+        status: 'active',
+        description,
+        address,
+        phone,
+        email,
+        website,
+        capacity: capacity ? parseInt(capacity) : 0,
+        cuisine,
+        rating: 0
+      })
+      .select()
+      .single();
 
-    // Add to mock data (in real app, this would be saved to database)
-    mockWorkspaces.unshift(newWorkspace);
+    if (insertError) {
+      console.error('Error creating workspace:', insertError);
+      return NextResponse.json({ error: 'Failed to create workspace' }, { status: 500 });
+    }
 
-    return NextResponse.json({ workspace: newWorkspace }, { status: 201 });
+    // Create default metrics for new workspace
+    const defaultMetrics = [
+      { workspace_id: workspace.id, metric_type: 'daily_revenue', value: 0, change_percentage: 0, trend: 'neutral' },
+      { workspace_id: workspace.id, metric_type: 'staff_productivity', value: 0, change_percentage: 0, trend: 'neutral' },
+      { workspace_id: workspace.id, metric_type: 'menu_performance', value: 0, change_percentage: 0, trend: 'neutral' },
+      { workspace_id: workspace.id, metric_type: 'customer_satisfaction', value: 0, change_percentage: 0, trend: 'neutral' }
+    ];
+
+    const { error: metricsError } = await supabase
+      .from('workspace_metrics')
+      .insert(defaultMetrics);
+
+    if (metricsError) {
+      console.error('Error creating default metrics:', metricsError);
+      // Don't fail the request if metrics creation fails
+    }
+
+    return NextResponse.json({ workspace }, { status: 201 });
   } catch (error) {
     console.error('Unexpected error:', error);
     return NextResponse.json(

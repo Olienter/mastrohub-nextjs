@@ -1,198 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-// Mock data (same as in main route)
-const mockWorkspaces = [
-  {
-    id: '1',
-    user_id: 'mock-user-id',
-    name: 'Mastro Restaurant',
-    type: 'restaurant',
-    location: 'Bratislava, Slovakia',
-    status: 'active',
-    description: 'Fine dining restaurant in the heart of Bratislava',
-    address: 'Hlavná 123, 811 01 Bratislava',
-    phone: '+421 2 123 456 789',
-    email: 'info@mastro-restaurant.sk',
-    website: 'www.mastro-restaurant.sk',
-    capacity: 120,
-    cuisine: 'International',
-    rating: 4.8,
-    last_active: new Date().toISOString(),
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    workspace_metrics: [
-      {
-        metric_type: 'daily_revenue',
-        value: 2847,
-        change_percentage: 12.5,
-        trend: 'up'
-      },
-      {
-        metric_type: 'staff_productivity',
-        value: 87,
-        change_percentage: 3.2,
-        trend: 'up'
-      },
-      {
-        metric_type: 'menu_performance',
-        value: 94,
-        change_percentage: -1.8,
-        trend: 'down'
-      },
-      {
-        metric_type: 'customer_satisfaction',
-        value: 4.8,
-        change_percentage: 0.3,
-        trend: 'up'
-      }
-    ],
-    workspace_alerts: [
-      {
-        id: '1',
-        type: 'warning',
-        message: 'Low stock alert: Tomatoes (5kg remaining)',
-        priority: 'high',
-        is_read: false,
-        created_at: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
-      },
-      {
-        id: '2',
-        type: 'info',
-        message: 'Staff schedule updated for weekend',
-        priority: 'medium',
-        is_read: false,
-        created_at: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString()
-      }
-    ],
-    workspace_activities: [
-      {
-        id: '1',
-        activity_type: 'menu_update',
-        description: 'Menu updated successfully',
-        data: {},
-        created_at: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
-      },
-      {
-        id: '2',
-        activity_type: 'staff_change',
-        description: 'New staff member added',
-        data: {},
-        created_at: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString()
-      }
-    ]
-  },
-  {
-    id: '2',
-    user_id: 'mock-user-id',
-    name: 'Mastro Café',
-    type: 'cafe',
-    location: 'Bratislava, Slovakia',
-    status: 'active',
-    description: 'Cozy café with specialty coffee and pastries',
-    address: 'Námestie SNP 45, 811 01 Bratislava',
-    phone: '+421 2 987 654 321',
-    email: 'info@mastro-cafe.sk',
-    website: 'www.mastro-cafe.sk',
-    capacity: 50,
-    cuisine: 'Café & Pastries',
-    rating: 4.6,
-    last_active: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    workspace_metrics: [
-      {
-        metric_type: 'daily_revenue',
-        value: 1250,
-        change_percentage: 8.2,
-        trend: 'up'
-      },
-      {
-        metric_type: 'staff_productivity',
-        value: 92,
-        change_percentage: 1.5,
-        trend: 'up'
-      },
-      {
-        metric_type: 'menu_performance',
-        value: 88,
-        change_percentage: 2.1,
-        trend: 'up'
-      },
-      {
-        metric_type: 'customer_satisfaction',
-        value: 4.6,
-        change_percentage: 0.1,
-        trend: 'neutral'
-      }
-    ],
-    workspace_alerts: [
-      {
-        id: '3',
-        type: 'success',
-        message: 'Marketing campaign launched successfully',
-        priority: 'low',
-        is_read: false,
-        created_at: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-      }
-    ],
-    workspace_activities: [
-      {
-        id: '3',
-        activity_type: 'marketing',
-        description: 'Marketing campaign created',
-        data: {},
-        created_at: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-      }
-    ]
-  },
-  {
-    id: '3',
-    user_id: 'mock-user-id',
-    name: 'Mastro Catering',
-    type: 'catering',
-    location: 'Bratislava, Slovakia',
-    status: 'inactive',
-    description: 'Professional catering services for events',
-    address: 'Vajnorská 78, 831 04 Bratislava',
-    phone: '+421 2 555 123 456',
-    email: 'info@mastro-catering.sk',
-    website: 'www.mastro-catering.sk',
-    capacity: 500,
-    cuisine: 'Event Catering',
-    rating: 4.9,
-    last_active: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    workspace_metrics: [
-      {
-        metric_type: 'daily_revenue',
-        value: 0,
-        change_percentage: 0,
-        trend: 'neutral'
-      },
-      {
-        metric_type: 'staff_productivity',
-        value: 0,
-        change_percentage: 0,
-        trend: 'neutral'
-      },
-      {
-        metric_type: 'menu_performance',
-        value: 0,
-        change_percentage: 0,
-        trend: 'neutral'
-      },
-      {
-        metric_type: 'customer_satisfaction',
-        value: 4.9,
-        change_percentage: 0,
-        trend: 'neutral'
-      }
-    ],
-    workspace_alerts: [],
-    workspace_activities: []
-  }
-];
+import { supabase } from '@/lib/supabase';
 
 // GET /api/workspaces/[id] - Get specific workspace
 export async function GET(
@@ -200,11 +7,28 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Get current user from session
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError || !session?.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
 
-    const workspace = mockWorkspaces.find(w => w.id === id);
+    // Get workspace with all related data
+    const { data: workspace, error: workspaceError } = await supabase
+      .from('workspaces')
+      .select(`
+        *,
+        workspace_metrics(*),
+        workspace_alerts(*),
+        workspace_activities(*)
+      `)
+      .eq('id', id)
+      .eq('user_id', session.user.id)
+      .single();
 
-    if (!workspace) {
+    if (workspaceError || !workspace) {
       return NextResponse.json(
         { error: 'Workspace not found' },
         { status: 404 }
@@ -227,6 +51,12 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Get current user from session
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError || !session?.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
     const body = await request.json();
     const { name, type, location, status, description, address, phone, email, website, capacity, cuisine, rating } = body;
@@ -239,36 +69,48 @@ export async function PUT(
       );
     }
 
-    const workspaceIndex = mockWorkspaces.findIndex(w => w.id === id);
-    
-    if (workspaceIndex === -1) {
+    // Verify user has access to this workspace
+    const { data: existingWorkspace, error: fetchError } = await supabase
+      .from('workspaces')
+      .select('id')
+      .eq('id', id)
+      .eq('user_id', session.user.id)
+      .single();
+
+    if (fetchError || !existingWorkspace) {
       return NextResponse.json(
-        { error: 'Workspace not found' },
+        { error: 'Workspace not found or access denied' },
         { status: 404 }
       );
     }
 
     // Update workspace
-    const updatedWorkspace = {
-      ...mockWorkspaces[workspaceIndex],
-      name,
-      type,
-      location,
-      status,
-      description,
-      address,
-      phone,
-      email,
-      website,
-      capacity: capacity ? parseInt(capacity) : 0,
-      cuisine,
-      rating: rating ? parseFloat(rating) : 0,
-      updated_at: new Date().toISOString()
-    };
+    const { data: workspace, error: updateError } = await supabase
+      .from('workspaces')
+      .update({
+        name,
+        type,
+        location,
+        status,
+        description,
+        address,
+        phone,
+        email,
+        website,
+        capacity: capacity ? parseInt(capacity) : 0,
+        cuisine,
+        rating: rating ? parseFloat(rating) : 0
+      })
+      .eq('id', id)
+      .select()
+      .single();
 
-    mockWorkspaces[workspaceIndex] = updatedWorkspace;
+    if (updateError) {
+      console.error('Error updating workspace:', updateError);
+      return NextResponse.json({ error: 'Failed to update workspace' }, { status: 500 });
+    }
 
-    return NextResponse.json({ workspace: updatedWorkspace });
+    return NextResponse.json({ workspace });
   } catch (error) {
     console.error('Unexpected error:', error);
     return NextResponse.json(
@@ -284,19 +126,39 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Get current user from session
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError || !session?.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
 
-    const workspaceIndex = mockWorkspaces.findIndex(w => w.id === id);
+    // Verify user has access to this workspace
+    const { data: existingWorkspace, error: fetchError } = await supabase
+      .from('workspaces')
+      .select('id')
+      .eq('id', id)
+      .eq('user_id', session.user.id)
+      .single();
 
-    if (workspaceIndex === -1) {
+    if (fetchError || !existingWorkspace) {
       return NextResponse.json(
-        { error: 'Workspace not found' },
+        { error: 'Workspace not found or access denied' },
         { status: 404 }
       );
     }
 
-    // Remove from mock data
-    mockWorkspaces.splice(workspaceIndex, 1);
+    // Delete workspace (this will cascade delete related data due to foreign keys)
+    const { error: deleteError } = await supabase
+      .from('workspaces')
+      .delete()
+      .eq('id', id);
+
+    if (deleteError) {
+      console.error('Error deleting workspace:', deleteError);
+      return NextResponse.json({ error: 'Failed to delete workspace' }, { status: 500 });
+    }
 
     return NextResponse.json({ message: 'Workspace deleted successfully' });
   } catch (error) {

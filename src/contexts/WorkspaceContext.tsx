@@ -10,15 +10,29 @@ interface WorkspaceContextType {
   workspaces: WorkspaceWithDetails[];
   loading: boolean;
   error: string | null;
+  createWorkspace: (workspaceData: any) => Promise<any>;
+  updateWorkspace: (id: string, workspaceData: any) => Promise<any>;
+  deleteWorkspace: (id: string) => Promise<void>;
+  dismissAlert: (workspaceId: string, alertId: string) => Promise<void>;
+  addActivity: (workspaceId: string, activityData: any) => Promise<void>;
 }
 
 const WorkspaceContext = createContext<WorkspaceContextType | undefined>(undefined);
 
 export function WorkspaceProvider({ children }: { children: React.ReactNode }) {
   const [selectedWorkspace, setSelectedWorkspace] = useState<string>('');
-  const { workspaces, loading, error } = useWorkspaces();
+  const { 
+    workspaces, 
+    loading, 
+    error, 
+    createWorkspace,
+    updateWorkspace,
+    deleteWorkspace,
+    dismissAlert,
+    addActivity
+  } = useWorkspaces();
   
-  const currentWorkspace = workspaces.find(w => w.id === selectedWorkspace);
+  const currentWorkspace = selectedWorkspace ? workspaces.find(w => w.id === selectedWorkspace) || null : null;
 
   // Auto-select first workspace if none selected
   useEffect(() => {
@@ -34,7 +48,12 @@ export function WorkspaceProvider({ children }: { children: React.ReactNode }) {
       currentWorkspace,
       workspaces,
       loading,
-      error
+      error,
+      createWorkspace,
+      updateWorkspace,
+      deleteWorkspace,
+      dismissAlert,
+      addActivity
     }}>
       {children}
     </WorkspaceContext.Provider>

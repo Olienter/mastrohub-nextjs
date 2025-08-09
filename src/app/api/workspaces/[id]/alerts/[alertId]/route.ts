@@ -1,35 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-// Mock data for alerts (in real app, this would be in database)
-let mockAlerts = [
-  {
-    id: '1',
-    workspace_id: '1',
-    type: 'warning',
-    message: 'Low stock alert: Tomatoes (5kg remaining)',
-    priority: 'high',
-    is_read: false,
-    created_at: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    id: '2',
-    workspace_id: '1',
-    type: 'info',
-    message: 'Staff schedule updated for weekend',
-    priority: 'medium',
-    is_read: false,
-    created_at: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    id: '3',
-    workspace_id: '2',
-    type: 'success',
-    message: 'Marketing campaign launched successfully',
-    priority: 'low',
-    is_read: false,
-    created_at: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-  }
-];
+import { supabase } from '@/lib/supabase';
 
 // PUT /api/workspaces/[id]/alerts/[alertId] - Dismiss alert
 export async function PUT(
@@ -37,31 +7,50 @@ export async function PUT(
   { params }: { params: Promise<{ id: string; alertId: string }> }
 ) {
   try {
+    // Get current user from session
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError || !session?.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id: workspaceId, alertId } = await params;
     const body = await request.json();
     const { is_read } = body;
 
-    // Find and update alert
-    const alertIndex = mockAlerts.findIndex(
-      alert => alert.id === alertId && alert.workspace_id === workspaceId
-    );
+    // Verify user has access to this workspace
+    const { data: workspace, error: workspaceError } = await supabase
+      .from('workspaces')
+      .select('id')
+      .eq('id', workspaceId)
+      .eq('user_id', session.user.id)
+      .single();
 
-    if (alertIndex === -1) {
+    if (workspaceError || !workspace) {
+      return NextResponse.json(
+        { error: 'Workspace not found or access denied' },
+        { status: 404 }
+      );
+    }
+
+    // Update alert
+    const { data: alert, error: updateError } = await supabase
+      .from('workspace_alerts')
+      .update({ is_read })
+      .eq('id', alertId)
+      .eq('workspace_id', workspaceId)
+      .select()
+      .single();
+
+    if (updateError || !alert) {
       return NextResponse.json(
         { error: 'Alert not found' },
         { status: 404 }
       );
     }
 
-    // Update alert
-    mockAlerts[alertIndex] = {
-      ...mockAlerts[alertIndex],
-      is_read: is_read
-    };
-
     return NextResponse.json({ 
       message: 'Alert dismissed successfully',
-      alert: mockAlerts[alertIndex]
+      alert
     });
   } catch (error) {
     console.error('Unexpected error:', error);

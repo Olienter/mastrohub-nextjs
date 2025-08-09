@@ -9,7 +9,7 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
-  signUp: (email: string, password: string, profileData?: any) => Promise<void>;
+  signUp: (email: string, password: string, profileData?: any) => Promise<{ success: boolean; error?: string }>;
   signOut: () => Promise<void>;
   updateProfile: (data: any) => Promise<void>;
 }
@@ -69,9 +69,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           user_metadata: {
             username: 'Admin',
             full_name: 'Test Administrator'
-          }
-        };
-        setUser(testUser as User);
+          },
+          app_metadata: {},
+          aud: 'authenticated',
+          created_at: new Date().toISOString()
+        } as User;
+        setUser(testUser);
         setSession({ user: testUser } as Session);
         return { success: true };
       }
@@ -92,28 +95,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signUp = async (email: string, password: string, profileData?: any) => {
-    // Test account for development
-    if (email === 'admin@test.com' && password === 'kokot') {
-      const testUser = {
-        id: 'test-admin-id',
-        email: 'admin@test.com',
-        user_metadata: {
-          username: 'Admin',
-          full_name: 'Test Administrator'
-        }
-      };
-      setUser(testUser as User);
-      setSession({ user: testUser } as Session);
-      return;
+    try {
+      // Test account for development
+      if (email === 'admin@test.com' && password === 'kokot') {
+        const testUser = {
+          id: 'test-admin-id',
+          email: 'admin@test.com',
+          user_metadata: {
+            username: 'Admin',
+            full_name: 'Test Administrator'
+          },
+          app_metadata: {},
+          aud: 'authenticated',
+          created_at: new Date().toISOString()
+        } as User;
+        setUser(testUser);
+        setSession({ user: testUser } as Session);
+        return { success: true };
+      }
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      
+      if (error) {
+        return { success: false, error: error.message };
+      }
+      
+      return { success: true };
+    } catch (error: any) {
+      return { success: false, error: error.message || 'Registration failed' };
     }
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-    if (error) throw error;
-
-    // Profile will be created in the auth state change listener
   };
 
   const signOut = async () => {
@@ -154,7 +167,7 @@ export function useAuth() {
       session: null,
       loading: false,
       signIn: async () => ({ success: false, error: 'Auth not available' }),
-      signUp: async () => {},
+      signUp: async () => ({ success: false, error: 'Auth not available' }),
       signOut: async () => {},
       updateProfile: async () => {},
     };

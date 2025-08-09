@@ -47,7 +47,7 @@ export default function RegisterPage() {
         // Redirect to Restaurant Curator (main dashboard)
         router.push('/restaurant-curator');
       } else {
-        setError(result.message || 'Registration failed');
+        setError(result.error || 'Registration failed');
       }
     } catch (error: any) {
       setError(error.message);
