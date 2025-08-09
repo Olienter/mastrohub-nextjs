@@ -293,13 +293,11 @@ export function withErrorBoundary<T extends React.ComponentType<any>>(
           })
         }
         
-        return (
-          <div className="error-boundary">
-            <h2>Something went wrong</h2>
-            <button onClick={() => this.setState({ hasError: false, error: null })}>
-              Try again
-            </button>
-          </div>
+        return React.createElement('div', { className: 'error-boundary' },
+          React.createElement('h2', null, 'Something went wrong'),
+          React.createElement('button', {
+            onClick: () => this.setState({ hasError: false, error: null })
+          }, 'Try again')
         )
       }
 

@@ -16,7 +16,7 @@ export const validationSchemas = {
     name: z.string().min(1, 'Menu name is required').max(100, 'Menu name must be less than 100 characters'),
     description: z.string().max(500, 'Description must be less than 500 characters').optional(),
     isActive: z.boolean().default(true),
-    settings: z.record(z.any()).optional(),
+    settings: z.record(z.string(), z.any()).optional(),
   },
 
   // Menu item validation
@@ -28,7 +28,7 @@ export const validationSchemas = {
     isAvailable: z.boolean().default(true),
     imageUrl: z.string().url('Invalid image URL').optional(),
     allergens: z.array(z.string()).default([]),
-    nutritionalInfo: z.record(z.any()).default({}),
+    nutritionalInfo: z.record(z.string(), z.any()).default({}),
   },
 
   // Order validation
@@ -71,7 +71,7 @@ export const validationSchemas = {
     
     search: z.object({
       query: z.string().min(1, 'Search query is required').max(200, 'Search query must be less than 200 characters'),
-      filters: z.record(z.any()).optional(),
+      filters: z.record(z.string(), z.any()).optional(),
       sortBy: z.string().optional(),
       sortOrder: z.enum(['asc', 'desc']).default('asc'),
     }),
@@ -100,11 +100,12 @@ export const validationHelpers = {
       return { success: true, data: result }
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errors = error.errors.map(err => err.message)
+        const errors = error.issues.map(err => err.message)
         logger.warn('Validation failed', { errors, data })
         return { success: false, errors }
       }
-      return { success: false, errors: ['Unknown validation error'] }
+      logger.error('Validation error', { error, data })
+      return { success: false, errors: ['Validation failed'] }
     }
   },
 
@@ -125,7 +126,7 @@ export const validationHelpers = {
       return { success: true, data: result }
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errors = error.errors.map(err => err.message)
+        const errors = error.issues.map(err => err.message)
         logger.warn('Partial validation failed', { errors, data })
         return { success: false, errors }
       }

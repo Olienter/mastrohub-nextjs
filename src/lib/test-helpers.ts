@@ -1,5 +1,6 @@
 import { render, RenderOptions } from '@testing-library/react'
 import { ReactElement } from 'react'
+import React from 'react'
 import { logger } from './logger'
 
 // Test utilities for React components
@@ -10,11 +11,7 @@ export const testUtils = {
     options?: Omit<RenderOptions, 'wrapper'>
   ) => {
     const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
-      return (
-        <div data-testid="test-wrapper">
-          {children}
-        </div>
-      )
+      return React.createElement('div', { 'data-testid': 'test-wrapper' }, children)
     }
 
     return render(ui, { wrapper: AllTheProviders, ...options })
