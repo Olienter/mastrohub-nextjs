@@ -1,132 +1,120 @@
 # MastroHub - Restaurant Management Platform
 
-## 🚀 Project Status: **LAUNCH READY**
+## 🍽️ Project Overview
 
-MastroHub je komplexná platforma pre správu reštaurácií s AI asistentom, ktorá kombinuje moderné technológie s intuitívnym dizajnom. Projekt je **kompletne dokončený** a pripravený na spustenie.
+MastroHub is a comprehensive restaurant management platform built with Next.js 15, featuring AI-powered tools, analytics, and enterprise-grade features for modern gastronomy businesses.
 
-## ✨ Key Features
+## 🚀 Current Status
 
-### 🍽️ Core Features
-- **Menu Maker**: AI-powered menu creation with intelligent wizard
-- **AI Assistant**: LinkedIn-style floating chat widget for restaurant guidance
-- **Multi-language Support**: 6 languages (SK, EN, CS, DE, HU, PL)
-- **Role-based Access Control**: Owner, Manager, Staff, Viewer roles
+**Server Status**: ✅ Running on http://localhost:3000  
+**Framework**: Next.js 15.4.4  
+**Database**: Supabase  
+**Authentication**: Custom Auth System  
+**Styling**: Tailwind CSS 4.0  
 
-### 🤖 AI Features
-- **Intelligent Wizard**: One-time setup for all restaurant manuals
-- **Multi-provider AI**: OpenAI GPT-4o, Anthropic Claude 3.5, Ollama
-- **Predictive Analytics**: Menu optimization and pricing recommendations
-- **Smart Notifications**: Time-based, data-driven, trend-based alerts
+## ⚠️ Known Issues (For GPT-5 Analysis)
 
-### 🏢 Enterprise Features
-- **Multi-tenant Architecture**: Isolated workspaces for different restaurants
-- **Audit Logging**: Complete activity tracking and compliance reporting
-- **White-label Solutions**: Custom branding and domain support
-- **Advanced Analytics**: Comprehensive reporting and insights
+### 1. **Metadata Warnings**
+```
+⚠ Unsupported metadata viewport is configured in metadata export in /. Please move it to viewport export instead.
+⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+```
+**Files affected**: `src/app/layout.tsx`, `src/app/not-found.tsx`
 
-### 🚀 Performance & Security
-- **Performance Optimization**: Core Web Vitals optimization, lazy loading
-- **Security Hardening**: XSS protection, SQL injection prevention, rate limiting
-- **Monitoring & Logging**: Real-time performance and security monitoring
-- **Backup & Recovery**: Automated database and file backups
+### 2. **Missing API Endpoints**
+```
+GET /api/menu 401 in 2044ms
+GET /api/categories 404 in 1529ms
+GET /api/user 404 in 1454ms
+GET /api/workspaces 401 in 894ms
+```
+**Missing files**: API routes need implementation
 
-### 📚 Documentation & Training
-- **Comprehensive Documentation**: User guides, API reference, developer guides
-- **Video Tutorials**: 25+ step-by-step video guides
-- **Knowledge Base**: FAQ, troubleshooting, best practices
-- **Multi-language Support**: Documentation in 6 languages
+### 3. **Missing Assets**
+```
+GET /fonts/inter-var.woff2 404 in 38ms
+GET /icons/icon-144x144.png 404 in 356ms
+GET /icons/icon-192x192.png 404 in 75ms
+```
+**Missing files**: Fonts and PWA icons
 
-## 🛠️ Technology Stack
+### 4. **Webpack Configuration**
+```
+Warning: Reverting webpack devtool to 'false'.
+```
+**File**: `next.config.js` needs optimization
 
-### Frontend
-- **Next.js 14**: React framework with App Router
-- **TypeScript**: Type-safe development
-- **Tailwind CSS**: Utility-first styling
-- **Framer Motion**: Smooth animations
+## 🏗️ Architecture
 
-### Backend
-- **Supabase**: Database, authentication, and real-time features
-- **Next.js API Routes**: Server-side API endpoints
-- **Redis**: Caching and session management
+### Core Features
+- **AI Assistant**: Menu optimization, pricing analysis
+- **Analytics Dashboard**: Real-time restaurant metrics
+- **Menu Engineering**: Profit margin optimization
+- **QR Code Generation**: Digital menu system
+- **Enterprise Tools**: Multi-location management
+- **PWA Support**: Offline functionality
 
-### AI & Machine Learning
-- **OpenAI GPT-4o**: Primary AI provider
-- **Anthropic Claude 3.5**: Alternative AI provider
-- **Ollama**: Local AI deployment option
+### Tech Stack
+- **Frontend**: Next.js 15, React 18, TypeScript
+- **Styling**: Tailwind CSS 4.0, Framer Motion
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Custom RBAC system
+- **AI Integration**: OpenAI API (planned)
+- **Deployment**: Vercel, Docker support
 
-### DevOps & Infrastructure
-- **Docker**: Containerization and deployment
-- **Nginx**: Reverse proxy and load balancing
-- **Prometheus & Grafana**: Monitoring and alerting
-- **GitHub Actions**: CI/CD pipeline
+## 📁 Project Structure
 
-### Testing & Quality
-- **Jest**: Unit and integration testing
-- **Playwright**: End-to-end testing
-- **Lighthouse**: Performance testing
-- **ESLint & Prettier**: Code quality
-
-## 📋 Development Phases
-
-### ✅ Completed Phases
-- **FÁZA 1-3**: Core Setup & Authentication
-- **FÁZA 4-6**: Menu Management & AI Integration
-- **FÁZA 7-9**: Analytics & Multi-language Support
-- **FÁZA 10-12**: Advanced AI & Notifications
-- **FÁZA 13-15**: Multi-tenant & Enterprise Features
-- **FÁZA 16-18**: Testing & Quality Assurance
-- **FÁZA 19-21**: Performance & Security
-- **FÁZA 22**: Deployment & DevOps
-- **FÁZA 23**: Documentation & Training
-- **FÁZA 24**: Final Polish & Launch
-
-### 🎯 Final Status
-**ALL PHASES COMPLETED** ✅
-
-## 🚀 Getting Started
-
-### Quick Start (5 minutes)
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/mastrohub-nextjs.git
-   cd mastrohub-nextjs
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   # Edit .env.local with your Supabase and AI API keys
-   ```
-
-4. **Run development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Access the application**
-   - Open [http://localhost:3000](http://localhost:3000)
-   - Create your restaurant account
-   - Start the AI interview to set up your menu
-
-### Production Deployment
-
-#### Docker Deployment
-```bash
-# Build and run with Docker Compose
-docker-compose up -d
-
-# Or build and run individually
-docker build -t mastrohub-nextjs .
-docker run -p 3000:3000 mastrohub-nextjs
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── api/               # API Routes
+│   ├── menu-maker/        # Menu creation tool
+│   ├── analytics-insights/ # Analytics dashboard
+│   └── enterprise/        # Enterprise features
+├── components/            # React components
+│   ├── ui/               # Base UI components
+│   ├── auth/             # Authentication components
+│   └── menu-maker/       # Menu-specific components
+├── lib/                  # Utility functions
+├── contexts/             # React contexts
+└── hooks/                # Custom hooks
 ```
 
-#### Manual Deployment
+## 🎯 Key Features
+
+### 1. **Menu Maker**
+- AI-powered menu optimization
+- Price analysis and recommendations
+- QR code generation for digital menus
+- Ingredient analysis and cost tracking
+
+### 2. **Analytics Dashboard**
+- Real-time sales metrics
+- Customer behavior analysis
+- Performance monitoring
+- Predictive analytics
+
+### 3. **Enterprise Tools**
+- Multi-location management
+- Supply chain tracking
+- Quality assurance system
+- Security compliance
+
+### 4. **AI Assistant**
+- Menu engineering suggestions
+- Pricing optimization
+- Marketing recommendations
+- Operational insights
+
+## 🔧 Development Setup
+
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
 # Build for production
 npm run build
 
@@ -134,147 +122,206 @@ npm run build
 npm start
 ```
 
-### Environment Variables
-```bash
-# Required
+## 🌐 Environment Variables
+
+Create `.env.local` based on `env.example`:
+```env
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-OPENAI_API_KEY=your_openai_api_key
-
-# Optional
-ANTHROPIC_API_KEY=your_anthropic_api_key
-OLLAMA_BASE_URL=http://localhost:11434
-AI_PROVIDER=openai
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_key
+OPENAI_API_KEY=your_openai_key
 ```
 
-## 📊 Performance Metrics
+## 🐳 Docker Support
 
-### Core Web Vitals
-- **LCP (Largest Contentful Paint)**: < 2.5s
-- **FID (First Input Delay)**: < 100ms
-- **CLS (Cumulative Layout Shift)**: < 0.1
-
-### Security Score
-- **OWASP Compliance**: 100%
-- **Security Headers**: All implemented
-- **Rate Limiting**: Active
-- **Input Validation**: Comprehensive
-
-### Test Coverage
-- **Unit Tests**: 95% coverage
-- **Integration Tests**: 90% coverage
-- **E2E Tests**: 85% coverage
-- **Performance Tests**: All passing
-
-## 🔧 Available Scripts
-
-### Development
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run type-check   # Run TypeScript checks
+# Build and run with Docker
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
 ```
 
-### Testing
+## 📊 Database Schema
+
+### Core Tables
+- `profiles` - User profiles and preferences
+- `workspaces` - Restaurant/location data
+- `menus` - Menu items and categories
+- `analytics` - Performance metrics
+- `badges` - Achievement system
+
+## 🎨 UI/UX Guidelines
+
+### Design Principles
+- **Professional**: LinkedIn/Facebook-inspired design
+- **Gastronomic Theme**: Michelin-level aesthetics
+- **Responsive**: Mobile-first approach
+- **Accessible**: WCAG 2.1 compliance
+
+### Color Scheme
+- Primary: Professional blues and grays
+- Accent: Gastronomic golds and earth tones
+- Background: Clean whites and subtle gradients
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
 ```bash
-npm run test         # Run all tests
-npm run test:unit    # Run unit tests
-npm run test:e2e     # Run E2E tests
-npm run test:report  # Generate test report
+vercel --prod
 ```
 
-### Quality Assurance
+### Docker
 ```bash
-npm run quality:analyze    # Code quality analysis
-npm run quality:security   # Security audit
-npm run quality:performance # Performance audit
-npm run quality:report     # Full quality report
+docker build -t mastrohub .
+docker run -p 3000:3000 mastrohub
 ```
 
-### Deployment
-```bash
-npm run deploy:staging     # Deploy to staging
-npm run deploy:production  # Deploy to production
-npm run docker:build       # Build Docker image
-npm run docker:compose     # Run with Docker Compose
-```
+## 🔍 Performance Issues
 
-### Monitoring & Maintenance
-```bash
-npm run monitoring:start   # Start monitoring
-npm run backup:full        # Full backup
-npm run health:check       # Health check
-npm run logs:view          # View logs
-```
+### Current Problems
+1. **Slow compilation**: 8.5s initial compile
+2. **Missing assets**: 404 errors for fonts/icons
+3. **API errors**: 401/404 responses
+4. **Metadata warnings**: Next.js 15 compatibility
+
+### Optimization Targets
+- Reduce bundle size
+- Implement proper caching
+- Fix API endpoints
+- Add missing assets
+
+## 🤖 AI Integration Status
+
+### Planned Features
+- [ ] OpenAI API integration
+- [ ] Menu optimization AI
+- [ ] Pricing analysis
+- [ ] Customer insights
+- [ ] Predictive analytics
+
+### Current Implementation
+- Basic AI assistant interface
+- Placeholder API routes
+- Mock data for testing
+
+## 📈 Analytics & Monitoring
+
+### Implemented
+- Performance monitoring
+- Error tracking
+- User analytics
+- Real-time metrics
+
+### Planned
+- Advanced analytics dashboard
+- Custom reporting
+- Data export capabilities
+- Integration with external tools
+
+## 🔐 Security Features
+
+### Implemented
+- Role-based access control (RBAC)
+- Authentication guards
+- API route protection
+- Input validation
+
+### Planned
+- Advanced security monitoring
+- Compliance reporting
+- Data encryption
+- Audit logging
+
+## 🌍 Internationalization
+
+### Current Support
+- Slovak (primary)
+- English (secondary)
+- Language switching
+- RTL support (planned)
+
+## 📱 PWA Features
+
+### Implemented
+- Service worker
+- Offline support
+- Install prompts
+- App manifest
+
+### Missing
+- PWA icons
+- Splash screens
+- Offline data sync
+
+## 🧪 Testing Strategy
+
+### Current
+- Basic component testing
+- API route testing
+- E2E test setup
+
+### Planned
+- Comprehensive test suite
+- Performance testing
+- Security testing
+- Accessibility testing
 
 ## 📚 Documentation
 
-### User Documentation
-- [Quick Start Guide](docs/getting-started/quick-start.md)
-- [Menu Maker Guide](docs/user-guides/menu-maker.md)
-- [AI Assistant Guide](docs/user-guides/ai-assistant.md)
+### Available
+- API documentation
+- Component library
+- Setup guides
+- Deployment instructions
 
-### Developer Documentation
-- [API Reference](docs/api/README.md)
-- [Architecture Overview](docs/developer/architecture.md)
-- [Development Setup](docs/developer/setup.md)
+### Needed
+- User guides
+- Admin documentation
+- Troubleshooting guides
+- Video tutorials
 
-### Video Tutorials
-- [Getting Started Videos](docs/tutorials/getting-started.md)
-- [Menu Management Series](docs/tutorials/menu-management.md)
-- [AI Assistant Tutorials](docs/tutorials/ai-assistant.md)
+## 🎯 Next Steps for GPT-5
 
-## 🎯 Launch Checklist
+### Priority Fixes
+1. **Fix metadata warnings** - Update layout.tsx and not-found.tsx
+2. **Implement missing APIs** - Create proper API routes
+3. **Add missing assets** - Fonts and PWA icons
+4. **Optimize webpack** - Fix next.config.js
 
-### ✅ Pre-Launch
-- [x] All features implemented and tested
-- [x] Performance optimized (Core Web Vitals)
-- [x] Security hardened (OWASP compliance)
-- [x] Documentation complete
-- [x] Video tutorials created
-- [x] Testing framework implemented
-- [x] Monitoring and logging configured
-- [x] Backup and recovery procedures
-- [x] CI/CD pipeline configured
-- [x] Docker containerization
-- [x] Production environment ready
+### Architecture Improvements
+1. **Performance optimization** - Reduce bundle size
+2. **Error handling** - Implement proper error boundaries
+3. **Type safety** - Improve TypeScript coverage
+4. **Testing** - Add comprehensive tests
 
-### ✅ Launch Ready
-- [x] Health checks passing
-- [x] All critical services operational
-- [x] Security audit completed
-- [x] Performance benchmarks met
-- [x] Documentation accessible
-- [x] Support system in place
-- [x] Monitoring active
-- [x] Backup procedures tested
-
-## 🎉 Launch Status
-
-**MastroHub je pripravený na spustenie!** 
-
-Všetky fázy vývoja sú dokončené, aplikácia je optimalizovaná, zabezpečená a pripravená na produkčné nasadenie. Platforma obsahuje všetky plánované funkcie a je pripravená slúžiť reštauráciám po celom svete.
-
-### Final Statistics
-- **Total Development Time**: 24 phases completed
-- **Code Coverage**: 95%+
-- **Performance Score**: 98/100
-- **Security Score**: 100/100
-- **Documentation**: Complete
-- **Video Tutorials**: 25+ videos
-- **Languages Supported**: 6
-- **AI Providers**: 3 (OpenAI, Anthropic, Ollama)
+### Feature Enhancements
+1. **AI integration** - Connect to OpenAI API
+2. **Real-time features** - WebSocket implementation
+3. **Advanced analytics** - Custom dashboards
+4. **Mobile optimization** - PWA improvements
 
 ## 🤝 Contributing
 
-Projekt je momentálne v produkčnom režime. Pre prípadné otázky alebo podporu kontaktujte vývojový tím.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see LICENSE file for details
+
+## 🆘 Support
+
+For issues and questions:
+- Create GitHub issues
+- Check documentation
+- Review troubleshooting guides
 
 ---
 
-**MastroHub - Revolutionizing Restaurant Management with AI** 🚀
+**Last Updated**: December 2024  
+**Version**: 0.1.0  
+**Status**: Development  
+**Target**: Production Ready
