@@ -50,7 +50,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
               Oops! Something went wrong
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-slate-300 mb-6">
               We're sorry, but something unexpected happened. Our team has been notified and is working to fix this issue.
             </p>
             <div className="flex gap-3 justify-center">

@@ -119,7 +119,7 @@ const HorizontalTools: React.FC<HorizontalToolsProps> = ({ onToolClick }) => {
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           Our Tools (Free)
         </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-lg text-slate-300 max-w-2xl mx-auto">
           Complete set of tools for modern gastro business. Everything completely free.
         </p>
       </div>
@@ -140,7 +140,7 @@ const HorizontalTools: React.FC<HorizontalToolsProps> = ({ onToolClick }) => {
         {tools.map((tool) => (
           <div
             key={tool.id}
-            className="flex-shrink-0 w-80 bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:border-gray-300"
+            className="flex-shrink-0 w-80 bg-slate-800/80 rounded-xl border border-slate-700/50 p-6 hover:shadow-lg transition-all duration-300 hover:border-slate-600/50"
             onMouseEnter={() => setHoveredTool(tool.id)}
             onMouseLeave={() => setHoveredTool(null)}
           >
@@ -160,7 +160,7 @@ const HorizontalTools: React.FC<HorizontalToolsProps> = ({ onToolClick }) => {
             </div>
 
             {/* Tool Description */}
-            <p className="text-gray-600 mb-6 leading-relaxed">
+            <p className="text-slate-300 mb-6 leading-relaxed">
               {tool.description}
             </p>
 
@@ -169,7 +169,7 @@ const HorizontalTools: React.FC<HorizontalToolsProps> = ({ onToolClick }) => {
               <h4 className="text-sm font-semibold text-gray-700 mb-3">Key features:</h4>
               <ul className="space-y-2">
                 {tool.features.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
+                  <li key={index} className="flex items-center gap-2 text-sm text-slate-300">
                     <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                     {feature}
                   </li>
@@ -206,7 +206,7 @@ const HorizontalTools: React.FC<HorizontalToolsProps> = ({ onToolClick }) => {
           <h3 className="text-2xl font-bold text-gray-900 mb-4">
             All tools are free
           </h3>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+          <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
             No hidden fees, no commitments. All our tools are completely free 
             and available to every gastro professional.
           </p>

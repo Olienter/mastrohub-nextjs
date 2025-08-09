@@ -123,7 +123,7 @@ export default function ImageUpload({
             sizes="(max-width: 768px) 100vw, 400px"
           />
         ) : (
-          <div className="flex flex-col items-center space-y-2 text-gray-500 dark:text-gray-400">
+          <div className="flex flex-col items-center space-y-2 text-slate-300">
             <ImageIcon size={48} />
             <span className="text-sm font-medium">{placeholder}</span>
           </div>

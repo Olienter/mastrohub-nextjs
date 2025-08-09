@@ -9,42 +9,42 @@
 
 /* 🎨 GLOBAL COLOR SYSTEM - SEMANTIC COLOR TOKENS */
 :root {
-  /* Light theme colors */
-  --bg: #ffffff;
-  --surface: #ffffff;
-  --fg: #111827;
-  --muted: #6b7280;
+  /* Dark theme colors (default) */
+  --bg: #0a0a0a;
+  --surface: #1f2937;
+  --fg: #f9fafb;
+  --muted: #9ca3af;
   --primary: #3b82f6;
   --primary-foreground: #ffffff;
-  --secondary: #f3f4f6;
-  --secondary-foreground: #111827;
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
+  --secondary: #374151;
+  --secondary-foreground: #f9fafb;
+  --accent: #374151;
+  --accent-foreground: #f9fafb;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #e5e7eb;
-  --input: #ffffff;
+  --border: #374151;
+  --input: #1f2937;
   --ring: #3b82f6;
   --radius: 0.5rem;
 }
 
-/* Dark theme colors */
-@media (prefers-color-scheme: dark) {
+/* Light theme colors (optional) */
+@media (prefers-color-scheme: light) {
   :root {
-    --bg: #0a0a0a;
-    --surface: #1f2937;
-    --fg: #f9fafb;
-    --muted: #9ca3af;
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --fg: #111827;
+    --muted: #6b7280;
     --primary: #3b82f6;
     --primary-foreground: #ffffff;
-    --secondary: #374151;
-    --secondary-foreground: #f9fafb;
-    --accent: #374151;
-    --accent-foreground: #f9fafb;
+    --secondary: #f3f4f6;
+    --secondary-foreground: #111827;
+    --accent: #f1f5f9;
+    --accent-foreground: #0f172a;
     --destructive: #ef4444;
     --destructive-foreground: #ffffff;
-    --border: #374151;
-    --input: #1f2937;
+    --border: #e5e7eb;
+    --input: #ffffff;
     --ring: #3b82f6;
   }
 }

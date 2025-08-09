@@ -2,124 +2,74 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MapPin, Twitter, Facebook, Instagram, Linkedin, Github } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
+const Footer: React.FC = () => {
+  const { t } = useLanguage();
 
   const footerLinks = {
     product: [
       { name: 'Menu Maker', href: '/menu-maker' },
-      { name: 'Restaurant Curator', href: '/restaurant-curator' },
-      { name: 'Marketing Assistant', href: '/marketing-assistant' },
-    ],
-    solutions: [
-      { name: 'Small Restaurants', href: '/solutions/small' },
-      { name: 'Chain Restaurants', href: '/solutions/chain' },
-      { name: 'Fine Dining', href: '/solutions/fine-dining' },
-      { name: 'Fast Casual', href: '/solutions/fast-casual' },
-      { name: 'Catering', href: '/solutions/catering' },
-    ],
-    resources: [
-      { name: 'Blog', href: '/blog' },
-      { name: 'Help Center', href: '/help' },
-      { name: 'API Documentation', href: '/docs' },
-      { name: 'Case Studies', href: '/case-studies' },
-      { name: 'Webinars', href: '/webinars' },
+      { name: 'QR Menu', href: '/qrmenu' },
+      { name: 'Analytics', href: '/analytics-insights' },
+      { name: 'AI Assistant', href: '/ai-assistant' },
+      { name: 'Supply Chain', href: '/supply-chain' }
     ],
     company: [
-      { name: 'About Us', href: '/about' },
+      { name: 'About', href: '/about' },
+      { name: 'Blog', href: '/blog' },
       { name: 'Careers', href: '/careers' },
-      { name: 'Press', href: '/press' },
-      { name: 'Contact', href: '/contact' },
-      { name: 'Partners', href: '/partners' },
+      { name: 'Contact', href: '/contact' }
+    ],
+    support: [
+      { name: 'Help Center', href: '/help' },
+      { name: 'Documentation', href: '/docs' },
+      { name: 'API Reference', href: '/api' },
+      { name: 'Status', href: '/status' }
     ],
     legal: [
       { name: 'Privacy Policy', href: '/privacy' },
       { name: 'Terms of Service', href: '/terms' },
       { name: 'Cookie Policy', href: '/cookies' },
-      { name: 'GDPR', href: '/gdpr' },
-      { name: 'Security', href: '/security' },
-    ],
+      { name: 'GDPR', href: '/gdpr' }
+    ]
   };
 
-  const socialLinks = [
-    { name: 'Twitter', href: 'https://twitter.com/mastrohub', icon: Twitter },
-    { name: 'Facebook', href: 'https://facebook.com/mastrohub', icon: Facebook },
-    { name: 'Instagram', href: 'https://instagram.com/mastrohub', icon: Instagram },
-    { name: 'LinkedIn', href: 'https://linkedin.com/company/mastrohub', icon: Linkedin },
-    { name: 'GitHub', href: 'https://github.com/mastrohub', icon: Github },
-  ];
-
   return (
-    <footer className="bg-white border-t border-gray-200">
+    <footer className="bg-slate-800/80 border-t border-slate-700/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-8">
-          {/* Company Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          {/* Brand Section */}
           <div className="lg:col-span-2">
-            <div className="flex items-center mb-4">
-              <span className="text-2xl font-bold text-gray-900">Mastro</span>
-              <span className="text-2xl font-bold text-blue-600 ml-1">Hub</span>
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">M</span>
+              </div>
+              <span className="text-white font-bold text-xl">MastroHub</span>
             </div>
-            <p className="text-gray-600 mb-4 max-w-md">
-              AI-powered restaurant management platform. By gastro people for gastro people. 
-              Professional tools for modern restaurant management.
+            <p className="text-slate-300 mb-4 max-w-md">
+              Comprehensive restaurant management platform with AI assistant that combines modern technologies with intuitive design.
             </p>
-            <div className="flex items-center space-x-4">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-blue-600 transition-colors"
-                    aria-label={social.name}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </a>
-                );
-              })}
+            <div className="flex space-x-4">
+              <a
+                href="https://twitter.com/mastrohub"
+                className="text-slate-400 hover:text-blue-400 transition-colors"
+              >
+                <span className="sr-only">Twitter</span>
+                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                </svg>
+              </a>
             </div>
           </div>
 
           {/* Product Links */}
           <div>
-            <h3 className="text-gray-900 font-semibold mb-4">Product</h3>
+            <h3 className="text-white font-semibold mb-4">Product</h3>
             <ul className="space-y-2">
               {footerLinks.product.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Solutions Links */}
-          <div>
-            <h3 className="text-gray-900 font-semibold mb-4">Solutions</h3>
-            <ul className="space-y-2">
-              {footerLinks.solutions.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Resources Links */}
-          <div>
-            <h3 className="text-gray-900 font-semibold mb-4">Resources</h3>
-            <ul className="space-y-2">
-              {footerLinks.resources.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                  <Link href={link.href} className="text-slate-300 hover:text-white transition-colors text-sm">
                     {link.name}
                   </Link>
                 </li>
@@ -129,11 +79,25 @@ const Footer = () => {
 
           {/* Company Links */}
           <div>
-            <h3 className="text-gray-900 font-semibold mb-4">Company</h3>
+            <h3 className="text-white font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                  <Link href={link.href} className="text-slate-300 hover:text-white transition-colors text-sm">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Support Links */}
+          <div>
+            <h3 className="text-white font-semibold mb-4">Support</h3>
+            <ul className="space-y-2">
+              {footerLinks.support.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="text-slate-300 hover:text-white transition-colors text-sm">
                     {link.name}
                   </Link>
                 </li>
@@ -142,66 +106,34 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Contact & Newsletter */}
-        <div className="border-t border-gray-200 pt-8 mb-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Contact Info */}
-            <div>
-              <h3 className="text-gray-900 font-semibold mb-4">Contact</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <Mail className="w-4 h-4 text-blue-600" />
-                  <a href="mailto:hello@mastrohub.com" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
-                    hello@mastrohub.com
-                  </a>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Phone className="w-4 h-4 text-blue-600" />
-                  <a href="tel:+421-555-123-456" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
-                    +421 (555) 123-456
-                  </a>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <MapPin className="w-4 h-4 text-blue-600" />
-                  <span className="text-gray-600 text-sm">
-                    Bratislava, Slovakia
-                  </span>
-                </div>
-              </div>
+        {/* Bottom Section */}
+        <div className="border-t border-slate-700/50 mt-8 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+              <a href="mailto:hello@mastrohub.com" className="text-slate-300 hover:text-white transition-colors text-sm">
+                hello@mastrohub.com
+              </a>
+              <a href="tel:+421-555-123-456" className="text-slate-300 hover:text-white transition-colors text-sm">
+                +421-555-123-456
+              </a>
             </div>
-
-            {/* Newsletter */}
-            <div>
-              <h3 className="text-gray-900 font-semibold mb-4">Newsletter</h3>
-              <p className="text-gray-600 text-sm mb-4">
-                Get the latest restaurant industry insights and MastroHub updates.
-              </p>
-              <div className="flex space-x-2">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                />
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
-                  Subscribe
-                </button>
-              </div>
+            <div className="flex items-center space-x-4">
+              <span className="text-slate-300 text-sm">
+                © 2024 MastroHub. All rights reserved.
+              </span>
             </div>
           </div>
-        </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-200 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            {/* Copyright */}
-            <div className="text-gray-600 text-sm">
-              © {currentYear} MastroHub. All rights reserved.
+          {/* Legal Links */}
+          <div className="mt-4 pt-4 border-t border-slate-700/50">
+            <div className="flex flex-wrap justify-center md:justify-start space-x-6">
+              <p className="text-slate-300 text-sm mb-4">
+                By using our service, you agree to our terms and conditions.
+              </p>
             </div>
-
-            {/* Legal Links */}
-            <div className="flex space-x-6">
+            <div className="flex flex-wrap justify-center md:justify-start space-x-6">
               {footerLinks.legal.map((link) => (
-                <Link key={link.name} href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                <Link key={link.name} href={link.href} className="text-slate-300 hover:text-white transition-colors text-sm">
                   {link.name}
                 </Link>
               ))}

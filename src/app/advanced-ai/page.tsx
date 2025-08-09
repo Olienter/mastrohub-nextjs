@@ -165,7 +165,7 @@ export default function AdvancedAIPage() {
           <div className="text-center">
             <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-gray-900 mb-2">Advanced AI Data Unavailable</h2>
-            <p className="text-gray-600">Failed to load AI insights and predictions</p>
+            <p className="text-slate-300">Failed to load AI insights and predictions</p>
           </div>
         </div>
       </div>

@@ -80,13 +80,13 @@ export default function RootLayout({
         
         {/* Apple touch icon */}
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        
+      </head>
+      <body className={`${inter.className} optimized-render min-h-screen bg-bg text-fg antialiased`}>
         {/* Skip link for accessibility */}
         <a href="#main-content" className="skip-link sr-only">
           Skip to main content
         </a>
-      </head>
-      <body className={`${inter.className} optimized-render min-h-screen bg-bg text-fg antialiased`}>
+        
         <Providers>
           <div id="main-content" className="critical">
             {children}
