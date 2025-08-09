@@ -110,7 +110,7 @@ export default function Home() {
 
   const metrics: DashboardMetric[] = [
     {
-      title: 'Celkový príjem',
+      title: 'Total Revenue',
       value: '€12,450',
       change: 12.5,
       icon: <DollarSign className="w-5 h-5" />,
@@ -118,7 +118,7 @@ export default function Home() {
       href: '/analytics-insights'
     },
     {
-      title: 'Aktívne objednávky',
+      title: 'Active Orders',
       value: '24',
       change: 8.2,
       icon: <ShoppingCart className="w-5 h-5" />,
@@ -126,7 +126,7 @@ export default function Home() {
       href: '/restaurant-curator'
     },
     {
-      title: 'Spokojnosť zákazníkov',
+      title: 'Customer Satisfaction',
       value: '4.8/5',
       change: 2.1,
       icon: <Star className="w-5 h-5" />,
@@ -134,7 +134,7 @@ export default function Home() {
       href: '/analytics-insights'
     },
     {
-      title: 'Priemerný čas obsluhy',
+      title: 'Average Service Time',
       value: '8.5 min',
       change: -5.3,
       icon: <Clock className="w-5 h-5" />,
@@ -146,7 +146,7 @@ export default function Home() {
   const quickActions: QuickAction[] = [
     {
       title: 'Menu Maker',
-      description: 'Vytvorte a optimalizujte menu s AI',
+      description: 'Create and optimize menus with AI',
       icon: <Menu className="w-6 h-6" />,
       href: '/menu-maker',
       color: 'text-orange-600',
@@ -154,7 +154,7 @@ export default function Home() {
     },
     {
       title: 'AI Assistant',
-      description: 'Inteligentné odporúčania a analýzy',
+      description: 'Intelligent recommendations and analytics',
       icon: <Brain className="w-6 h-6" />,
       href: '/ai-assistant',
       color: 'text-blue-600',
@@ -162,7 +162,7 @@ export default function Home() {
     },
     {
       title: 'Analytics',
-      description: 'Pokročilé metriky a reporty',
+      description: 'Advanced metrics and reports',
       icon: <BarChart3 className="w-6 h-6" />,
       href: '/analytics-insights',
       color: 'text-green-600',
@@ -170,7 +170,7 @@ export default function Home() {
     },
     {
       title: 'Supply Chain',
-      description: 'Správa dodávateľov a inventára',
+      description: 'Manage suppliers and inventory',
       icon: <ShoppingCart className="w-6 h-6" />,
       href: '/supply-chain',
       color: 'text-purple-600',
@@ -180,52 +180,52 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-lg text-gray-600">Inicializácia MastroHub...</p>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-400 mx-auto"></div>
+          <p className="mt-4 text-lg text-slate-300">Initializing MastroHub...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200/50 sticky top-0 z-50">
+      <header className="bg-slate-800/80 backdrop-blur-md shadow-sm border-b border-slate-700/50 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-4">
               <div className="flex items-center">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">M</span>
                 </div>
-                <h1 className="ml-3 text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                <h1 className="ml-3 text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
                   MastroHub
                 </h1>
               </div>
               <div className="hidden md:flex items-center space-x-2">
                 <div className={`px-3 py-1 text-sm font-medium rounded-full ${
                   launchStatus === 'ready' 
-                    ? 'bg-green-100 text-green-800' 
+                    ? 'bg-green-900/50 text-green-300 border border-green-700/50' 
                     : launchStatus === 'failed'
-                    ? 'bg-red-100 text-red-800'
-                    : 'bg-yellow-100 text-yellow-800'
+                    ? 'bg-red-900/50 text-red-300 border border-red-700/50'
+                    : 'bg-yellow-900/50 text-yellow-300 border border-yellow-700/50'
                 }`}>
-                  {launchStatus === 'ready' ? 'Pripravené' : launchStatus === 'failed' ? 'Chyba' : 'Inicializácia'}
+                  {launchStatus === 'ready' ? 'Ready' : launchStatus === 'failed' ? 'Error' : 'Initializing'}
                 </div>
               </div>
             </div>
             
             <div className="flex items-center space-x-4">
-              <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
+              <button className="p-2 text-slate-400 hover:text-slate-200 transition-colors">
                 <Search className="w-5 h-5" />
               </button>
-              <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors relative">
+              <button className="p-2 text-slate-400 hover:text-slate-200 transition-colors relative">
                 <Bell className="w-5 h-5" />
                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
               </button>
-              <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
+              <button className="p-2 text-slate-400 hover:text-slate-200 transition-colors">
                 <Settings className="w-5 h-5" />
               </button>
             </div>
@@ -242,11 +242,11 @@ export default function Home() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Vitajte v <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">MastroHub</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Welcome to <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">MastroHub</span>
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Komplexná platforma pre správu reštaurácií s AI asistentom, ktorá kombinuje moderné technológie s intuitívnym dizajnom.
+          <p className="text-xl text-slate-300 mb-8 max-w-3xl mx-auto">
+            Comprehensive restaurant management platform with AI assistant that combines modern technologies with intuitive design.
           </p>
         </motion.div>
 
@@ -263,20 +263,20 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-              className="bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200/50 p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="bg-slate-800/80 backdrop-blur-md rounded-2xl shadow-lg border border-slate-700/50 p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
               <div className="flex items-center justify-between mb-4">
-                <div className={`p-2 rounded-lg bg-gray-100 ${metric.color}`}>
+                <div className={`p-2 rounded-lg bg-slate-700/50 ${metric.color}`}>
                   {metric.icon}
                 </div>
                 <div className={`text-sm font-medium ${
-                  metric.change > 0 ? 'text-green-600' : 'text-red-600'
+                  metric.change > 0 ? 'text-green-400' : 'text-red-400'
                 }`}>
                   {metric.change > 0 ? '+' : ''}{metric.change}%
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-1">{metric.value}</h3>
-              <p className="text-gray-600 text-sm">{metric.title}</p>
+              <h3 className="text-2xl font-bold text-white mb-1">{metric.value}</h3>
+              <p className="text-slate-300 text-sm">{metric.title}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -289,12 +289,12 @@ export default function Home() {
           className="mb-12"
         >
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-2xl font-bold text-gray-900">Rýchle akcie</h3>
+            <h3 className="text-2xl font-bold text-white">Quick Actions</h3>
             <Link 
               href="/dashboard" 
-              className="text-blue-600 hover:text-blue-700 font-medium flex items-center space-x-1"
+              className="text-blue-400 hover:text-blue-300 font-medium flex items-center space-x-1"
             >
-              <span>Zobraziť všetko</span>
+              <span>View All</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -310,14 +310,14 @@ export default function Home() {
                 whileTap={{ scale: 0.98 }}
               >
                 <Link href={action.href}>
-                  <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200/50 p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+                  <div className="bg-slate-800/80 backdrop-blur-md rounded-2xl shadow-lg border border-slate-700/50 p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
                     <div className={`p-3 rounded-xl bg-gradient-to-r ${action.gradient} w-fit mb-4 group-hover:scale-110 transition-transform duration-300`}>
                       <div className="text-white">
                         {action.icon}
                       </div>
                     </div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-2">{action.title}</h4>
-                    <p className="text-gray-600 text-sm">{action.description}</p>
+                    <h4 className="text-lg font-semibold text-white mb-2">{action.title}</h4>
+                    <p className="text-slate-300 text-sm">{action.description}</p>
                   </div>
                 </Link>
               </motion.div>
@@ -330,28 +330,28 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200/50 p-6"
+          className="bg-slate-800/80 backdrop-blur-md rounded-2xl shadow-lg border border-slate-700/50 p-6"
         >
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-2xl font-bold text-gray-900">Posledná aktivita</h3>
-            <button className="text-blue-600 hover:text-blue-700 font-medium">Zobraziť všetko</button>
+            <h3 className="text-2xl font-bold text-white">Recent Activity</h3>
+            <button className="text-blue-400 hover:text-blue-300 font-medium">View All</button>
           </div>
           
           <div className="space-y-4">
             {[
-              { action: 'Nová objednávka', time: '2 minút', status: 'pending' },
-              { action: 'Menu aktualizované', time: '15 minút', status: 'completed' },
-              { action: 'AI analýza dokončená', time: '1 hodina', status: 'completed' },
-              { action: 'Nový zákazník', time: '2 hodiny', status: 'completed' }
+              { action: 'New Order', time: '2 minutes', status: 'pending' },
+              { action: 'Menu Updated', time: '15 minutes', status: 'completed' },
+              { action: 'AI Analysis Complete', time: '1 hour', status: 'completed' },
+              { action: 'New Customer', time: '2 hours', status: 'completed' }
             ].map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-4 bg-gray-50/50 rounded-xl">
+              <div key={index} className="flex items-center justify-between p-4 bg-slate-700/50 rounded-xl">
                 <div className="flex items-center space-x-3">
                   <div className={`w-2 h-2 rounded-full ${
-                    item.status === 'completed' ? 'bg-green-500' : 'bg-yellow-500'
+                    item.status === 'completed' ? 'bg-green-400' : 'bg-yellow-400'
                   }`}></div>
-                  <span className="font-medium text-gray-900">{item.action}</span>
+                  <span className="font-medium text-white">{item.action}</span>
                 </div>
-                <span className="text-sm text-gray-500">{item.time}</span>
+                <span className="text-sm text-slate-400">{item.time}</span>
               </div>
             ))}
           </div>
